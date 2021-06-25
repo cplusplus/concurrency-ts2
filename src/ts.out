@@ -35,6 +35,7 @@
 \BOOKMARK [2][-]{subsection.3.3.4}{3.3.4 Class rcu\137domain}{section.3.3}% 35
 \BOOKMARK [3][-]{subsubsection.3.3.4.1}{3.3.4.1 rcu\137domain::lock}{subsection.3.3.4}% 36
 \BOOKMARK [3][-]{subsubsection.3.3.4.2}{3.3.4.2 rcu\137domain::unlock}{subsection.3.3.4}% 37
-\BOOKMARK [2][-]{subsection.3.3.5}{3.3.5 rcu\137synchronize}{section.3.3}% 38
-\BOOKMARK [2][-]{subsection.3.3.6}{3.3.6 rcu\137barrier}{section.3.3}% 39
-\BOOKMARK [2][-]{subsection.3.3.7}{3.3.7 Template rcu\137retire}{section.3.3}% 40
+\BOOKMARK [2][-]{subsection.3.3.5}{3.3.5 rcu\137default\137domain}{section.3.3}% 38
+\BOOKMARK [2][-]{subsection.3.3.6}{3.3.6 rcu\137synchronize}{section.3.3}% 39
+\BOOKMARK [2][-]{subsection.3.3.7}{3.3.7 rcu\137barrier}{section.3.3}% 40
+\BOOKMARK [2][-]{subsection.3.3.8}{3.3.8 Template rcu\137retire}{section.3.3}% 41

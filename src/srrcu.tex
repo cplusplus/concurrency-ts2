@@ -54,7 +54,40 @@ most once.
 
 \rSec2[Concurrency2.SafeReclamation.rcu.general]{RCU general}
 
+@@@ Does the text in the above section move here?
+
 \rSec2[Concurrency2.SafeReclamation.rcu.syn]{RCU header \tcode{<rcu>} synopsis}
+
+Editor's note: This section was mistakenly unnumbered in P1122R4.
+
+% @@@ Copy and paste from Google Documents gets space characters and
+% @@@ "<>" characters that LaTeX really hates.  Just replace them.
+
+% \indexheader{rcu}%
+% @@@ Added missing "," after a number of the references in this code block.
+\begin{codeblock}
+namespace std::experimental::inline concurrency_v2 {
+  // \ref{Concurrency2.SafeReclamation.rcu.base}, class template rcu_obj_base
+  template<class T, class D = default_delete<T>>
+    class rcu_obj_base;
+
+  // \ref{Concurrency2.SafeReclamation.rcu.domain}, class rcu_domain
+  class rcu_domain;
+
+  // \ref{Concurrency2.SafeReclamation.rcu.default.domain}, rcu_default_domain
+  rcu_domain& rcu_default_domain() noexcept;
+
+  // \ref{Concurrency2.SafeReclamation.rcu.synchronize}, rcu_synchronize
+  void rcu_synchronize(rcu_domain& dom = rcu_default_domain()) noexcept;
+
+  // \ref{Concurrency2.SafeReclamation.rcu.barrier}, rcu_barrier
+  void rcu_barrier(rcu_domain& dom = rcu_default_domain()) noexcept;
+
+  // \ref{Concurrency2.SafeReclamation.rcu.retire}, rcu_retire
+  template<class T, class D = default_delete<T>>
+    void rcu_retire(T* p, D d = D(), rcu_domain& dom = rcu_default_domain());
+}
+\end{codeblock}
 
 \rSec2[Concurrency2.SafeReclamation.rcu.base]{Class \tcode{rcu_obj_base}}
 
@@ -63,6 +96,8 @@ most once.
 \rSec3[Concurrency2.SafeReclamation.rcu.domain.lock]{\tcode{rcu_domain::lock}}
 
 \rSec3[Concurrency2.SafeReclamation.rcu.domain.unlock]{\tcode{rcu_domain::unlock}}
+
+\rSec2[Concurrency2.SafeReclamation.rcu.default.domain]{\tcode{rcu_default_domain}}
 
 \rSec2[Concurrency2.SafeReclamation.rcu.synchronize]{\tcode{rcu_synchronize}}
 

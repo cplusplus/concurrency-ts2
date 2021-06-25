@@ -1,0 +1,23 @@
+%!TEX root = ts.tex
+
+\rSec1[Concurrency2.SafeReclamation.rcu]{Read-copy update (RCU)}
+
+\rSec2[Concurrency2.SafeReclamation.rcu.general]{RCU general}
+
+@@@ Not in P1121
+
+\rSec2[Concurrency2.SafeReclamation.rcu.syn]{RCU header \tcode{<rcu>} synopsis}
+
+\rSec2[Concurrency2.SafeReclamation.rcu.base]{Class \tcode{rcu_obj_base}}
+
+\rSec2[Concurrency2.SafeReclamation.rcu.domain]{Class \tcode{rcu_domain}}
+
+\rSec3[Concurrency2.SafeReclamation.rcu.domain.lock]{\tcode{rcu_domain::lock}}
+
+\rSec3[Concurrency2.SafeReclamation.rcu.domain.unlock]{\tcode{rcu_domain::unlock}}
+
+\rSec2[Concurrency2.SafeReclamation.rcu.synchronize]{\tcode{rcu_synchronize}}
+
+\rSec2[Concurrency2.SafeReclamation.rcu.barrier]{\tcode{rcu_barrier}}
+
+\rSec2[Concurrency2.SafeReclamation.rcu.retire]{Template \tcode{rcu_retire}}

@@ -115,45 +115,55 @@ private:
 };
 \end{codeblock}
 
-\begin{enumerate}
-\item	A client-supplied template argument \tcode{D} shall be a
-	function object type \tcode{([function.object])} for which,
-	given a value \tcode{d} of type \tcode{D} and a value \tcode{ptr}
-	of type \tcode{T*}, the expression \tcode{d(ptr)} is valid and
-	has the effect of disposing of the pointer as appropriate for
-	that deleter.
-\item	The behavior of a program that adds specializations for
-	\tcode{rcu_obj_base} is undefined.
-\item	\tcode{D} shall meet the requirements for
-	Cpp17DefaultConstructible and Cpp17MoveAssignable.
-\item	\tcode{T} may be an incomplete type.
-\item	If \tcode{D} is trivially copyable, all specializations of
-	\tcode{rcu_obj_base<T,D>} are trivially copyable.
-\end{enumerate}
+\pnum
+A client-supplied template argument \tcode{D} shall be a
+function object type \tcode{([function.object])} for which,
+given a value \tcode{d} of type \tcode{D} and a value \tcode{ptr}
+of type \tcode{T*}, the expression \tcode{d(ptr)} is valid and
+has the effect of disposing of the pointer as appropriate for
+that deleter.
+
+\pnum
+The behavior of a program that adds specializations for
+\tcode{rcu_obj_base} is undefined.
+
+\pnum
+\tcode{D} shall meet the requirements for
+Cpp17DefaultConstructible and Cpp17MoveAssignable.
+
+\pnum
+\tcode{T} may be an incomplete type.
+
+\pnum
+If \tcode{D} is trivially copyable, all specializations of
+\tcode{rcu_obj_base<T,D>} are trivially copyable.
 
 \begin{codeblock}
 void retire(D d = D(), rcu_domain& dom = rcu_default_domain()) noexcept;
 \end{codeblock}
 
-\begin{enumerate}
-\item	Mandates: \tcode{T} is an rcu-protectable type.
-\item	Preconditions: \tcode{*this} is a base class subobject of
-	an object \tcode{x} of type \tcode{T}. The member function
-	\tcode{rcu_obj_base<T,D>::retire} was not invoked on \tcode{x}
-	before. The assignment to \tcode{deleter} does not throw an
-	exception. The expression \tcode{deleter(addressof(x))} has
-	well-defined behavior and does not throw an exception.
-\item	Effects: Evaluates \tcode{deleter = std::move(d)} and schedules
-	the evaluation of the expression \tcode{deleter(addressof(x))}
-	in the domain \tcode{dom}.
-\item	Remarks: It is implementation-defined whether or not scheduled
-	evaluations in \tcode{dom} can be invoked by the \tcode{retire}
-	function.
-	\begin{note}
-	If such evaluations acquire resources held across any invocation of
-	retire on \tcode{dom}, deadlock can occur.
-	\end{note}
-\end{enumerate}
+\pnum
+Mandates: \tcode{T} is an rcu-protectable type.
+
+\pnum
+Preconditions: \tcode{*this} is a base class subobject of
+an object \tcode{x} of type \tcode{T}. The member function
+\tcode{rcu_obj_base<T,D>::retire} was not invoked on \tcode{x}
+before. The assignment to \tcode{deleter} does not throw an
+exception. The expression \tcode{deleter(addressof(x))} has
+well-defined behavior and does not throw an exception.
+
+\pnum	Effects: Evaluates \tcode{deleter = std::move(d)} and schedules
+the evaluation of the expression \tcode{deleter(addressof(x))}
+in the domain \tcode{dom}.
+
+\pnum	Remarks: It is implementation-defined whether or not scheduled
+evaluations in \tcode{dom} can be invoked by the \tcode{retire}
+function.
+\begin{note}
+If such evaluations acquire resources held across any invocation of
+retire on \tcode{dom}, deadlock can occur.
+\end{note}
 
 \rSec2[Concurrency2.SafeReclamation.rcu.domain]{Class \tcode{rcu_domain}}
 
@@ -185,11 +195,12 @@ regions of RCU protection.
 void lock() noexcept;
 \end{codeblock}
 
-\begin{enumerate}
-\item	Effects: Opens a region of RCU protection.
-\item	Remarks: Calls to the function lock do not introduce a data race
-	\tcode{[intro.races]} involving \tcode{*this}.
-\end{enumerate}
+\pnum
+Effects: Opens a region of RCU protection.
+
+\pnum
+Remarks: Calls to the function lock do not introduce a data race
+\tcode{[intro.races]} involving \tcode{*this}.
 
 \rSec3[Concurrency2.SafeReclamation.rcu.domain.unlock]{\tcode{rcu_domain::unlock}}
 
@@ -197,25 +208,28 @@ void lock() noexcept;
 void unlock() noexcept;
 \end{codeblock}
 
-\begin{enumerate}
-\item	Preconditions: A call to the function \tcode{lock} that opened
-	an unclosed region of RCU protection is sequenced before the
-	call to \tcode{unlock}.
-\item	Effects: Closes the unclosed region of RCU protection that was
-	most recently opened.
-\item	Remarks:   It is implementation-defined whether or not scheduled
-	evaluations in \tcode{*this} can be invoked by the \tcode{unlock}
-	function.
-	\begin{note}
-	If such evaluations acquire resources held across any invocation
-	of \tcode{unlock} on \tcode{*this}, deadlock can occur.
-	\end{note}
-	Calls to the function \tcode{unlock} do not introduce a data race
-	(16.4.6.10) involving \tcode{*this}.
-	\begin{note}
-	Evaluation of scheduled evaluations can still cause a data race.
-	\end{note}
-\end{enumerate}
+\pnum
+Preconditions: A call to the function \tcode{lock} that opened
+an unclosed region of RCU protection is sequenced before the
+call to \tcode{unlock}.
+
+\pnum
+Effects: Closes the unclosed region of RCU protection that was
+most recently opened.
+
+\pnum
+Remarks:   It is implementation-defined whether or not scheduled
+evaluations in \tcode{*this} can be invoked by the \tcode{unlock}
+function.
+\begin{note}
+If such evaluations acquire resources held across any invocation
+of \tcode{unlock} on \tcode{*this}, deadlock can occur.
+\end{note}
+Calls to the function \tcode{unlock} do not introduce a data race
+(16.4.6.10) involving \tcode{*this}.
+\begin{note}
+Evaluation of scheduled evaluations can still cause a data race.
+\end{note}
 
 \rSec2[Concurrency2.SafeReclamation.rcu.default.domain]{\tcode{rcu_default_domain}}
 
@@ -223,11 +237,10 @@ void unlock() noexcept;
 rcu_domain& rcu_default_domain() noexcept;
 \end{codeblock}
 
-\begin{enumerate}
-\item	Returns: A reference to the default object of type \tcode{rcu_domain}.
-	A reference to the same object is returned every time this
-	function is called.
-\end{enumerate}
+\pnum
+Returns: A reference to the default object of type \tcode{rcu_domain}.
+A reference to the same object is returned every time this
+function is called.
 
 \rSec2[Concurrency2.SafeReclamation.rcu.synchronize]{\tcode{rcu_synchronize}}
 
@@ -235,14 +248,15 @@ rcu_domain& rcu_default_domain() noexcept;
 void rcu_synchronize(rcu_domain& dom = rcu_default_domain()) noexcept;
 \end{codeblock}
 
-\begin{enumerate}
-\item	Effects: If the call to \tcode{rcu_synchronize} does not strongly
-	happen before the lock opening an RCU protection region \tcode{R}
-	on \tcode{dom}, blocks until the \tcode{unlock} closing \tcode{R}
-	happens.
-\item	Synchronization: The \tcode{unlock} closing \tcode{R} strongly
-	happens before the return from \tcode{rcu_synchronize}.
-\end{enumerate}
+\pnum
+Effects: If the call to \tcode{rcu_synchronize} does not strongly
+happen before the lock opening an RCU protection region \tcode{R}
+on \tcode{dom}, blocks until the \tcode{unlock} closing \tcode{R}
+happens.
+
+\pnum
+Synchronization: The \tcode{unlock} closing \tcode{R} strongly
+happens before the return from \tcode{rcu_synchronize}.
 
 \rSec2[Concurrency2.SafeReclamation.rcu.barrier]{\tcode{rcu_barrier}}
 
@@ -250,14 +264,15 @@ void rcu_synchronize(rcu_domain& dom = rcu_default_domain()) noexcept;
 void rcu_barrier(rcu_domain& dom = rcu_default_domain()) noexcept;
 \end{codeblock}
 
-\begin{enumerate}
-\item	Effects: May evaluate any scheduled evaluations in
-	\tcode{dom}.  For any evaluation that happens before the call
-	to \tcode{rcu_barrier} and that schedules an evaluation \tcode{E}
-	in \tcode{dom}, blocks until \tcode{E} has been evaluated.  
-\item	Synchronization: The evaluation of any such \tcode{E} strongly
-	happens before the return from \tcode{rcu_barrier}.
-\end{enumerate}
+\pnum
+Effects: May evaluate any scheduled evaluations in
+\tcode{dom}.  For any evaluation that happens before the call
+to \tcode{rcu_barrier} and that schedules an evaluation \tcode{E}
+in \tcode{dom}, blocks until \tcode{E} has been evaluated.  
+
+\pnum
+Synchronization: The evaluation of any such \tcode{E} strongly
+happens before the return from \tcode{rcu_barrier}.
 
 \rSec2[Concurrency2.SafeReclamation.rcu.retire]{Template \tcode{rcu_retire}}
 
@@ -266,31 +281,38 @@ template<class T, class D = default_delete<T>>
 void rcu_retire(T* p, D d = D(), rcu_domain& dom = rcu_default_domain());
 \end{codeblock}
 
-\begin{enumerate}
-\item	Mandates: \tcode{is_move_constructible_v<D>} is true.
-\item	Preconditions: \tcode{D} meets the Cpp17MoveConstructible and
-	Cpp17Destructible requirements.
-	The expression \tcode{d1(p)}, where \tcode{d1} is defined below,
-	is well-formed and its evaluation does not exit via an exception.
-\item	Effects: May allocate memory.
-	It is unspecified whether the memory allocation is performed by
-	invoking \tcode{operator} \tcode{new}.
-	Initializes an object \tcode{d1} of type \tcode{D} from
-	\tcode{std::move(d)}.
-	Schedules the evaluation of \tcode{d1(p)} in the domain
-	\tcode{dom}.
-	\begin{note}
-	If \tcode{rcu_retire} exits via an exception, no evaluation
-	is scheduled.
-	\end{note}
-\item	Throws: Any exception that would be caught by a handler of type
-	\tcode{bad_alloc}.
-	Any exception thrown by the initialization of \tcode{d1}.
-\item	Remarks: It is implementation-defined whether or not scheduled
-	evaluations in dom can be invoked by the \tcode{rcu_retire}
-	function.
-	\begin{note}
-	If such evaluations acquire resources held across any invocation
-	of \tcode{rcu_retire} on \tcode{dom}, deadlock can occur.
-	\end{note}
-\end{enumerate}
+\pnum
+Mandates: \tcode{is_move_constructible_v<D>} is true.
+
+\pnum
+Preconditions: \tcode{D} meets the Cpp17MoveConstructible and
+Cpp17Destructible requirements.
+The expression \tcode{d1(p)}, where \tcode{d1} is defined below, is
+well-formed and its evaluation does not exit via an exception.
+
+\pnum
+Effects: May allocate memory.
+It is unspecified whether the memory allocation is performed by
+invoking \tcode{operator} \tcode{new}.
+Initializes an object \tcode{d1} of type \tcode{D} from
+\tcode{std::move(d)}.
+Schedules the evaluation of \tcode{d1(p)} in the domain
+\tcode{dom}.
+\begin{note}
+If \tcode{rcu_retire} exits via an exception, no evaluation
+is scheduled.
+\end{note}
+
+\pnum
+Throws: Any exception that would be caught by a handler of type
+\tcode{bad_alloc}.
+Any exception thrown by the initialization of \tcode{d1}.
+
+\pnum
+Remarks: It is implementation-defined whether or not scheduled
+evaluations in dom can be invoked by the \tcode{rcu_retire}
+function.
+\begin{note}
+If such evaluations acquire resources held across any invocation
+of \tcode{rcu_retire} on \tcode{dom}, deadlock can occur.
+\end{note}

@@ -181,7 +181,41 @@ regions of RCU protection.
 
 \rSec3[Concurrency2.SafeReclamation.rcu.domain.lock]{\tcode{rcu_domain::lock}}
 
+\begin{codeblock}
+   void lock() noexcept;
+\end{codeblock}
+
+\begin{enumerate}
+\item	Effects: Opens a region of RCU protection.
+\item	Remarks: Calls to the function lock do not introduce a data race
+	\tcode{[intro.races]} involving \tcode{*this}.
+\end{enumerate}
+
 \rSec3[Concurrency2.SafeReclamation.rcu.domain.unlock]{\tcode{rcu_domain::unlock}}
+
+\begin{codeblock}
+   void unlock() noexcept;
+\end{codeblock}
+
+\begin{enumerate}
+\item	Preconditions: A call to the function \tcode{lock} that opened
+	an unclosed region of RCU protection is sequenced before the
+	call to \tcode{unlock}.
+\item	Effects: Closes the unclosed region of RCU protection that was
+	most recently opened.
+\item	Remarks:   It is implementation-defined whether or not scheduled
+	evaluations in \tcode{*this} can be invoked by the \tcode{unlock}
+	function.
+	\begin{note}
+	If such evaluations acquire resources held across any invocation
+	of \tcode{unlock} on \tcode{*this}, deadlock can occur.
+	\end{note}
+	Calls to the function \tcode{unlock} do not introduce a data race
+	(16.4.6.10) involving \tcode{*this}.
+	\begin{note}
+	Evaluation of scheduled evaluations can still cause a data race.
+	\end{note}
+\end{enumerate}
 
 \rSec2[Concurrency2.SafeReclamation.rcu.default.domain]{\tcode{rcu_default_domain}}
 

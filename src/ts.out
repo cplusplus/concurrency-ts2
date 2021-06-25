@@ -1,0 +1,30 @@
+\BOOKMARK [0][-]{chapter.1}{1 General}{}% 1
+\BOOKMARK [1][-]{section.1.1}{1.1 Scope}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{1.2 Terms and definitions}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.3}{1.3 Implementation compliance}{chapter.1}% 4
+\BOOKMARK [1][-]{section.1.4}{1.4 Namespaces and headers and modifications to standard classes}{chapter.1}% 5
+\BOOKMARK [1][-]{section.1.5}{1.5 Feature-testing recommendations \(Informative\)}{chapter.1}% 6
+\BOOKMARK [1][-]{section.1.6}{1.6 Future plans \(Informative\)}{chapter.1}% 7
+\BOOKMARK [1][-]{section.1.7}{1.7 Acknowledgments}{chapter.1}% 8
+\BOOKMARK [0][-]{chapter.2}{2 Modifications to the C++ Standard Library}{}% 9
+\BOOKMARK [1][-]{section.2.1}{2.1 Exception Requirements}{chapter.2}% 10
+\BOOKMARK [1][-]{section.2.2}{2.2 Uses-Allocator Construction}{chapter.2}% 11
+\BOOKMARK [0][-]{chapter.3}{3 Safe reclamation}{}% 12
+\BOOKMARK [1][-]{section.3.1}{3.1 General}{chapter.3}% 13
+\BOOKMARK [1][-]{section.3.2}{3.2 Hazard pointers}{chapter.3}% 14
+\BOOKMARK [2][-]{subsection.3.2.1}{3.2.1 General}{section.3.2}% 15
+\BOOKMARK [2][-]{subsection.3.2.2}{3.2.2 Header <hazard\137pointer> synopsis}{section.3.2}% 16
+\BOOKMARK [2][-]{subsection.3.2.3}{3.2.3 Class hazard\137pointer\137domain}{section.3.2}% 17
+\BOOKMARK [3][-]{subsubsection.3.2.3.1}{3.2.3.1 General}{subsection.3.2.3}% 18
+\BOOKMARK [3][-]{subsubsection.3.2.3.2}{3.2.3.2 Member Functions}{subsection.3.2.3}% 19
+\BOOKMARK [3][-]{subsubsection.3.2.3.3}{3.2.3.3 Default hazard\137pointer\137domain}{subsection.3.2.3}% 20
+\BOOKMARK [2][-]{subsection.3.2.4}{3.2.4 Clean up}{section.3.2}% 21
+\BOOKMARK [2][-]{subsection.3.2.5}{3.2.5 Class template hazard\137pointer\137obj\137base}{section.3.2}% 22
+\BOOKMARK [2][-]{subsection.3.2.6}{3.2.6 Class hazard\137pointer}{section.3.2}% 23
+\BOOKMARK [3][-]{subsubsection.3.2.6.1}{3.2.6.1 Synopsis}{subsection.3.2.6}% 24
+\BOOKMARK [3][-]{subsubsection.3.2.6.2}{3.2.6.2 Constructors}{subsection.3.2.6}% 25
+\BOOKMARK [3][-]{subsubsection.3.2.6.3}{3.2.6.3 Destructors}{subsection.3.2.6}% 26
+\BOOKMARK [3][-]{subsubsection.3.2.6.4}{3.2.6.4 Assignment}{subsection.3.2.6}% 27
+\BOOKMARK [3][-]{subsubsection.3.2.6.5}{3.2.6.5 Member functions}{subsection.3.2.6}% 28
+\BOOKMARK [2][-]{subsection.3.2.7}{3.2.7 Class make\137hazard\137pointer}{section.3.2}% 29
+\BOOKMARK [2][-]{subsection.3.2.8}{3.2.8 hazard\137pointer specialized algorithms}{section.3.2}% 30

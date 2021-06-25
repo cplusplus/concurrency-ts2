@@ -2,9 +2,57 @@
 
 \rSec1[Concurrency2.SafeReclamation.rcu]{Read-copy update (RCU)}
 
-\rSec2[Concurrency2.SafeReclamation.rcu.general]{RCU general}
+\pnum
+RCU is a synchronization mechanism that can be used for linked data
+structures that are frequently read, but seldom updated.  RCU does
+not provide mutual exclusion, but instead allows the user to schedule
+specified actions such as deletion at some later time.
 
-@@@ Not in P1121
+\pnum
+A class type \tcode{T} is \defn{rcu-protectable} if it has exactly one
+public base class of type \tcode{rcu_obj_base<T,D>} for some \tcode{D}
+and no base classes of type \tcode{rcu_obj_base<X,Y>} for any other
+combination \tcode{X}, \tcode{Y}. An object is rcu-protectable if it is
+of rcu-protectable type.
+
+\pnum
+An invocation of \tcode{unlock U} on an \tcode{rcu_domain dom} corresponds
+to an invocation of \tcode{lock L} on \tcode{dom} if \tcode{L} is
+sequenced before \tcode{U} and either
+
+\begin{itemize}
+\item	no other invocation of \tcode{lock} on \tcode{dom} is sequenced
+	after \tcode{L} and before \tcode{U} or
+\item	every invocation of \tcode{unlock U'} on \tcode{dom} such
+	that \tcode{L} is sequenced before \tcode{U'} and \tcode{U'}
+	is sequenced before \tcode{U} corresponds to an invocation of
+	\tcode{lock L'} on \tcode{dom} such that \tcode{L} is sequenced
+	before \tcode{L'} and \tcode{L'} is sequenced before \tcode{U'}.
+\end{itemize}
+
+\pnum
+\begin{note}
+This pairs nested locks and unlocks on a given domain in each thread.
+\end{note}
+
+\pnum
+A \defn{region of RCU protection} on a domain \tcode{dom} starts
+with a \tcode{lock L} on \tcode{dom} and ends with its corresponding
+\tcode{unlock U}.
+
+\pnum
+Given a region of RCU protection \tcode{R} on a domain \tcode{dom}
+and given an evaluation \tcode{E} that scheduled another evaluation
+\tcode{F} in \tcode{dom}, if \tcode{E} does not strongly happen before
+the start of \tcode{R}, the end of \tcode{R} strongly happens before
+evaluating \tcode{F}.
+
+\pnum
+The evaluation of a scheduled evaluation is potentially concurrent with
+any other such evaluation. Each scheduled evaluation is evaluated at
+most once.
+
+\rSec2[Concurrency2.SafeReclamation.rcu.general]{RCU general}
 
 \rSec2[Concurrency2.SafeReclamation.rcu.syn]{RCU header \tcode{<rcu>} synopsis}
 

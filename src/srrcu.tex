@@ -219,6 +219,16 @@ regions of RCU protection.
 
 \rSec2[Concurrency2.SafeReclamation.rcu.default.domain]{\tcode{rcu_default_domain}}
 
+\begin{codeblock}
+   rcu_domain& rcu_default_domain() noexcept;
+\end{codeblock}
+
+\begin{enumerate}
+\item	Returns: A reference to the default object of type \tcode{rcu_domain}.
+	A reference to the same object is returned every time this
+	function is called.
+\end{enumerate}
+
 \rSec2[Concurrency2.SafeReclamation.rcu.synchronize]{\tcode{rcu_synchronize}}
 
 \rSec2[Concurrency2.SafeReclamation.rcu.barrier]{\tcode{rcu_barrier}}

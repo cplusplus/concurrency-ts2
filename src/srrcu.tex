@@ -132,7 +132,7 @@ private:
 \end{enumerate}
 
 \begin{codeblock}
-  void retire(D d = D(), rcu_domain& dom = rcu_default_domain()) noexcept;
+void retire(D d = D(), rcu_domain& dom = rcu_default_domain()) noexcept;
 \end{codeblock}
 
 \begin{enumerate}
@@ -182,7 +182,7 @@ regions of RCU protection.
 \rSec3[Concurrency2.SafeReclamation.rcu.domain.lock]{\tcode{rcu_domain::lock}}
 
 \begin{codeblock}
-   void lock() noexcept;
+void lock() noexcept;
 \end{codeblock}
 
 \begin{enumerate}
@@ -194,7 +194,7 @@ regions of RCU protection.
 \rSec3[Concurrency2.SafeReclamation.rcu.domain.unlock]{\tcode{rcu_domain::unlock}}
 
 \begin{codeblock}
-   void unlock() noexcept;
+void unlock() noexcept;
 \end{codeblock}
 
 \begin{enumerate}
@@ -220,7 +220,7 @@ regions of RCU protection.
 \rSec2[Concurrency2.SafeReclamation.rcu.default.domain]{\tcode{rcu_default_domain}}
 
 \begin{codeblock}
-   rcu_domain& rcu_default_domain() noexcept;
+rcu_domain& rcu_default_domain() noexcept;
 \end{codeblock}
 
 \begin{enumerate}
@@ -232,7 +232,7 @@ regions of RCU protection.
 \rSec2[Concurrency2.SafeReclamation.rcu.synchronize]{\tcode{rcu_synchronize}}
 
 \begin{codeblock}
-   void rcu_synchronize(rcu_domain& dom = rcu_default_domain()) noexcept;
+void rcu_synchronize(rcu_domain& dom = rcu_default_domain()) noexcept;
 \end{codeblock}
 
 \begin{enumerate}
@@ -247,7 +247,7 @@ regions of RCU protection.
 \rSec2[Concurrency2.SafeReclamation.rcu.barrier]{\tcode{rcu_barrier}}
 
 \begin{codeblock}
-   void rcu_barrier(rcu_domain& dom = rcu_default_domain()) noexcept;
+void rcu_barrier(rcu_domain& dom = rcu_default_domain()) noexcept;
 \end{codeblock}
 
 \begin{enumerate}
@@ -260,3 +260,37 @@ regions of RCU protection.
 \end{enumerate}
 
 \rSec2[Concurrency2.SafeReclamation.rcu.retire]{Template \tcode{rcu_retire}}
+
+\begin{codeblock}
+template<class T, class D = default_delete<T>>
+void rcu_retire(T* p, D d = D(), rcu_domain& dom = rcu_default_domain());
+\end{codeblock}
+
+\begin{enumerate}
+\item	Mandates: \tcode{is_move_constructible_v<D>} is true.
+\item	Preconditions: \tcode{D} meets the Cpp17MoveConstructible and
+	Cpp17Destructible requirements.
+	The expression \tcode{d1(p)}, where \tcode{d1} is defined below,
+	is well-formed and its evaluation does not exit via an exception.
+\item	Effects: May allocate memory.
+	It is unspecified whether the memory allocation is performed by
+	invoking \tcode{operator} \tcode{new}.
+	Initializes an object \tcode{d1} of type \tcode{D} from
+	\tcode{std::move(d)}.
+	Schedules the evaluation of \tcode{d1(p)} in the domain
+	\tcode{dom}.
+	\begin{note}
+	If \tcode{rcu_retire} exits via an exception, no evaluation
+	is scheduled.
+	\end{note}
+\item	Throws: Any exception that would be caught by a handler of type
+	\tcode{bad_alloc}.
+	Any exception thrown by the initialization of \tcode{d1}.
+\item	Remarks: It is implementation-defined whether or not scheduled
+	evaluations in dom can be invoked by the \tcode{rcu_retire}
+	function.
+	\begin{note}
+	If such evaluations acquire resources held across any invocation
+	of \tcode{rcu_retire} on \tcode{dom}, deadlock can occur.
+	\end{note}
+\end{enumerate}

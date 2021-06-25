@@ -246,4 +246,17 @@ regions of RCU protection.
 
 \rSec2[Concurrency2.SafeReclamation.rcu.barrier]{\tcode{rcu_barrier}}
 
+\begin{codeblock}
+   void rcu_barrier(rcu_domain& dom = rcu_default_domain()) noexcept;
+\end{codeblock}
+
+\begin{enumerate}
+\item	Effects: May evaluate any scheduled evaluations in
+	\tcode{dom}.  For any evaluation that happens before the call
+	to \tcode{rcu_barrier} and that schedules an evaluation \tcode{E}
+	in \tcode{dom}, blocks until \tcode{E} has been evaluated.  
+\item	Synchronization: The evaluation of any such \tcode{E} strongly
+	happens before the return from \tcode{rcu_barrier}.
+\end{enumerate}
+
 \rSec2[Concurrency2.SafeReclamation.rcu.retire]{Template \tcode{rcu_retire}}

@@ -30,6 +30,10 @@ sequenced before \tcode{U} and either
 	before \tcode{L'} and \tcode{L'} is sequenced before \tcode{U'}.
 \end{itemize}
 
+% @@@ In the draft standard, the "note" environment generates the
+% @@@ "[ Note: blahblahblah. --- end note. ]" sequence.  It is a bit
+% @@@ different here.  I am using it anyway.
+
 \pnum
 \begin{note}
 This pairs nested locks and unlocks on a given domain in each thread.
@@ -91,7 +95,89 @@ namespace std::experimental::inline concurrency_v2 {
 
 \rSec2[Concurrency2.SafeReclamation.rcu.base]{Class \tcode{rcu_obj_base}}
 
+% @@@ Added missing "of" in following sentence.
+
+Objects of type \tcode{T} to be protected by RCU inherit from a
+specialization of \tcode{rcu_obj_base<T,D>}.
+
+% @@@ Removed obsolete in-code reference to the now-nonexistent
+% @@@ separate section for rcu_obj_base::retire.
+
+\begin{codeblock}
+template<class T, class D = default_delete<T>>
+class rcu_obj_base {
+public:
+  void retire(D d = D(), rcu_domain& dom = rcu_default_domain()) noexcept;
+protected:
+  rcu_obj_base() = default;
+private:
+  D deleter;  // exposition only
+};
+\end{codeblock}
+
+\begin{enumerate}
+\item	A client-supplied template argument \tcode{D} shall be a
+	function object type \tcode{([function.object])} for which,
+	given a value \tcode{d} of type \tcode{D} and a value \tcode{ptr}
+	of type \tcode{T*}, the expression \tcode{d(ptr)} is valid and
+	has the effect of disposing of the pointer as appropriate for
+	that deleter.
+\item	The behavior of a program that adds specializations for
+	\tcode{rcu_obj_base} is undefined.
+\item	\tcode{D} shall meet the requirements for
+	Cpp17DefaultConstructible and Cpp17MoveAssignable.
+\item	\tcode{T} may be an incomplete type.
+\item	If \tcode{D} is trivially copyable, all specializations of
+	\tcode{rcu_obj_base<T,D>} are trivially copyable.
+\end{enumerate}
+
+\begin{codeblock}
+  void retire(D d = D(), rcu_domain& dom = rcu_default_domain()) noexcept;
+\end{codeblock}
+
+\begin{enumerate}
+\item	Mandates: \tcode{T} is an rcu-protectable type.
+\item	Preconditions: \tcode{*this} is a base class subobject of
+	an object \tcode{x} of type \tcode{T}. The member function
+	\tcode{rcu_obj_base<T,D>::retire} was not invoked on \tcode{x}
+	before. The assignment to \tcode{deleter} does not throw an
+	exception. The expression \tcode{deleter(addressof(x))} has
+	well-defined behavior and does not throw an exception.
+\item	Effects: Evaluates \tcode{deleter = std::move(d)} and schedules
+	the evaluation of the expression \tcode{deleter(addressof(x))}
+	in the domain \tcode{dom}.
+\item	Remarks: It is implementation-defined whether or not scheduled
+	evaluations in \tcode{dom} can be invoked by the \tcode{retire}
+	function.
+	\begin{note}
+	If such evaluations acquire resources held across any invocation of
+	retire on \tcode{dom}, deadlock can occur.
+	\end{note}
+\end{enumerate}
+
 \rSec2[Concurrency2.SafeReclamation.rcu.domain]{Class \tcode{rcu_domain}}
+
+% @@@ Removed the obsolete reference comments.
+
+This class meets the requirements of Cpp17BasicLockable \tcode{[thread.req.lockable.basic]} and provides regions of RCU protection, for example, as follows:
+
+\begin{codeblock}
+std::scoped_lock<rcu_domain> rlock(rcu_default_domain());
+\end{codeblock}
+
+\begin{codeblock}
+class rcu_domain {
+public:
+  rcu_domain(const rcu_domain&) = delete;
+  rcu_domain& operator=(const rcu_domain&) = delete;
+
+  void lock() noexcept;
+  void unlock() noexcept;
+};
+\end{codeblock}
+
+The functions \tcode{lock} and \tcode{unlock} establish (possibly nested)
+regions of RCU protection.
 
 \rSec3[Concurrency2.SafeReclamation.rcu.domain.lock]{\tcode{rcu_domain::lock}}
 

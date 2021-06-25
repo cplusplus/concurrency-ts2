@@ -1,0 +1,13 @@
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.log
+*.pdf
+*.toc
+*.sav
+*.bak
+*.html
+*.txt
+*.swp
+*.swo

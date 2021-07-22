@@ -250,14 +250,130 @@ Invoking the retire function may reclaim possibly-reclaimable objects retired to
 
 Editor's note: This section was mistakenly unlabeled in P1121R3.
 
+\begin{codeblock}
+class hazard_pointer {public:  hazard_pointer() noexcept;
+
+  hazard_pointer(hazard_pointer&&) noexcept;  hazard_pointer& operator=(hazard_pointer&&) noexcept;
+
+  ~hazard_pointer();
+  
+  [[nodiscard]] bool empty() const noexcept;
+  
+  template <typename T>    T* protect(const atomic<T*>& src) noexcept;
+  
+  template <typename T>    bool try_protect(T*& ptr, const atomic<T*>& src) noexcept;
+  
+  template <typename T>    void reset_protection(const T* ptr) noexcept;  void reset_protection(nullptr_t = nullptr) noexcept;
+  
+  void swap(hazard_pointer&) noexcept;};
+\end{codeblock}
+
 \rSec3[Concurrency2.SafeReclamation.HP.holder.ctor]{Constructors}
 
-\rSec3[Concurrency2.SafeReclamation.HP.holder.dtor]{Destructors}
+\tcode{hazard_pointer() noexcept;}
+
+\pnum
+Postconditions: \tcode{*this} is empty.
+\\
+\tcode{hazard_pointer(hazard_pointer\&\& other) noexcept;}
+
+\pnum
+Postconditions: If \tcode{other} is empty, \tcode{*this} is empty. Otherwise, \tcode{*this} owns the hazard pointer originally owned by \tcode{other}; \tcode{other} is empty.
+\\
+
+\rSec3[Concurrency2.SafeReclamation.HP.holder.dtor]{Destructor}
+
+\tcode{\~hazard_pointer();}
+
+\pnum
+Effects: If \tcode{*this} is not empty, destroys the hazard pointer owned by \tcode{*this}, thereby ending its current protection epoch.
 
 \rSec3[Concurrency2.SafeReclamation.HP.holder.assign]{Assignment}
 
+\tcode{hazard_pointer\& operator=(hazard_pointer\&\& other) noexcept;}
+\pnum
+Effects: If \tcode{this == \&other} is true, no effect. Otherwise, if \tcode{*this} is not empty, destroysthe hazard pointer owned by \tcode{*this}, thereby ending its current protection epoch.
+
+\pnum
+Postconditions: If \tcode{other} was empty, \tcode{*this} is empty. Otherwise, \tcode{*this} owns the hazardpointer originally owned by other. If \tcode{this != \&other} is true, \tcode{other} is empty.
+
+\pnumReturns: \tcode{*this}.
+\\
+
 \rSec3[Concurrency2.SafeReclamation.HP.holder.mem]{Member functions}
+
+\tcode{[[nodiscard]] bool empty() const noexcept;}
+
+\pnumReturns: true if and only if \tcode{*this} is empty.
+\\
+
+\tcode{template <typename T>}\\
+\hspace*{1.1em}\tcode{T* protect(const atomic<T*>\& src) noexcept;}
+
+\pnum
+Effects: Equivalent to
+\begin{codeblock}T* ptr = src.load(memory_order_relaxed);while (!try_protect(ptr, src)) {}return ptr;
+\end{codeblock}
+
+\tcode{template <typename T>}\\\hspace*{1.1em}\tcode{bool try_protect(T*\& ptr, const atomic<T*>\& src) noexcept;}
+
+\pnum
+Mandates: T is a hazard-protectable type.
+
+\pnum
+Preconditions: *this is not empty.
+
+\pnum
+Effects:\\a. Initializes a variable \tcode{old} of type \tcode{T*} with the value of \tcode{ptr}.\\b. Evaluates the function call \tcode{reset_protection(old)}.\\
+c. Assigns the value of \tcode{src.load(std::memory_order_acquire)} to \tcode{ptr}.\\d. If \tcode{old == ptr} is false, evaluates the function call \tcode{reset_protection()}.
+
+\pnumReturns: \tcode{old == ptr}. [ Note: It is possible for \tcode{try_protect} to return true when \tcode{ptr} isa null pointer. — end note ]
+
+\pnumComplexity: Constant.
+\\
+
+\tcode{template <typename T>}\\\hspace*{1.1em}\tcode{void reset_protection(const T* ptr) noexcept;}
+
+
+\pnum
+Mandates: \tcode{T} is a hazard-protectable type.
+
+\pnumPreconditions: \tcode{*this} is not empty.
+
+\pnumEffects: If \tcode{ptr} is a null pointer value, invokes \tcode{reset_protection()}. Otherwise, associates the hazard pointer owned by \tcode{*this} with \tcode{*ptr}, thereby ending the current protection epoch.
+\\
+\tcode{void reset_protection(nullptr_t = nullptr) noexcept;}
+
+\pnum
+Preconditions: \tcode{*this} is not empty.
+
+\pnumPostconditions: The hazard pointer owned by \tcode{*this} is unassociated.
+\\
+
+\tcode{void swap(hazard_pointer\& other) noexcept;}
+
+\pnum
+Effects: Swaps the hazard pointer ownership of this object with that of other. [ Note: The owned hazard pointers, if any, remain unchanged during the swap and continue to be associated with the respective objects that they were protecting before the swap, if any. No protection epochs are ended or initiated. — end note ]
+
+\pnumComplexity: Constant.
+\\
 
 \rSec2[Concurrency2.SafeReclamation.HP.make]{Class \tcode{make_hazard_pointer}}
 
+\tcode{hazard_pointer make_hazard_pointer(}\\\hspace*{1.1em}\tcode{hazard_pointer_domain\& domain = hazard_pointer_default_domain());}
+
+\pnum
+Effects: Constructs a hazard pointer belonging to \tcode{domain}.
+
+\pnumReturns: A \tcode{hazard_pointer} object that owns the newly-constructed hazard pointer.
+
+\pnumThrows: Any exception thrown by the allocator of \tcode{domain}.
+\\
+
 \rSec2[Concurrency2.SafeReclamation.HP.special]{\tcode{hazard_pointer} specialized algorithms}
+
+\tcode{void swap(hazard_pointer\& a, hazard_pointer\& b) noexcept;}
+
+\pnum
+Effects: Equivalent to \tcode{a.swap(b)}.
+\\

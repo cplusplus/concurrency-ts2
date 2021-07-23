@@ -2,6 +2,8 @@
 
 \rSec1[Concurrency2.SafeReclamation.rcu]{Read-copy update (RCU)}
 
+\rSec2[Concurrency2.SafeReclamation.rcu.general]{RCU general}
+
 \pnum
 RCU is a synchronization mechanism that can be used for linked data
 structures that are frequently read, but seldom updated.  RCU does
@@ -55,10 +57,6 @@ evaluating \tcode{F}.
 The evaluation of a scheduled evaluation is potentially concurrent with
 any other such evaluation. Each scheduled evaluation is evaluated at
 most once.
-
-\rSec2[Concurrency2.SafeReclamation.rcu.general]{RCU general}
-
-@@@ Does the text in the above section move here?
 
 \rSec2[Concurrency2.SafeReclamation.rcu.syn]{RCU header \tcode{<rcu>} synopsis}
 

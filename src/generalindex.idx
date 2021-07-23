@@ -1,2 +1,13 @@
-\indexentry{rcu-protectable|hyperpage}{5}
-\indexentry{region of RCU protection|hyperpage}{5}
+\indexentry{hazard-protectable|hyperpage}{4}
+\indexentry{hazard-protectable|hyperpage}{4}
+\indexentry{protection epochs|hyperpage}{4}
+\indexentry{unassociated|hyperpage}{4}
+\indexentry{belongs to|hyperpage}{4}
+\indexentry{domain|hyperpage}{4}
+\indexentry{owns|hyperpage}{4}
+\indexentry{retired|hyperpage}{4}
+\indexentry{reclaimed|hyperpage}{4}
+\indexentry{definitely reclaimable|hyperpage}{4}
+\indexentry{possibly reclaimable|hyperpage}{4}
+\indexentry{rcu-protectable|hyperpage}{11}
+\indexentry{region of RCU protection|hyperpage}{11}

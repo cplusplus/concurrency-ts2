@@ -19,7 +19,7 @@ The span between creation and destruction of a hazard pointer \defn{h} is partit
 A hazard pointer \defn{belongs to} exactly one \defn{domain}. 
 
 \pnum
-An object of type \tcode{hazard_pointer} is either empty or \defn{owns} a hazard pointer. Each hazard pointer is owned by exactly one object of type \tcode{hazard_pointer}. [ \defn{Note}: An empty \tcode{hazard_pointer} object is different from a \tcode{hazard_pointer} object that owns an unassociated hazard pointer. An empty tcode{hazard_pointer} object does not own any hazard pointers. --- \defn{end note} ]
+An object of type \tcode{hazard_pointer} is either empty or \defn{owns} a hazard pointer. Each hazard pointer is owned by exactly one object of type \tcode{hazard_pointer}. [ \defn{Note 1}: An empty \tcode{hazard_pointer} object is different from a \tcode{hazard_pointer} object that owns an unassociated hazard pointer. An empty tcode{hazard_pointer} object does not own any hazard pointers. --- \defn{end note} ]
 
 \pnum
 An object \tcode{x} of hazard-protectable type \tcode{T} is \defn{retired} to a domain with a deleter of type \tcode{D} when the member function \tcode{hazard_pointer_obj_base<T,D>::retire} is invoked on \tcode{x}. Any given object \tcode{x} shall be retired at most once.
@@ -52,12 +52,12 @@ during which \defn{h} is associated with \tcode{x}:
   \item if the beginning of E happens before \tcode{x} is retired, the end of E strongly
 happens before A, and
   \item if E began by an evaluation of \tcode{try_protect} with argument \tcode{src}, label its
-atomic load operation L. If there exists an atomic modification B on \tcode{src} such that L observes a modification that is modification-ordered before B, and B happens before \tcode{x} is retired, the end of E strongly happens before A. [ \defn{Note}: In typical use, a store to \tcode{src} sequenced before retiring \tcode{x} will be such an atomic operation B. --- \defn{end note} ]
+atomic load operation L. If there exists an atomic modification B on \tcode{src} such that L observes a modification that is modification-ordered before B, and B happens before \tcode{x} is retired, the end of E strongly happens before A. [ \defn{Note 2}: In typical use, a store to \tcode{src} sequenced before retiring \tcode{x} will be such an atomic operation B. --- \defn{end note} ]
 \end{itemize}
-[ \defn{Note}: The latter two conditions convey the informal notion that a protection epoch that began before retiring \tcode{x}, as implied either by the happens-before relation or the coherence order of some source, delays the reclamation of \tcode{x}. --- \defn{end note} ]
+[ \defn{Note 3}: The latter two conditions convey the informal notion that a protection epoch that began before retiring \tcode{x}, as implied either by the happens-before relation or the coherence order of some source, delays the reclamation of \tcode{x}. --- \defn{end note} ]
 \end{itemize}
 
-[ \defn{Example}: The following example shows how hazard pointers allow updates to be carried out in the presence of concurrent readers. The object of type \tcode{hazard_pointer} in \tcode{print_name} protects the object \tcode{*ptr} from being reclaimed by \tcode{ptr->retire} until the end of the protection epoch.
+[ \defn{Example 1}: The following example shows how hazard pointers allow updates to be carried out in the presence of concurrent readers. The object of type \tcode{hazard_pointer} in \tcode{print_name} protects the object \tcode{*ptr} from being reclaimed by \tcode{ptr->retire} until the end of the protection epoch.
 
 \begin{codeblock}
 struct Name : public hazard_pointer_obj_base<Name> { /* details */ };
@@ -77,7 +77,6 @@ void update_name(Name* new_name) {
 }
 \end{codeblock}
 --— \defn{end example} ]
-
 
 \rSec2[Concurrency2.SafeReclamation.HP.syn]{Header \tcode{<hazard_pointer>} synopsis}
 
@@ -108,7 +107,7 @@ namespace std::experimental::inline concurrency_v2 {
 
 \pnum
 The number of unreclaimed possibly-reclaimable objects retired to a domain is bounded.
-The bound is implementation-defined. [ \defn{Note}: The bound can be independent of other
+The bound is implementation-defined. [ \defn{Note 1}: The bound can be independent of other
 domains and can be a function of the number of hazard pointers belonging to the
 domain, the number of threads that retire objects to the domain, and the number of
 threads that use hazard pointers belonging to the domain. --- \defn{end note} ]
@@ -134,10 +133,8 @@ public:
 \tcode{hazard_pointer_domain() noexcept;}
 
 \pnum
-\defn{Effects}: Equivalent to
-\begin{codeblock}
-hazard_pointer_domain({});
-\end{codeblock}
+\defn{Effects}: Equivalent to \tcode{hazard_pointer_domain(\{\})}.
+\\
 
 \tcode{explicit hazard_pointer_domain(pmr::polymorphic_allocator<byte> poly_alloc) noexcept;}
 
@@ -237,9 +234,8 @@ Invoking the retire function may reclaim possibly-reclaimable objects retired to
 \tcode{void retire(hazard_pointer_domain\& domain) noexcept;}
 
 \pnum
-\defn{Effects}: Equivalent to
-\begin{codeblock}retire(D(), domain);
-\end{codeblock}
+\defn{Effects}: Equivalent to \tcode{retire(D(), domain)}.
+\\
 
 \rSec2[Concurrency2.SafeReclamation.HP.holder]{Class \tcode{hazard_pointer}}
 
@@ -343,7 +339,7 @@ return ptr;
 \end{itemize}
 
 \pnum
-\defn{Returns}: \tcode{old == ptr}. [ \defn{Note}: It is possible for \tcode{try_protect} to return true when \tcode{ptr} is a null pointer. --— \defn{end note} ]
+\defn{Returns}: \tcode{old == ptr}. [ \defn{Note 1}: It is possible for \tcode{try_protect} to return true when \tcode{ptr} is a null pointer. --— \defn{end note} ]
 
 \pnum
 \defn{Complexity}: Constant.
@@ -375,7 +371,7 @@ return ptr;
 \tcode{void swap(hazard_pointer\& other) noexcept;}
 
 \pnum
-\defn{Effects}: Swaps the hazard pointer ownership of this object with that of other. [ Note: The owned hazard pointers, if any, remain unchanged during the swap and continue to be associated with the respective objects that they were protecting before the swap, if any. No protection epochs are ended or initiated. — end note ]
+\defn{Effects}: Swaps the hazard pointer ownership of this object with that of other. [ \defn{Note 2}: The owned hazard pointers, if any, remain unchanged during the swap and continue to be associated with the respective objects that they were protecting before the swap, if any. No protection epochs are ended or initiated. — \defn{end note} ]
 
 \pnum
 \defn{Complexity}: Constant.

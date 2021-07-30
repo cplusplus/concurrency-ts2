@@ -286,6 +286,7 @@ public:
 
 \pnum
 \defn{Effects}: If \tcode{*this} is not empty, destroys the hazard pointer owned by \tcode{*this}, thereby ending its current protection epoch.
+\\
 
 \rSec3[Concurrency2.SafeReclamation.HP.holder.assign]{Assignment}
 
@@ -345,9 +346,7 @@ return ptr;
 \defn{Complexity}: Constant.
 \\
 
-\tcode{template <typename T>}\\
-\hspace*{1.1em}\tcode{void reset_protection(const T* ptr) noexcept;}
-
+\tcode{template <typename T> void reset_protection(const T* ptr) noexcept;}
 
 \pnum
 \defn{Mandates}: \tcode{T} is a hazard-protectable type.

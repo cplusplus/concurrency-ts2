@@ -25,7 +25,8 @@ ISO/IEC 14882:2020 is herein called the C++ Standard. References to clauses with
 \pnum
 
 \begin{itemize}
-\item {ISO/IEC 14882:2020, Programming Languages --- C++}
+%%\item {ISO/IEC 14882:2020, Programming Languages --- C++}
+\item {\cppstddocno}, \doccite{Programming Languages --- C++}
 \end{itemize}
 
 Unless otherwise specified, the whole of the C++ Standard's Library introduction (C++20 §16) is included into this Technical Specification by reference.
@@ -51,6 +52,39 @@ Conformance is defined in terms of the behavior of programs.
 
 
 \rSec1[general.namespaces]{Namespaces and headers and modifications to standard classes}
+\pnum
+Since the extensions described in this technical specification are experimental and not part of the C++ standard library, they should not be declared directly within namespace std. Unless otherwise specified, all components described in this technical specification either:
+
+\begin{itemize}
+    \item modify an existing interface in the C++ Standard Library in-place,
+    \item are declared in a namespace whose name appends \tcode{::experimental::concurrency\_v2} to a namespace defined in the C++ Standard Library, such as \tcode{std}, or
+    \item are declared in a subnamespace of a namespace described in the previous bullet, whose name is not the same as an existing subnamespace of namespace \tcode{std}.
+\end{itemize}
+
+\pnum
+Whenever a name \tcode{x} declared in a subclause at namespace scope
+is mentioned, the name \tcode{x} is assumed to be fully qualified as
+\tcode{::std::experimental::concurrency::v1::x}, unless otherwise specified.
+The header described in this document (see Table~\ref{tab:info.headers})
+shall import the contents of \tcode{::std::experimental::concurrency::v1} into
+\tcode{::std::experimental::reflect} as if by:
+
+\begin{codeblock}
+namespace std::experimental::concurrency {
+  inline namespace v2 {}
+}
+\end{codeblock}
+
+\pnum
+Whenever a name \tcode{x} declared in the standard library at namespace scope is
+mentioned, the name \tcode{x} is assumed to be fully qualified as
+\tcode{::std::x}, unless otherwise specified.
+
+\begin{floattable}{Concurrency\_v2 library headers}{tab:info.headers}
+{l}
+\topline
+\tcode{<experimental/concurrency\_v2>} \\
+\end{floattable}
 
 \rSec1[general.feature.test]{Feature-testing recommendations (Informative)}
 

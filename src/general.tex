@@ -87,7 +87,17 @@ mentioned, the name \tcode{x} is assumed to be fully qualified as
 \end{floattable}
 
 \rSec1[general.feature.test]{Feature-testing recommendations (Informative)}
+\pnum
+An implementation that provides support for this document shall define each feature test macro defined in \tref{intro.features} if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in the table.
 
+\begin{floattable}{Feature-test macros}{tab:intro.features}
+{lll}
+\topline
+\lhdr{Macro name} & \chdr{Value} & \rhdr{Header} \\
+\capsep
+\tcode{__cpp_concurrency\_v2}  & \tcode{\tsver}   &  none \\
+\tcode{__cpp_lib_concurrency\_v2reflection}  & \tcode{\tsver}  & \tcode{<experimental/reflect>} \\
+\end{floattable}
 \rSec1[general.plans]{Future plans (Informative)}
 
 \rSec1[general.ack]{Acknowledgments}

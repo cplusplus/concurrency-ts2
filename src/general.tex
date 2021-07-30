@@ -67,10 +67,10 @@ is mentioned, the name \tcode{x} is assumed to be fully qualified as
 \tcode{::std::experimental::concurrency::v2::x}, unless otherwise specified.
 The header described in this document (see Table~\ref{tab:info.headers})
 shall import the contents of \tcode{::std::experimental::concurrency::v2} into
-\tcode{::std::experimental::reflect} as if by:
+\tcode{::std::experimental::concurrency_v1} as if by:
 
 \begin{codeblock}
-namespace std::experimental::concurrency {
+namespace std::experimental::concurrency_v1 {
   inline namespace v2 {}
 }
 \end{codeblock}

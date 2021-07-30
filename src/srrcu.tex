@@ -1,8 +1,8 @@
 %!TEX root = ts.tex
 
-\rSec1[Concurrency2.SafeReclamation.rcu]{Read-copy update (RCU)}
+\rSec1[Concurrency2.SafeRecl.rcu]{Read-copy update (RCU)}
 
-\rSec2[Concurrency2.SafeReclamation.rcu.general]{RCU general}
+\rSec2[Concurrency2.SafeRecl.rcu.general]{RCU general}
 
 \pnum
 RCU is a synchronization mechanism that can be used for linked data
@@ -58,7 +58,7 @@ The evaluation of a scheduled evaluation is potentially concurrent with
 any other such evaluation. Each scheduled evaluation is evaluated at
 most once.
 
-\rSec2[Concurrency2.SafeReclamation.rcu.syn]{RCU header \tcode{<rcu>} synopsis}
+\rSec2[Concurrency2.SafeRecl.rcu.syn]{RCU header \tcode{<rcu>} synopsis}
 
 Editor's note: This section was mistakenly unnumbered in P1122R4.
 
@@ -69,29 +69,29 @@ Editor's note: This section was mistakenly unnumbered in P1122R4.
 % @@@ Added missing "," after a number of the references in this code block.
 \begin{codeblock}
 namespace std::experimental::inline concurrency_v2 {
-  // \ref{Concurrency2.SafeReclamation.rcu.base}, class template rcu_obj_base
+  // \ref{Concurrency2.SafeRecl.rcu.base}, class template rcu_obj_base
   template<class T, class D = default_delete<T>>
     class rcu_obj_base;
 
-  // \ref{Concurrency2.SafeReclamation.rcu.domain}, class rcu_domain
+  // \ref{Concurrency2.SafeRecl.rcu.domain}, class rcu_domain
   class rcu_domain;
 
-  // \ref{Concurrency2.SafeReclamation.rcu.default.domain}, rcu_default_domain
+  // \ref{Concurrency2.SafeRecl.rcu.default.domain}, rcu_default_domain
   rcu_domain& rcu_default_domain() noexcept;
 
-  // \ref{Concurrency2.SafeReclamation.rcu.synchronize}, rcu_synchronize
+  // \ref{Concurrency2.SafeRecl.rcu.synchronize}, rcu_synchronize
   void rcu_synchronize(rcu_domain& dom = rcu_default_domain()) noexcept;
 
-  // \ref{Concurrency2.SafeReclamation.rcu.barrier}, rcu_barrier
+  // \ref{Concurrency2.SafeRecl.rcu.barrier}, rcu_barrier
   void rcu_barrier(rcu_domain& dom = rcu_default_domain()) noexcept;
 
-  // \ref{Concurrency2.SafeReclamation.rcu.retire}, rcu_retire
+  // \ref{Concurrency2.SafeRecl.rcu.retire}, rcu_retire
   template<class T, class D = default_delete<T>>
     void rcu_retire(T* p, D d = D(), rcu_domain& dom = rcu_default_domain());
 }
 \end{codeblock}
 
-\rSec2[Concurrency2.SafeReclamation.rcu.base]{Class \tcode{rcu_obj_base}}
+\rSec2[Concurrency2.SafeRecl.rcu.base]{Class \tcode{rcu_obj_base}}
 
 % @@@ Added missing "of" in following sentence.
 
@@ -163,7 +163,7 @@ If such evaluations acquire resources held across any invocation of
 retire on \tcode{dom}, deadlock can occur.
 \end{note}
 
-\rSec2[Concurrency2.SafeReclamation.rcu.domain]{Class \tcode{rcu_domain}}
+\rSec2[Concurrency2.SafeRecl.rcu.domain]{Class \tcode{rcu_domain}}
 
 % @@@ Removed the obsolete reference comments.
 
@@ -187,7 +187,7 @@ public:
 The functions \tcode{lock} and \tcode{unlock} establish (possibly nested)
 regions of RCU protection.
 
-\rSec3[Concurrency2.SafeReclamation.rcu.domain.lock]{\tcode{rcu_domain::lock}}
+\rSec3[Concurrency2.SafeRecl.rcu.domain.lock]{\tcode{rcu_domain::lock}}
 
 \begin{codeblock}
 void lock() noexcept;
@@ -200,7 +200,7 @@ Effects: Opens a region of RCU protection.
 Remarks: Calls to the function lock do not introduce a data race
 \tcode{[intro.races]} involving \tcode{*this}.
 
-\rSec3[Concurrency2.SafeReclamation.rcu.domain.unlock]{\tcode{rcu_domain::unlock}}
+\rSec3[Concurrency2.SafeRecl.rcu.domain.unlock]{\tcode{rcu_domain::unlock}}
 
 \begin{codeblock}
 void unlock() noexcept;
@@ -229,7 +229,7 @@ Calls to the function \tcode{unlock} do not introduce a data race
 Evaluation of scheduled evaluations can still cause a data race.
 \end{note}
 
-\rSec2[Concurrency2.SafeReclamation.rcu.default.domain]{\tcode{rcu_default_domain}}
+\rSec2[Concurrency2.SafeRecl.rcu.default.domain]{\tcode{rcu_default_domain}}
 
 \begin{codeblock}
 rcu_domain& rcu_default_domain() noexcept;
@@ -240,7 +240,7 @@ Returns: A reference to the default object of type \tcode{rcu_domain}.
 A reference to the same object is returned every time this
 function is called.
 
-\rSec2[Concurrency2.SafeReclamation.rcu.synchronize]{\tcode{rcu_synchronize}}
+\rSec2[Concurrency2.SafeRecl.rcu.synchronize]{\tcode{rcu_synchronize}}
 
 \begin{codeblock}
 void rcu_synchronize(rcu_domain& dom = rcu_default_domain()) noexcept;
@@ -256,7 +256,7 @@ happens.
 Synchronization: The \tcode{unlock} closing \tcode{R} strongly
 happens before the return from \tcode{rcu_synchronize}.
 
-\rSec2[Concurrency2.SafeReclamation.rcu.barrier]{\tcode{rcu_barrier}}
+\rSec2[Concurrency2.SafeRecl.rcu.barrier]{\tcode{rcu_barrier}}
 
 \begin{codeblock}
 void rcu_barrier(rcu_domain& dom = rcu_default_domain()) noexcept;
@@ -272,7 +272,7 @@ in \tcode{dom}, blocks until \tcode{E} has been evaluated.  
 Synchronization: The evaluation of any such \tcode{E} strongly
 happens before the return from \tcode{rcu_barrier}.
 
-\rSec2[Concurrency2.SafeReclamation.rcu.retire]{Template \tcode{rcu_retire}}
+\rSec2[Concurrency2.SafeRecl.rcu.retire]{Template \tcode{rcu_retire}}
 
 \begin{codeblock}
 template<class T, class D = default_delete<T>>

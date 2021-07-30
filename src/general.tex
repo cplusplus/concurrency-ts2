@@ -65,20 +65,17 @@ Since the extensions described in this technical specification are experimental 
 Whenever a name \tcode{x} declared in a subclause at namespace scope
 is mentioned, the name \tcode{x} is assumed to be fully qualified as
 \tcode{::std::experimental::concurrency::v2::x}, unless otherwise specified.
-The header described in this document (see Table~\ref{tab:info.headers})
-shall import the contents of \tcode{::std::experimental::concurrency::v2} into
-\tcode{::std::experimental::concurrency_v1} as if by:
 
-\begin{codeblock}
-namespace std::experimental::concurrency_v1 {
-  inline namespace v2 {}
-}
-\end{codeblock}
+%%The header described in this document (see Table~\ref{tab:info.headers})
+%%shall import the contents of \tcode{::std::experimental::concurrency::v2} into
+%%\tcode{::std::experimental::concurrency_v1} as if by:
 
-\pnum
-Whenever a name \tcode{x} declared in the standard library at namespace scope is
-mentioned, the name \tcode{x} is assumed to be fully qualified as
-\tcode{::std::x}, unless otherwise specified.
+%%\begin{codeblock}
+%%namespace std::experimental::concurrency_v1 {
+%%  inline namespace v2 {}
+%%}
+%%\end{codeblock}
+
 
 \begin{floattable}{Concurrency\_v2 library headers}{tab:info.headers}
 {l}

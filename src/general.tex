@@ -96,6 +96,20 @@ An implementation that provides support for this document shall define each feat
 \tcode{__cpp_lib_concurrency\_v2}  & \tcode{\tsver}  & \tcode{<experimental/concurrency\_v2>} \\
 \end{floattable}
 \rSec1[general.plans]{Future plans (Informative)}
+\pnum
+This section describes tentative plans for future versions of this technical specification and plans for moving content into
+future versions of the C++ Standard.
+
+\pnum
+ The C++ committee intends to release a new version of this technical specification approximately every few years, containing
+the library extensions we hope to add to a near-future version of the C++ Standard. Future versions will define their
+contents in std::experimental::concurrency\_v3, std::experimental::concurrency\_v4, etc., with the most recent
+implemented version inlined into std::experimental.
+
+\pnum
+When an extension defined in this or a future version of this technical specification represents enough existing practice, it
+will be moved into the next version of the C++ Standard by removing the experimental::concurrency\_vN segment of its
+namespace and by removing the experimental/ prefix from its header's path.
 
 \rSec1[general.ack]{Acknowledgments}
 

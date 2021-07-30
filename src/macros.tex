@@ -3,12 +3,8 @@
 
 %%--------------------------------------------------
 %% Difference markups
-\definecolor{addclr}{rgb}{0,.6,.6}
-\definecolor{remclr}{rgb}{1,0,0}
-\definecolor{noteclr}{rgb}{0,0,1}
-
-\renewcommand{\added}[1]{\textcolor{addclr}{\uline{#1}}}
-\newcommand{\removed}[1]{\textcolor{remclr}{\sout{#1}}}
+\renewcommand{\added}[1]{\uline{#1}}
+\newcommand{\removed}[1]{\sout{#1}}
 \renewcommand{\changed}[2]{\removed{#1}\added{#2}}
 
 \newcommand{\nbc}[1]{[#1]\ }
@@ -17,28 +13,26 @@
 \newcommand{\changednb}[3]{\removednb{#1}{#2}\added{#3}}
 \newcommand{\remitem}[1]{\item\removed{#1}}
 
-\newcommand{\ednote}[1]{\textcolor{noteclr}{[Editor's note: #1] }}
+\newcommand{\ednote}[1]{[Editor's note: #1]}
 % \newcommand{\ednote}[1]{}
 
 \newenvironment{addedblock}
 {
-\color{addclr}
 }
 {
 \color{black}
 }
 \newenvironment{removedblock}
 {
-\color{remclr}
 }
 {
 \color{black}
 }
 
 %%--------------------------------------------------
-%% Sectioning macros.  
-% Each section has a depth, an automatically generated section 
-% number, a name, and a short tag.  The depth is an integer in 
+%% Sectioning macros.
+% Each section has a depth, an automatically generated section
+% number, a name, and a short tag.  The depth is an integer in
 % the range [0,5].  (If it proves necessary, it wouldn't take much
 % programming to raise the limit from 5 to something larger.)
 
@@ -59,7 +53,7 @@
 
 % A convenience feature (mostly for the convenience of the Project
 % Editor, to make it easy to move around large blocks of text):
-% the \rSec macro is just like the \Sec macro, except that depths 
+% the \rSec macro is just like the \Sec macro, except that depths
 % relative to a global variable, SectionDepthBase.  So, for example,
 % if SectionDepthBase is 1,
 %   \rSec1[temp.arg.type]{Template type arguments}
@@ -82,16 +76,57 @@
 \newcommand{\indextext}[1]{\index[generalindex]{#1}}
 \newcommand{\indexlibrary}[1]{\index[libraryindex]{#1}}
 \newcommand{\indexgram}[1]{\index[grammarindex]{#1}}
-\newcommand{\indeximpldef}[1]{\index[impldefindex]{#1}}
 
+% Collation helper: When building an index key, replace all macro definitions
+% in the key argument with a no-op for purposes of collation.
+\newcommand{\nocode}[1]{#1}
+\newcommand{\idxmname}[1]{\_\_#1\_\_}
+\newcommand{\idxCpp}{C++}
+
+% \indeximpldef synthesizes a collation key from the argument; that is, an
+% invocation \indeximpldef{arg} emits an index entry `key@arg`, where `key`
+% is derived from `arg` by replacing the folowing list of commands with their
+% bare content. This allows, say, collating plain text and code.
+\newcommand{\indeximpldef}[1]{%
+\let\otextup\textup%
+\let\textup\nocode%
+\let\otcode\tcode%
+\let\tcode\nocode%
+\let\ogrammarterm\grammarterm%
+\let\grammarterm\nocode%
+\let\omname\mname%
+\let\mname\idxmname%
+\let\oCpp\Cpp%
+\let\Cpp\idxCpp
+\let\oBreakableUnderscore\BreakableUnderscore%  See the "underscore" package.
+\let\BreakableUnderscore\textunderscore%
+\edef\x{#1}%
+\let\tcode\otcode%
+\let\grammarterm\ogrammarterm%
+\let\mname\omname%
+\let\Cpp\oCpp%
+\let\BreakableUnderscore\oBreakableUnderscore%
+\index[impldefindex]{\x@#1}%
+\let\textup\otextup%
+}
+
+% These three commands use the "cooked" \indeximpldef command to emit index
+% entries; thus they only work for simple index entries that do not contain
+% special indexing instructions.
 \newcommand{\indexdefn}[1]{\indextext{#1}}
 \newcommand{\indexgrammar}[1]{\indextext{#1}\indexgram{#1}}
 \newcommand{\impldef}[1]{\indeximpldef{#1}implementation-defined}
+% \impldefplain passes the argument directly to the index, allowing you to
+% use special indexing instructions (!, @, |).
+\newcommand{\impldefplain}[1]{\index[impldefindex]{#1}implementation-defined}
 
 % appearance
 \newcommand{\idxcode}[1]{#1@\tcode{#1}}
 \newcommand{\idxhdr}[1]{#1@\tcode{<#1>}}
 \newcommand{\idxgram}[1]{#1@\textit{#1}}
+
+% class member library index
+\newcommand{\indexlibrarymember}[2]{\indexlibrary{\idxcode{#1}!\idxcode{#2}}\indexlibrary{\idxcode{#2}!\idxcode{#1}}}
 
 %%--------------------------------------------------
 % General code style
@@ -120,7 +155,8 @@
 \newcommand{\CppIII}{\Cpp 2003\xspace}
 \newcommand{\CppXI}{\Cpp 2011\xspace}
 \newcommand{\CppXIV}{\Cpp 2014\xspace}
-\newcommand{\opt}{{\ensuremath{_\mathit{opt}}}\xspace}
+\newcommand{\CppXVII}{\Cpp 2017\xspace}
+\newcommand{\opt}[1]{#1\ensuremath{_\mathit{opt}}}
 \newcommand{\shl}{<{<}}
 \newcommand{\shr}{>{>}}
 \newcommand{\dcr}{-{-}}
@@ -144,13 +180,10 @@
 \newcommand{\leftshift}[1]{\ensuremath{\, \mathsf{lshift}_#1 \,}}
 
 %% Notes and examples
-\newcommand{\EnterBlock}[1]{[\,\textit{#1:}\space}
-\newcommand{\ExitBlock}[1]{\textit{\,---\,end #1}\,]\xspace}
-\newcommand{\enternote}{\EnterBlock{Note}}
-\newcommand{\exitnote}{\ExitBlock{note}}
-\newcommand{\enterexample}{\EnterBlock{Example}}
-\newcommand{\exitexample}{\ExitBlock{example}}
-\newenvironment{example}[1][Example]{\EnterBlock{#1}}{\ExitBlock{example}}
+\newcommand{\noteintro}[1]{[\,\textit{#1:}\space}
+\newcommand{\noteoutro}[1]{\textit{\,---\,end #1}\,]}
+\newenvironment{note}[1][Note]{\noteintro{#1}}{\noteoutro{note}\xspace}
+\newenvironment{example}[1][Example]{\noteintro{#1}}{\noteoutro{example}\xspace}
 
 %% Library function descriptions
 \newcommand{\Fundescx}[1]{\textit{#1}\xspace}
@@ -168,8 +201,6 @@
 \newcommand{\complexity}{\Fundesc{Complexity}}
 \newcommand{\remark}{\Fundesc{Remark}}
 \newcommand{\remarks}{\Fundesc{Remarks}}
-\newcommand{\note}{\remark}
-\newcommand{\notes}{\remarks}
 \newcommand{\realnote}{\Fundesc{Note}}
 \newcommand{\realnotes}{\Fundesc{Notes}}
 \newcommand{\errors}{\Fundesc{Error conditions}}
@@ -187,6 +218,9 @@
 %% Cross reference
 \newcommand{\xref}{\textsc{See also:}\xspace}
 \newcommand{\xsee}{\textsc{See:}\xspace}
+
+%% Inline non-parenthesized table reference (override memoir's \tref)
+\renewcommand{\tref}[1]{\tablerefname \nolinebreak[3] \ref{tab:#1}}
 
 %% NTBS, etc.
 \newcommand{\NTS}[1]{\textsc{#1}\xspace}
@@ -229,8 +263,8 @@
 
 %% Double underscore
 \newcommand{\ungap}{\kern.5pt}
-\newcommand{\unun}{\_\ungap\_}
-\newcommand{\xname}[1]{\unun\ungap#1}
+\newcommand{\unun}{\textunderscore\ungap\textunderscore}
+\newcommand{\xname}[1]{\tcode{\unun\ungap#1}}
 \newcommand{\mname}[1]{\tcode{\unun\ungap#1\ungap\unun}}
 
 %% Ranges
@@ -242,6 +276,7 @@
 
 %% Change descriptions
 \newcommand{\diffdef}[1]{\hfill\break\textbf{#1:}\xspace}
+\newcommand{\diffref}[1]{\pnum\textbf{Affected subclause:} \ref{#1}}
 \newcommand{\change}{\diffdef{Change}}
 \newcommand{\rationale}{\diffdef{Rationale}}
 \newcommand{\effect}{\diffdef{Effect on original feature}}
@@ -277,8 +312,8 @@
         keepspaces=true,
         texcl=true}
 
-% Our usual abbreviation for 'listings'.  Comments are in 
-% italics.  Arbitrary TeX commands can be used if they're 
+% Our usual abbreviation for 'listings'.  Comments are in
+% italics.  Arbitrary TeX commands can be used if they're
 % surrounded by @ signs.
 \newcommand{\CodeBlockSetup}{
  \lstset{escapechar=@}
@@ -289,7 +324,6 @@
 }
 
 \lstnewenvironment{codeblock}{\CodeBlockSetup}{}
-\lstnewenvironment{Program}{}{}
 
 % A code block in which single-quotes are digit separators
 % rather than character literals.
@@ -499,13 +533,14 @@
 
 %%--------------------------------------------------
 %% Definitions section
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\definitionx}[3]{%
+\let\oldcontentsline\addcontentsline%
+\let\addcontentsline\nocontentsline%
+#1[#2]{\hfill[#3]}\vspace{-.3\onelineskip}\label{#3} \textbf{#2}\\*%
+\let\addcontentsline\oldcontentsline%
+}
+% \newcommand{\defncontext}[1]{\textlangle#1\textrangle}
 % usage: \definition{name}{xref}
-%\newcommand{\definition}[2]{\rSec2[#2]{#1}}
-% for ISO format, use:
-\newcommand{\definition}[2]{%
-\subsection[#1]{\hfill[#2]}\vspace{-.3\onelineskip}\label{#2}\textbf{#1}\\%
-}
-\newcommand{\definitionx}[2]{%
-\subsubsection[#1]{\hfill[#2]}\vspace{-.3\onelineskip}\label{#2}\textbf{#1}\\%
-}
-\newcommand{\defncontext}[1]{\textlangle#1\textrangle}
+\newcommand{\definition}[2]{\definitionx{\section}{#1}{#2}}%
+\newenvironment{defnote}{\noteintro{Note 1 to entry}}{\noteoutro{note}\space}

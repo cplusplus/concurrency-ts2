@@ -19,7 +19,7 @@ The span between creation and destruction of a hazard pointer \defn{h} is partit
 A hazard pointer \defn{belongs to} exactly one \defn{domain}. 
 
 \pnum
-An object of type \tcode{hazard_pointer} is either empty or \defn{owns} a hazard pointer. Each hazard pointer is owned by exactly one object of type \tcode{hazard_pointer}. \begin{note} An empty \tcode{hazard_pointer} object is different from a \tcode{hazard_pointer} object that owns an unassociated hazard pointer. An empty tcode{hazard_pointer} object does not own any hazard pointers. \end{note}
+An object of type \tcode{hazard_pointer} is either empty or \defn{owns} a hazard pointer. Each hazard pointer is owned by exactly one object of type \tcode{hazard_pointer}. \begin{note} An empty \tcode{hazard_pointer} object is different from a \tcode{hazard_pointer} object that owns an unassociated hazard pointer. An empty \tcode{hazard_pointer} object does not own any hazard pointers. \end{note}
 
 \pnum
 An object \tcode{x} of hazard-protectable type \tcode{T} is \defn{retired} to a domain with a deleter of type \tcode{D} when the member function \tcode{hazard_pointer_obj_base<T,D>::retire} is invoked on \tcode{x}. Any given object \tcode{x} shall be retired at most once.

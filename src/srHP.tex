@@ -4,7 +4,7 @@
 
 \rSec2[SafeRecl.HP.general]{General}
 
-Editor's note: This section was mistakenly unlabeled in P1121R3.
+\ednote{This section was mistakenly unlabeled in P1121R3.}
 
 \pnum
 A hazard pointer is a single-writer multi-reader pointer that can be owned by at most one thread at any time. Only the owner of the hazard pointer can set its value, while any number of threads may read its value. The owner thread sets the value of a hazard pointer to point to an object in order to indicate to concurrent threads --- that may delete such an object --— that the object is not yet safe to delete.
@@ -19,7 +19,7 @@ The span between creation and destruction of a hazard pointer \defn{h} is partit
 A hazard pointer \defn{belongs to} exactly one \defn{domain}. 
 
 \pnum
-An object of type \tcode{hazard_pointer} is either empty or \defn{owns} a hazard pointer. Each hazard pointer is owned by exactly one object of type \tcode{hazard_pointer}. [ \defn{Note 1}: An empty \tcode{hazard_pointer} object is different from a \tcode{hazard_pointer} object that owns an unassociated hazard pointer. An empty tcode{hazard_pointer} object does not own any hazard pointers. --- \defn{end note} ]
+An object of type \tcode{hazard_pointer} is either empty or \defn{owns} a hazard pointer. Each hazard pointer is owned by exactly one object of type \tcode{hazard_pointer}. \begin{note} An empty \tcode{hazard_pointer} object is different from a \tcode{hazard_pointer} object that owns an unassociated hazard pointer. An empty tcode{hazard_pointer} object does not own any hazard pointers. \end{note}
 
 \pnum
 An object \tcode{x} of hazard-protectable type \tcode{T} is \defn{retired} to a domain with a deleter of type \tcode{D} when the member function \tcode{hazard_pointer_obj_base<T,D>::retire} is invoked on \tcode{x}. Any given object \tcode{x} shall be retired at most once.
@@ -52,12 +52,12 @@ during which \defn{h} is associated with \tcode{x}:
   \item if the beginning of E happens before \tcode{x} is retired, the end of E strongly
 happens before A, and
   \item if E began by an evaluation of \tcode{try_protect} with argument \tcode{src}, label its
-atomic load operation L. If there exists an atomic modification B on \tcode{src} such that L observes a modification that is modification-ordered before B, and B happens before \tcode{x} is retired, the end of E strongly happens before A. [ \defn{Note 2}: In typical use, a store to \tcode{src} sequenced before retiring \tcode{x} will be such an atomic operation B. --- \defn{end note} ]
+atomic load operation L. If there exists an atomic modification B on \tcode{src} such that L observes a modification that is modification-ordered before B, and B happens before \tcode{x} is retired, the end of E strongly happens before A. \begin{note} In typical use, a store to \tcode{src} sequenced before retiring \tcode{x} will be such an atomic operation B. \end{note}
 \end{itemize}
-[ \defn{Note 3}: The latter two conditions convey the informal notion that a protection epoch that began before retiring \tcode{x}, as implied either by the happens-before relation or the coherence order of some source, delays the reclamation of \tcode{x}. --- \defn{end note} ]
+\begin{note} The latter two conditions convey the informal notion that a protection epoch that began before retiring \tcode{x}, as implied either by the happens-before relation or the coherence order of some source, delays the reclamation of \tcode{x}. \end{note}
 \end{itemize}
 
-[ \defn{Example 1}: The following example shows how hazard pointers allow updates to be carried out in the presence of concurrent readers. The object of type \tcode{hazard_pointer} in \tcode{print_name} protects the object \tcode{*ptr} from being reclaimed by \tcode{ptr->retire} until the end of the protection epoch.
+\begin{example} The following example shows how hazard pointers allow updates to be carried out in the presence of concurrent readers. The object of type \tcode{hazard_pointer} in \tcode{print_name} protects the object \tcode{*ptr} from being reclaimed by \tcode{ptr->retire} until the end of the protection epoch.
 
 \begin{codeblock}
 struct Name : public hazard_pointer_obj_base<Name> { /* details */ };
@@ -76,7 +76,7 @@ void update_name(Name* new_name) {
   ptr->retire();
 }
 \end{codeblock}
---— \defn{end example} ]
+\end{example}
 
 \rSec2[SafeRecl.HP.syn]{Header \tcode{<hazard_pointer>} synopsis}
 
@@ -107,10 +107,10 @@ namespace std::experimental::inline concurrency_v2 {
 
 \pnum
 The number of unreclaimed possibly-reclaimable objects retired to a domain is bounded.
-The bound is implementation-defined. [ \defn{Note 1}: The bound can be independent of other
+The bound is implementation-defined. \begin{note} The bound can be independent of other
 domains and can be a function of the number of hazard pointers belonging to the
 domain, the number of threads that retire objects to the domain, and the number of
-threads that use hazard pointers belonging to the domain. --- \defn{end note} ]
+threads that use hazard pointers belonging to the domain. \end{note}
 
 \pnum
 Concurrent access to a domain does not incur a data race ([intro.races)].
@@ -133,13 +133,13 @@ public:
 \tcode{hazard_pointer_domain() noexcept;}
 
 \pnum
-\defn{Effects}: Equivalent to \tcode{hazard_pointer_domain(\{\})}.
+\effects Equivalent to \tcode{hazard_pointer_domain(\{\})}.
 \\
 
 \tcode{explicit hazard_pointer_domain(pmr::polymorphic_allocator<byte> poly_alloc) noexcept;}
 
 \pnum
-\defn{Remarks}: All allocation and deallocation related to hazard pointers belonging to this
+\remarks All allocation and deallocation related to hazard pointers belonging to this
 domain use a copy of \tcode{poly_alloc}.
 \\
 
@@ -149,7 +149,7 @@ domain use a copy of \tcode{poly_alloc}.
 \defn{Preconditions}: All hazard pointers belonging to \tcode{*this} have been destroyed.
 
 \pnum
-\defn{Effects}: Reclaims all objects retired to this domain that have not yet been reclaimed.
+\effects Reclaims all objects retired to this domain that have not yet been reclaimed.
 \\
 
 \rSec2[SafeRecl.HP.domain.default]{Default \tcode{hazard_pointer_domain}}
@@ -157,10 +157,10 @@ domain use a copy of \tcode{poly_alloc}.
 \tcode{hazard_pointer_domain\& hazard_pointer_default_domain() noexcept;}
 
 \pnum
-\defn{Returns}: A reference to the default \tcode{hazard_pointer_domain}.
+\returns A reference to the default \tcode{hazard_pointer_domain}.
 
 \pnum
-\defn{Remarks}: The default domain has an unspecified allocator and has static storage
+\remarks The default domain has an unspecified allocator and has static storage
 duration. The initialization of the default domain strongly happens before this function
 returns; the sequencing is otherwise unspecified.
 \\
@@ -171,14 +171,13 @@ returns; the sequencing is otherwise unspecified.
 \hspace*{1.1em}\tcode{hazard_pointer_domain\& domain = hazard_pointer_default_domain()) noexcept;}
 
 \pnum
-\defn{Effects}: May reclaim possibly-reclaimable objects retired to \tcode{domain}.
+\effects May reclaim possibly-reclaimable objects retired to \tcode{domain}.
 
 \pnum
-\defn{Postconditions}: All definitely-reclaimable objects retired to \tcode{domain} have been reclaimed.
+\postconditions All definitely-reclaimable objects retired to \tcode{domain} have been reclaimed.
 
 \pnum
-\defn{Synchronization}: The completion of the deleter for each reclaimed object synchronizes
-with the return from this function call.
+\sync The completion of the deleter for each reclaimed object synchronizes with the return from this function call.
 \\
 
 \rSec2[SafeRecl.HP.base]{Class template \tcode{hazard_pointer_obj_base}}
@@ -224,7 +223,7 @@ The behavior of a program that adds specializations for \tcode{hazard_pointer_ob
 Move-assigning \tcode{D} from \tcode{d} does not throw an exception. The expression \tcode{d(addressof(x))} has well-defined behavior and does not throw an exception.
 
 \pnum
-\defn{Effects}: Move-assigns \tcode{d} to \tcode{deleter}, thereby setting it as the deleter of x, then retires x
+\effects Move-assigns \tcode{d} to \tcode{deleter}, thereby setting it as the deleter of x, then retires x
 to domain.
 
 \pnum
@@ -234,7 +233,7 @@ Invoking the retire function may reclaim possibly-reclaimable objects retired to
 \tcode{void retire(hazard_pointer_domain\& domain) noexcept;}
 
 \pnum
-\defn{Effects}: Equivalent to \tcode{retire(D(), domain)}.
+\effects Equivalent to \tcode{retire(D(), domain)}.
 \\
 
 \rSec2[SafeRecl.HP.holder]{Class \tcode{hazard_pointer}}
@@ -247,21 +246,15 @@ Editor's note: This section was mistakenly unlabeled in P1121R3.
 class hazard_pointer {
 public:
   hazard_pointer() noexcept;
-
   hazard_pointer(hazard_pointer&&) noexcept;
   hazard_pointer& operator=(hazard_pointer&&) noexcept;
-
   ~hazard_pointer();
   
   [[nodiscard]] bool empty() const noexcept;
-  
-  template <typename T> T* protect(const atomic<T*>& src) noexcept;
-  
+  template <typename T> T* protect(const atomic<T*>& src) noexcept;  
   template <typename T> bool try_protect(T*& ptr, const atomic<T*>& src) noexcept;
-  
   template <typename T> void reset_protection(const T* ptr) noexcept;
   void reset_protection(nullptr_t = nullptr) noexcept;
-  
   void swap(hazard_pointer&) noexcept;
 };
 \end{codeblock}
@@ -271,13 +264,13 @@ public:
 \tcode{hazard_pointer() noexcept;}
 
 \pnum
-\defn{Postconditions}: \tcode{*this} is empty.
+\postconditions \tcode{*this} is empty.
 \\
 
 \tcode{hazard_pointer(hazard_pointer\&\& other) noexcept;}
 
 \pnum
-\defn{Postconditions}: If \tcode{other} is empty, \tcode{*this} is empty. Otherwise, \tcode{*this} owns the hazard pointer originally owned by \tcode{other}; \tcode{other} is empty.
+\postconditions If \tcode{other} is empty, \tcode{*this} is empty. Otherwise, \tcode{*this} owns the hazard pointer originally owned by \tcode{other}; \tcode{other} is empty.
 \\
 
 \rSec3[SafeRecl.HP.holder.dtor]{Destructor}
@@ -285,7 +278,7 @@ public:
 \tcode{\~hazard_pointer();}
 
 \pnum
-\defn{Effects}: If \tcode{*this} is not empty, destroys the hazard pointer owned by \tcode{*this}, thereby ending its current protection epoch.
+\effects If \tcode{*this} is not empty, destroys the hazard pointer owned by \tcode{*this}, thereby ending its current protection epoch.
 \\
 
 \rSec3[SafeRecl.HP.holder.assign]{Assignment}
@@ -293,15 +286,15 @@ public:
 \tcode{hazard_pointer\& operator=(hazard_pointer\&\& other) noexcept;}
 
 \pnum
-\defn{Effects}: If \tcode{this == \&other} is true, no effect. Otherwise, if \tcode{*this} is not empty, destroys
+\effects If \tcode{this == \&other} is true, no effect. Otherwise, if \tcode{*this} is not empty, destroys
 the hazard pointer owned by \tcode{*this}, thereby ending its current protection epoch.
 
 \pnum
-\defn{Postconditions}: If \tcode{other} was empty, \tcode{*this} is empty. Otherwise, \tcode{*this} owns the hazard
+\postconditions If \tcode{other} was empty, \tcode{*this} is empty. Otherwise, \tcode{*this} owns the hazard
 pointer originally owned by other. If \tcode{this != \&other} is true, \tcode{other} is empty.
 
 \pnum
-\defn{Returns}: \tcode{*this}.
+\returns \tcode{*this}.
 \\
 
 \rSec3[SafeRecl.HP.holder.mem]{Member functions}
@@ -309,13 +302,13 @@ pointer originally owned by other. If \tcode{this != \&other} is true, \tcode{ot
 \tcode{[[nodiscard]] bool empty() const noexcept;}
 
 \pnum
-\defn{Returns}: true if and only if \tcode{*this} is empty.
+\returns true if and only if \tcode{*this} is empty.
 \\
 
 \tcode{template <typename T> T* protect(const atomic<T*>\& src) noexcept;}
 
 \pnum
-\defn{Effects}: Equivalent to
+\effects Equivalent to
 \begin{codeblock}
 T* ptr = src.load(memory_order_relaxed);
 while (!try_protect(ptr, src)) {}
@@ -331,7 +324,7 @@ return ptr;
 \defn{Preconditions}: *this is not empty.
 
 \pnum
-\defn{Effects}:
+\effects
 \begin{itemize}
 \item Initializes a variable \tcode{old} of type \tcode{T*} with the value of \tcode{ptr}.
 \item Evaluates the function call \tcode{reset_protection(old)}.
@@ -340,10 +333,10 @@ return ptr;
 \end{itemize}
 
 \pnum
-\defn{Returns}: \tcode{old == ptr}. [ \defn{Note 1}: It is possible for \tcode{try_protect} to return true when \tcode{ptr} is a null pointer. --— \defn{end note} ]
+\returns \tcode{old == ptr}. \begin{note} It is possible for \tcode{try_protect} to return true when \tcode{ptr} is a null pointer. \end{note}
 
 \pnum
-\defn{Complexity}: Constant.
+\complexity Constant.
 \\
 
 \tcode{template <typename T> void reset_protection(const T* ptr) noexcept;}
@@ -355,7 +348,7 @@ return ptr;
 \defn{Preconditions}: \tcode{*this} is not empty.
 
 \pnum
-\defn{Effects}: If \tcode{ptr} is a null pointer value, invokes \tcode{reset_protection()}. Otherwise, associates the hazard pointer owned by \tcode{*this} with \tcode{*ptr}, thereby ending the current protection epoch.
+\effects If \tcode{ptr} is a null pointer value, invokes \tcode{reset_protection()}. Otherwise, associates the hazard pointer owned by \tcode{*this} with \tcode{*ptr}, thereby ending the current protection epoch.
 \\
 
 \tcode{void reset_protection(nullptr_t = nullptr) noexcept;}
@@ -364,16 +357,16 @@ return ptr;
 \defn{Preconditions}: \tcode{*this} is not empty.
 
 \pnum
-\defn{Postconditions}: The hazard pointer owned by \tcode{*this} is unassociated.
+\postconditions The hazard pointer owned by \tcode{*this} is unassociated.
 \\
 
 \tcode{void swap(hazard_pointer\& other) noexcept;}
 
 \pnum
-\defn{Effects}: Swaps the hazard pointer ownership of this object with that of other. [ \defn{Note 2}: The owned hazard pointers, if any, remain unchanged during the swap and continue to be associated with the respective objects that they were protecting before the swap, if any. No protection epochs are ended or initiated. — \defn{end note} ]
+\effects Swaps the hazard pointer ownership of this object with that of other. \begin{note} The owned hazard pointers, if any, remain unchanged during the swap and continue to be associated with the respective objects that they were protecting before the swap, if any. No protection epochs are ended or initiated. \end{note}
 
 \pnum
-\defn{Complexity}: Constant.
+\complexity Constant.
 \\
 
 \rSec2[SafeRecl.HP.make]{\tcode{make_hazard_pointer}}
@@ -382,13 +375,13 @@ return ptr;
 \hspace*{1.1em}\tcode{hazard_pointer_domain\& domain = hazard_pointer_default_domain());}
 
 \pnum
-\defn{Effects}: Constructs a hazard pointer belonging to \tcode{domain}.
+\effects Constructs a hazard pointer belonging to \tcode{domain}.
 
 \pnum
-\defn{Returns}: A \tcode{hazard_pointer} object that owns the newly-constructed hazard pointer.
+\returns A \tcode{hazard_pointer} object that owns the newly-constructed hazard pointer.
 
 \pnum
-\defn{Throws}: Any exception thrown by the allocator of \tcode{domain}.
+\throws Any exception thrown by the allocator of \tcode{domain}.
 \\
 
 \rSec2[SafeRecl.HP.special]{\tcode{hazard_pointer} specialized algorithms}
@@ -396,5 +389,5 @@ return ptr;
 \tcode{void swap(hazard_pointer\& a, hazard_pointer\& b) noexcept;}
 
 \pnum
-\defn{Effects}: Equivalent to \tcode{a.swap(b)}.
+\effects Equivalent to \tcode{a.swap(b)}.
 \\

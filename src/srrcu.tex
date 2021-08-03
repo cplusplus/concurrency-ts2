@@ -254,11 +254,15 @@ rcu_domain& rcu_default_domain() noexcept;
 A reference to the same object is returned every time this
 function is called.
 
+\end{itemdescr}
+
 \rSec2[SafeRecl.rcu.synchronize]{\tcode{rcu_synchronize}}
 
 \begin{itemdecl}
 void rcu_synchronize(rcu_domain& dom = rcu_default_domain()) noexcept;
 \end{itemdecl}
+
+\begin{itemdescr}
 
 \pnum
 \defn{Effects}: If the call to \tcode{rcu_synchronize} does not strongly

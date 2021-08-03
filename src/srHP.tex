@@ -197,8 +197,8 @@ returns; the sequencing is otherwise unspecified.
 \rSec2[SafeRecl.HP.cleanup]{Clean up}
 
 \begin{itemdecl}
-void hazard_pointer_clean_up(
-  hazard_pointer_domain& domain = hazard_pointer_default_domain()) noexcept;
+void hazard_pointer_clean_up(hazard_pointer_domain& domain = hazard_pointer_default_domain())
+  noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -246,12 +246,9 @@ The behavior of a program that adds specializations for \tcode{hazard_pointer_ob
 
 \pnum
 \tcode{T} may be an incomplete type.
-\\
 
 \begin{itemdecl}
-void retire(
-  D d = D(),
-  hazard_pointer_domain& domain = hazard_pointer_default_domain()) noexcept;
+void retire(D d = D(), hazard_pointer_domain& domain = hazard_pointer_default_domain()) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}

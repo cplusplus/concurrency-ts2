@@ -84,18 +84,24 @@ void update_name(Name* new_name) {
 namespace std::experimental::inline concurrency_v2 {
   // \ref{SafeRecl.HP.domain}, class hazard_pointer_domain
   class hazard_pointer_domain;
+
   // \ref{SafeRecl.HP.domain.default}, Default hazard_pointer_domain
   hazard_pointer_domain& hazard_pointer_default_domain() noexcept;
+
   // \ref{SafeRecl.HP.cleanup}, Clean up
   void hazard_pointer_clean_up(hazard_pointer_domain& domain = hazard_pointer_default_domain())
     noexcept;
+
   // \ref{SafeRecl.HP.base}, class template hazard_pointer_obj_base
   template <typename T, typename D = default_delete<T>> class hazard_pointer_obj_base;
+
   // \ref{SafeRecl.HP.holder}, class hazard_pointer
   class hazard_pointer;
+
   // \ref{SafeRecl.HP.make}, Construct non-empty hazard_pointer
   hazard_pointer make_hazard_pointer(
     hazard_pointer_domain& domain = hazard_pointer_default_domain());
+
   // \ref{SafeRecl.HP.special}, Hazard pointer swap
   void swap(hazard_pointer&, hazard_pointer&) noexcept;
 }

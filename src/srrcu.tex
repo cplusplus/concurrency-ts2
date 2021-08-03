@@ -136,9 +136,9 @@ Cpp17DefaultConstructible and Cpp17MoveAssignable.
 If \tcode{D} is trivially copyable, all specializations of
 \tcode{rcu_obj_base<T,D>} are trivially copyable.
 
-\begin{codeblock}
+\begin{itemdecl}
 void retire(D d = D(), rcu_domain& dom = rcu_default_domain()) noexcept;
-\end{codeblock}
+\end{itemdecl}
 
 \pnum
 \defn{Mandates}: \tcode{T} is an rcu-protectable type.
@@ -189,9 +189,9 @@ regions of RCU protection.
 
 \rSec3[SafeRecl.rcu.domain.lock]{\tcode{rcu_domain::lock}}
 
-\begin{codeblock}
+\begin{itemdecl}
 void lock() noexcept;
-\end{codeblock}
+\end{itemdecl}
 
 \pnum
 \defn{Effects}: Opens a region of RCU protection.
@@ -202,9 +202,9 @@ void lock() noexcept;
 
 \rSec3[SafeRecl.rcu.domain.unlock]{\tcode{rcu_domain::unlock}}
 
-\begin{codeblock}
+\begin{itemdecl}
 void unlock() noexcept;
-\end{codeblock}
+\end{itemdecl}
 
 \pnum
 \defn{Preconditions}: A call to the function \tcode{lock} that opened
@@ -231,9 +231,9 @@ Evaluation of scheduled evaluations can still cause a data race.
 
 \rSec2[SafeRecl.rcu.default.domain]{\tcode{rcu_default_domain}}
 
-\begin{codeblock}
+\begin{itemdecl}
 rcu_domain& rcu_default_domain() noexcept;
-\end{codeblock}
+\end{itemdecl}
 
 \pnum
 \defn{Returns}: A reference to the default object of type \tcode{rcu_domain}.
@@ -242,9 +242,9 @@ function is called.
 
 \rSec2[SafeRecl.rcu.synchronize]{\tcode{rcu_synchronize}}
 
-\begin{codeblock}
+\begin{itemdecl}
 void rcu_synchronize(rcu_domain& dom = rcu_default_domain()) noexcept;
-\end{codeblock}
+\end{itemdecl}
 
 \pnum
 \defn{Effects}: If the call to \tcode{rcu_synchronize} does not strongly
@@ -258,9 +258,9 @@ happens before the return from \tcode{rcu_synchronize}.
 
 \rSec2[SafeRecl.rcu.barrier]{\tcode{rcu_barrier}}
 
-\begin{codeblock}
+\begin{itemdecl}
 void rcu_barrier(rcu_domain& dom = rcu_default_domain()) noexcept;
-\end{codeblock}
+\end{itemdecl}
 
 \pnum
 \defn{Effects}: May evaluate any scheduled evaluations in
@@ -274,10 +274,10 @@ happens before the return from \tcode{rcu_barrier}.
 
 \rSec2[SafeRecl.rcu.retire]{Template \tcode{rcu_retire}}
 
-\begin{codeblock}
+\begin{itemdecl}
 template<class T, class D = default_delete<T>>
 void rcu_retire(T* p, D d = D(), rcu_domain& dom = rcu_default_domain());
-\end{codeblock}
+\end{itemdecl}
 
 \pnum
 \defn{Mandates}: \tcode{is_move_constructible_v<D>} is true.

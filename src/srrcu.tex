@@ -141,21 +141,21 @@ void retire(D d = D(), rcu_domain& dom = rcu_default_domain()) noexcept;
 \end{codeblock}
 
 \pnum
-Mandates: \tcode{T} is an rcu-protectable type.
+\defn{Mandates}: \tcode{T} is an rcu-protectable type.
 
 \pnum
-Preconditions: \tcode{*this} is a base class subobject of
+\defn{Preconditions}: \tcode{*this} is a base class subobject of
 an object \tcode{x} of type \tcode{T}. The member function
 \tcode{rcu_obj_base<T,D>::retire} was not invoked on \tcode{x}
 before. The assignment to \tcode{deleter} does not throw an
 exception. The expression \tcode{deleter(addressof(x))} has
 well-defined behavior and does not throw an exception.
 
-\pnum	Effects: Evaluates \tcode{deleter = std::move(d)} and schedules
+\pnum	\defn{Effects}: Evaluates \tcode{deleter = std::move(d)} and schedules
 the evaluation of the expression \tcode{deleter(addressof(x))}
 in the domain \tcode{dom}.
 
-\pnum	Remarks: It is implementation-defined whether or not scheduled
+\pnum	\defn{Remarks}: It is implementation-defined whether or not scheduled
 evaluations in \tcode{dom} can be invoked by the \tcode{retire}
 function.
 \begin{note}
@@ -194,10 +194,10 @@ void lock() noexcept;
 \end{codeblock}
 
 \pnum
-Effects: Opens a region of RCU protection.
+\defn{Effects}: Opens a region of RCU protection.
 
 \pnum
-Remarks: Calls to the function lock do not introduce a data race
+\defn{Remarks}: Calls to the function lock do not introduce a data race
 \tcode{[intro.races]} involving \tcode{*this}.
 
 \rSec3[SafeRecl.rcu.domain.unlock]{\tcode{rcu_domain::unlock}}
@@ -207,16 +207,16 @@ void unlock() noexcept;
 \end{codeblock}
 
 \pnum
-Preconditions: A call to the function \tcode{lock} that opened
+\defn{Preconditions}: A call to the function \tcode{lock} that opened
 an unclosed region of RCU protection is sequenced before the
 call to \tcode{unlock}.
 
 \pnum
-Effects: Closes the unclosed region of RCU protection that was
+\defn{Effects}: Closes the unclosed region of RCU protection that was
 most recently opened.
 
 \pnum
-Remarks:   It is implementation-defined whether or not scheduled
+\defn{Remarks}:   It is implementation-defined whether or not scheduled
 evaluations in \tcode{*this} can be invoked by the \tcode{unlock}
 function.
 \begin{note}
@@ -236,7 +236,7 @@ rcu_domain& rcu_default_domain() noexcept;
 \end{codeblock}
 
 \pnum
-Returns: A reference to the default object of type \tcode{rcu_domain}.
+\defn{Returns}: A reference to the default object of type \tcode{rcu_domain}.
 A reference to the same object is returned every time this
 function is called.
 
@@ -247,13 +247,13 @@ void rcu_synchronize(rcu_domain& dom = rcu_default_domain()) noexcept;
 \end{codeblock}
 
 \pnum
-Effects: If the call to \tcode{rcu_synchronize} does not strongly
+\defn{Effects}: If the call to \tcode{rcu_synchronize} does not strongly
 happen before the lock opening an RCU protection region \tcode{R}
 on \tcode{dom}, blocks until the \tcode{unlock} closing \tcode{R}
 happens.
 
 \pnum
-Synchronization: The \tcode{unlock} closing \tcode{R} strongly
+\defn{Synchronization}: The \tcode{unlock} closing \tcode{R} strongly
 happens before the return from \tcode{rcu_synchronize}.
 
 \rSec2[SafeRecl.rcu.barrier]{\tcode{rcu_barrier}}
@@ -263,13 +263,13 @@ void rcu_barrier(rcu_domain& dom = rcu_default_domain()) noexcept;
 \end{codeblock}
 
 \pnum
-Effects: May evaluate any scheduled evaluations in
+\defn{Effects}: May evaluate any scheduled evaluations in
 \tcode{dom}.  For any evaluation that happens before the call
 to \tcode{rcu_barrier} and that schedules an evaluation \tcode{E}
 in \tcode{dom}, blocks until \tcode{E} has been evaluated.  
 
 \pnum
-Synchronization: The evaluation of any such \tcode{E} strongly
+\defn{Synchronization}: The evaluation of any such \tcode{E} strongly
 happens before the return from \tcode{rcu_barrier}.
 
 \rSec2[SafeRecl.rcu.retire]{Template \tcode{rcu_retire}}
@@ -280,16 +280,16 @@ void rcu_retire(T* p, D d = D(), rcu_domain& dom = rcu_default_domain());
 \end{codeblock}
 
 \pnum
-Mandates: \tcode{is_move_constructible_v<D>} is true.
+\defn{Mandates}: \tcode{is_move_constructible_v<D>} is true.
 
 \pnum
-Preconditions: \tcode{D} meets the Cpp17MoveConstructible and
+\defn{Preconditions}: \tcode{D} meets the Cpp17MoveConstructible and
 Cpp17Destructible requirements.
 The expression \tcode{d1(p)}, where \tcode{d1} is defined below, is
 well-formed and its evaluation does not exit via an exception.
 
 \pnum
-Effects: May allocate memory.
+\defn{Effects}: May allocate memory.
 It is unspecified whether the memory allocation is performed by
 invoking \tcode{operator} \tcode{new}.
 Initializes an object \tcode{d1} of type \tcode{D} from
@@ -302,12 +302,12 @@ is scheduled.
 \end{note}
 
 \pnum
-Throws: Any exception that would be caught by a handler of type
+\defn{Throws}: Any exception that would be caught by a handler of type
 \tcode{bad_alloc}.
 Any exception thrown by the initialization of \tcode{d1}.
 
 \pnum
-Remarks: It is implementation-defined whether or not scheduled
+\defn{Remarks}: It is implementation-defined whether or not scheduled
 evaluations in dom can be invoked by the \tcode{rcu_retire}
 function.
 \begin{note}

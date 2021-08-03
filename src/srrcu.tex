@@ -140,6 +140,8 @@ If \tcode{D} is trivially copyable, all specializations of
 void retire(D d = D(), rcu_domain& dom = rcu_default_domain()) noexcept;
 \end{itemdecl}
 
+\begin{itemdescr}
+
 \pnum
 \defn{Mandates}: \tcode{T} is an rcu-protectable type.
 
@@ -162,6 +164,8 @@ function.
 If such evaluations acquire resources held across any invocation of
 retire on \tcode{dom}, deadlock can occur.
 \end{note}
+
+\end{itemdescr}
 
 \rSec2[SafeRecl.rcu.domain]{Class \tcode{rcu_domain}}
 
@@ -193,6 +197,8 @@ regions of RCU protection.
 void lock() noexcept;
 \end{itemdecl}
 
+\begin{itemdescr}
+
 \pnum
 \defn{Effects}: Opens a region of RCU protection.
 
@@ -200,11 +206,15 @@ void lock() noexcept;
 \defn{Remarks}: Calls to the function lock do not introduce a data race
 \tcode{[intro.races]} involving \tcode{*this}.
 
+\end{itemdescr}
+
 \rSec3[SafeRecl.rcu.domain.unlock]{\tcode{rcu_domain::unlock}}
 
 \begin{itemdecl}
 void unlock() noexcept;
 \end{itemdecl}
+
+\begin{itemdescr}
 
 \pnum
 \defn{Preconditions}: A call to the function \tcode{lock} that opened
@@ -229,11 +239,15 @@ Calls to the function \tcode{unlock} do not introduce a data race
 Evaluation of scheduled evaluations can still cause a data race.
 \end{note}
 
+\end{itemdescr}
+
 \rSec2[SafeRecl.rcu.default.domain]{\tcode{rcu_default_domain}}
 
 \begin{itemdecl}
 rcu_domain& rcu_default_domain() noexcept;
 \end{itemdecl}
+
+\begin{itemdescr}
 
 \pnum
 \defn{Returns}: A reference to the default object of type \tcode{rcu_domain}.
@@ -256,11 +270,15 @@ happens.
 \defn{Synchronization}: The \tcode{unlock} closing \tcode{R} strongly
 happens before the return from \tcode{rcu_synchronize}.
 
+\end{itemdescr}
+
 \rSec2[SafeRecl.rcu.barrier]{\tcode{rcu_barrier}}
 
 \begin{itemdecl}
 void rcu_barrier(rcu_domain& dom = rcu_default_domain()) noexcept;
 \end{itemdecl}
+
+\begin{itemdescr}
 
 \pnum
 \defn{Effects}: May evaluate any scheduled evaluations in
@@ -272,12 +290,16 @@ in \tcode{dom}, blocks until \tcode{E} has been evaluated.  
 \defn{Synchronization}: The evaluation of any such \tcode{E} strongly
 happens before the return from \tcode{rcu_barrier}.
 
+\end{itemdescr}
+
 \rSec2[SafeRecl.rcu.retire]{Template \tcode{rcu_retire}}
 
 \begin{itemdecl}
 template<class T, class D = default_delete<T>>
 void rcu_retire(T* p, D d = D(), rcu_domain& dom = rcu_default_domain());
 \end{itemdecl}
+
+\begin{itemdescr}
 
 \pnum
 \defn{Mandates}: \tcode{is_move_constructible_v<D>} is true.
@@ -314,3 +336,5 @@ function.
 If such evaluations acquire resources held across any invocation
 of \tcode{rcu_retire} on \tcode{dom}, deadlock can occur.
 \end{note}
+
+\end{itemdescr}

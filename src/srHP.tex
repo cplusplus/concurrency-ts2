@@ -1,8 +1,8 @@
 %!TEX root = ts.tex
 
-\rSec1[SafeRecl.HP]{Hazard pointers}
+\rSec1[saferecl.hp]{Hazard pointers}
 
-\rSec2[SafeRecl.HP.general]{General}
+\rSec2[saferecl.hp.general]{General}
 
 \ednote{This section was mistakenly unlabeled in P1121R3.}
 
@@ -78,38 +78,38 @@ void update_name(Name* new_name) {
 \end{codeblock}
 \end{example}
 
-\rSec2[SafeRecl.HP.syn]{Header \tcode{<hazard_pointer>} synopsis}
+\rSec2[saferecl.hp.syn]{Header \tcode{<hazard_pointer>} synopsis}
 
 \begin{codeblock}
 namespace std::experimental::inline concurrency_v2 {
-  // \ref{SafeRecl.HP.domain}, class hazard_pointer_domain
+  // \ref{saferecl.hp.domain}, class hazard_pointer_domain
   class hazard_pointer_domain;
 
-  // \ref{SafeRecl.HP.domain.default}, Default hazard_pointer_domain
+  // \ref{saferecl.hp.domain.default}, Default hazard_pointer_domain
   hazard_pointer_domain& hazard_pointer_default_domain() noexcept;
 
-  // \ref{SafeRecl.HP.cleanup}, Clean up
+  // \ref{saferecl.hp.cleanup}, Clean up
   void hazard_pointer_clean_up(hazard_pointer_domain& domain = hazard_pointer_default_domain())
     noexcept;
 
-  // \ref{SafeRecl.HP.base}, class template hazard_pointer_obj_base
+  // \ref{saferecl.hp.base}, class template hazard_pointer_obj_base
   template <typename T, typename D = default_delete<T>> class hazard_pointer_obj_base;
 
-  // \ref{SafeRecl.HP.holder}, class hazard_pointer
+  // \ref{saferecl.hp.holder}, class hazard_pointer
   class hazard_pointer;
 
-  // \ref{SafeRecl.HP.make}, Construct non-empty hazard_pointer
+  // \ref{saferecl.hp.make}, Construct non-empty hazard_pointer
   hazard_pointer make_hazard_pointer(
     hazard_pointer_domain& domain = hazard_pointer_default_domain());
 
-  // \ref{SafeRecl.HP.special}, Hazard pointer swap
+  // \ref{saferecl.hp.special}, Hazard pointer swap
   void swap(hazard_pointer&, hazard_pointer&) noexcept;
 }
 \end{codeblock}
 
-\rSec2[SafeRecl.HP.domain]{Class \tcode{hazard_pointer_domain}}
+\rSec2[saferecl.hp.domain]{Class \tcode{hazard_pointer_domain}}
 
-\rSec3[SafeRecl.HP.domain.general]{General}
+\rSec3[saferecl.hp.domain.general]{General}
 
 \pnum
 The number of unreclaimed possibly-reclaimable objects retired to a domain is bounded.
@@ -134,7 +134,7 @@ public:
 };
 \end{codeblock}
 
-\rSec3[SafeRecl.HP.domain.mem]{Member functions}
+\rSec3[saferecl.hp.domain.mem]{Member functions}
 
 \begin{itemdecl}
 hazard_pointer_domain() noexcept;
@@ -176,7 +176,7 @@ Reclaims all objects retired to this domain that have not yet been reclaimed.
 
 \end{itemdescr}
 
-\rSec2[SafeRecl.HP.domain.default]{Default \tcode{hazard_pointer_domain}}
+\rSec2[saferecl.hp.domain.default]{Default \tcode{hazard_pointer_domain}}
 
 \begin{itemdecl}
 hazard_pointer_domain\& hazard_pointer_default_domain() noexcept;
@@ -194,7 +194,7 @@ returns; the sequencing is otherwise unspecified.
 
 \end{itemdescr}
 
-\rSec2[SafeRecl.HP.cleanup]{Clean up}
+\rSec2[saferecl.hp.cleanup]{Clean up}
 
 \begin{itemdecl}
 void hazard_pointer_clean_up(hazard_pointer_domain& domain = hazard_pointer_default_domain())
@@ -217,7 +217,7 @@ The completion of the deleter for each reclaimed object synchronizes with the re
 
 \end{itemdescr}
 
-\rSec2[SafeRecl.HP.base]{Class template \tcode{hazard_pointer_obj_base}}
+\rSec2[saferecl.hp.base]{Class template \tcode{hazard_pointer_obj_base}}
 
 \begin{codeblock}
 template <typename T, typename D = default_delete<T>>
@@ -283,9 +283,9 @@ void retire(hazard_pointer_domain& domain) noexcept;
 
 \end{itemdescr}
 
-\rSec2[SafeRecl.HP.holder]{Class \tcode{hazard_pointer}}
+\rSec2[saferecl.hp.holder]{Class \tcode{hazard_pointer}}
 
-\rSec3[SafeRecl.HP.holder.syn]{Synopsis}
+\rSec3[saferecl.hp.holder.syn]{Synopsis}
 
 Editor's note: This section was mistakenly unlabeled in P1121R3.
 
@@ -306,7 +306,7 @@ public:
 };
 \end{codeblock}
 
-\rSec3[SafeRecl.HP.holder.ctor]{Constructors}
+\rSec3[saferecl.hp.holder.ctor]{Constructors}
 
 \begin{itemdecl}
 hazard_pointer() noexcept;
@@ -332,7 +332,7 @@ If \tcode{other} is empty, \tcode{*this} is empty. Otherwise, \tcode{*this} owns
 
 \end{itemdescr}
 
-\rSec3[SafeRecl.HP.holder.dtor]{Destructor}
+\rSec3[saferecl.hp.holder.dtor]{Destructor}
 
 \begin{itemdecl}
 ~hazard_pointer();
@@ -346,7 +346,7 @@ If \tcode{*this} is not empty, destroys the hazard pointer owned by \tcode{*this
 
 \end{itemdescr}
 
-\rSec3[SafeRecl.HP.holder.assign]{Assignment}
+\rSec3[saferecl.hp.holder.assign]{Assignment}
 
 \begin{itemdecl}
 hazard_pointer& operator=(hazard_pointer&& other) noexcept;
@@ -370,7 +370,7 @@ pointer originally owned by other. If \tcode{this != \&other} is true, \tcode{ot
 
 \end{itemdescr}
 
-\rSec3[SafeRecl.HP.holder.mem]{Member functions}
+\rSec3[saferecl.hp.holder.mem]{Member functions}
 
 \begin{itemdecl}
 [[nodiscard]] bool empty() const noexcept;
@@ -485,7 +485,7 @@ Constant.
 
 \end{itemdescr}
 
-\rSec2[SafeRecl.HP.make]{\tcode{make_hazard_pointer}}
+\rSec2[saferecl.hp.make]{\tcode{make_hazard_pointer}}
 
 \begin{itemdecl}
 hazard_pointer make_hazard_pointer(
@@ -507,7 +507,7 @@ A \tcode{hazard_pointer} object that owns the newly-constructed hazard pointer.
 
 \end{itemdescr}
 
-\rSec2[SafeRecl.HP.special]{\tcode{hazard_pointer} specialized algorithms}
+\rSec2[saferecl.hp.special]{\tcode{hazard_pointer} specialized algorithms}
 
 \begin{itemdecl}
 void swap(hazard_pointer& a, hazard_pointer& b) noexcept;

@@ -203,7 +203,7 @@ void lock() noexcept;
 
 \pnum
 \defn{Remarks}: Calls to the function lock do not introduce a data race
-\tcode{[intro.races]} involving \tcode{*this}.
+(C++20 16.4.6.10) involving \tcode{*this}.
 
 \end{itemdescr}
 
@@ -233,7 +233,7 @@ If such evaluations acquire resources held across any invocation
 of \tcode{unlock} on \tcode{*this}, deadlock can occur.
 \end{note}
 Calls to the function \tcode{unlock} do not introduce a data race
-(16.4.6.10) involving \tcode{*this}.
+involving \tcode{*this}.
 \begin{note}
 Evaluation of scheduled evaluations can still cause a data race.
 \end{note}

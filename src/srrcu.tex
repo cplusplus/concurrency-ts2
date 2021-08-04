@@ -1,8 +1,8 @@
 %!TEX root = ts.tex
 
-\rSec1[SafeRecl.rcu]{Read-copy update (RCU)}
+\rSec1[saferecl.rcu]{Read-copy update (RCU)}
 
-\rSec2[SafeRecl.rcu.general]{RCU general}
+\rSec2[saferecl.rcu.general]{RCU general}
 
 \pnum
 RCU is a synchronization mechanism that can be used for linked data
@@ -58,7 +58,7 @@ The evaluation of a scheduled evaluation is potentially concurrent with
 any other such evaluation. Each scheduled evaluation is evaluated at
 most once.
 
-\rSec2[SafeRecl.rcu.syn]{RCU header \tcode{<rcu>} synopsis}
+\rSec2[saferecl.rcu.syn]{RCU header \tcode{<rcu>} synopsis}
 
 Editor's note: This section was mistakenly unnumbered in P1122R4.
 
@@ -91,7 +91,7 @@ namespace std::experimental::inline concurrency_v2 {
 }
 \end{codeblock}
 
-\rSec2[SafeRecl.rcu.base]{Class \tcode{rcu_obj_base}}
+\rSec2[saferecl.rcu.base]{Class \tcode{rcu_obj_base}}
 
 % @@@ Added missing "of" in following sentence.
 
@@ -167,7 +167,7 @@ retire on \tcode{dom}, deadlock can occur.
 
 \end{itemdescr}
 
-\rSec2[SafeRecl.rcu.domain]{Class \tcode{rcu_domain}}
+\rSec2[saferecl.rcu.domain]{Class \tcode{rcu_domain}}
 
 % @@@ Removed the obsolete reference comments.
 
@@ -191,7 +191,7 @@ public:
 The functions \tcode{lock} and \tcode{unlock} establish (possibly nested)
 regions of RCU protection.
 
-\rSec3[SafeRecl.rcu.domain.lock]{\tcode{rcu_domain::lock}}
+\rSec3[saferecl.rcu.domain.lock]{\tcode{rcu_domain::lock}}
 
 \begin{itemdecl}
 void lock() noexcept;
@@ -208,7 +208,7 @@ void lock() noexcept;
 
 \end{itemdescr}
 
-\rSec3[SafeRecl.rcu.domain.unlock]{\tcode{rcu_domain::unlock}}
+\rSec3[saferecl.rcu.domain.unlock]{\tcode{rcu_domain::unlock}}
 
 \begin{itemdecl}
 void unlock() noexcept;
@@ -241,7 +241,7 @@ Evaluation of scheduled evaluations can still cause a data race.
 
 \end{itemdescr}
 
-\rSec2[SafeRecl.rcu.default.domain]{\tcode{rcu_default_domain}}
+\rSec2[saferecl.rcu.default.domain]{\tcode{rcu_default_domain}}
 
 \begin{itemdecl}
 rcu_domain& rcu_default_domain() noexcept;
@@ -256,7 +256,7 @@ function is called.
 
 \end{itemdescr}
 
-\rSec2[SafeRecl.rcu.synchronize]{\tcode{rcu_synchronize}}
+\rSec2[saferecl.rcu.synchronize]{\tcode{rcu_synchronize}}
 
 \begin{itemdecl}
 void rcu_synchronize(rcu_domain& dom = rcu_default_domain()) noexcept;
@@ -276,7 +276,7 @@ happens before the return from \tcode{rcu_synchronize}.
 
 \end{itemdescr}
 
-\rSec2[SafeRecl.rcu.barrier]{\tcode{rcu_barrier}}
+\rSec2[saferecl.rcu.barrier]{\tcode{rcu_barrier}}
 
 \begin{itemdecl}
 void rcu_barrier(rcu_domain& dom = rcu_default_domain()) noexcept;
@@ -296,7 +296,7 @@ happens before the return from \tcode{rcu_barrier}.
 
 \end{itemdescr}
 
-\rSec2[SafeRecl.rcu.retire]{Template \tcode{rcu_retire}}
+\rSec2[saferecl.rcu.retire]{Template \tcode{rcu_retire}}
 
 \begin{itemdecl}
 template<class T, class D = default_delete<T>>

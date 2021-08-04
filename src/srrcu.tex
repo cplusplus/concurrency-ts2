@@ -69,23 +69,23 @@ Editor's note: This section was mistakenly unnumbered in P1122R4.
 % @@@ Added missing "," after a number of the references in this code block.
 \begin{codeblock}
 namespace std::experimental::inline concurrency_v2 {
-  // \ref{SafeRecl.rcu.base}, class template rcu_obj_base
+  // \ref{saferecl.rcu.base}, class template rcu_obj_base
   template<class T, class D = default_delete<T>>
     class rcu_obj_base;
 
-  // \ref{SafeRecl.rcu.domain}, class rcu_domain
+  // \ref{saferecl.rcu.domain}, class rcu_domain
   class rcu_domain;
 
-  // \ref{SafeRecl.rcu.default.domain}, rcu_default_domain
+  // \ref{saferecl.rcu.default.domain}, rcu_default_domain
   rcu_domain& rcu_default_domain() noexcept;
 
-  // \ref{SafeRecl.rcu.synchronize}, rcu_synchronize
+  // \ref{saferecl.rcu.synchronize}, rcu_synchronize
   void rcu_synchronize(rcu_domain& dom = rcu_default_domain()) noexcept;
 
-  // \ref{SafeRecl.rcu.barrier}, rcu_barrier
+  // \ref{saferecl.rcu.barrier}, rcu_barrier
   void rcu_barrier(rcu_domain& dom = rcu_default_domain()) noexcept;
 
-  // \ref{SafeRecl.rcu.retire}, rcu_retire
+  // \ref{saferecl.rcu.retire}, rcu_retire
   template<class T, class D = default_delete<T>>
     void rcu_retire(T* p, D d = D(), rcu_domain& dom = rcu_default_domain());
 }

@@ -154,8 +154,8 @@ exception. The expression \tcode{deleter(addressof(x))} has
 well-defined behavior and does not throw an exception.
 
 \pnum	\defn{Effects}: Evaluates \tcode{deleter = std::move(d)} and schedules
-the evaluation of the expression \tcode{deleter(addressof(x))}
-in the domain \tcode{dom}.
+the evaluation of the expression \\ % Pathological line break.
+\tcode{deleter(addressof(x))} in the domain \tcode{dom}.
 
 \pnum	\defn{Remarks}: It is implementation-defined whether or not scheduled
 evaluations in \tcode{dom} can be invoked by the \tcode{retire}

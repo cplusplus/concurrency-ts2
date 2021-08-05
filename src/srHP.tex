@@ -20,39 +20,39 @@ A hazard pointer \defn{belongs to} exactly one \defn{domain}.
 An object of type \tcode{hazard_pointer} is either empty or \defn{owns} a hazard pointer. Each hazard pointer is owned by exactly one object of type \tcode{hazard_pointer}. \begin{note} An empty \tcode{hazard_pointer} object is different from a \tcode{hazard_pointer} object that owns an unassociated hazard pointer. An empty \tcode{hazard_pointer} object does not own any hazard pointers. \end{note}
 
 \pnum
-An object x of hazard-protectable type T is \defn{retired} to a domain with a deleter of type \tcode{D} when the member function \tcode{hazard_pointer_obj_base<T,D>::retire} is invoked on x. Any given object x shall be retired at most once.
+An object \tcode{x} of hazard-protectable type \tcode{T} is \defn{retired} to a domain with a deleter of type \tcode{D} when the member function \tcode{hazard_pointer_obj_base<T,D>::retire} is invoked on \tcode{x}. Any given object \tcode{x} shall be retired at most once.
 
 \pnum
-A retired object x is \defn{reclaimed} by invoking its deleter with a pointer to x.
+A retired object \tcode{x} is \defn{reclaimed} by invoking its deleter with a pointer to \tcode{x}.
 
 \pnum
-A hazard-protectable object x is \defn{definitely reclaimable} in a domain $dom$ with respect to
+A hazard-protectable object \tcode{x} is \defn{definitely reclaimable} in a domain $dom$ with respect to
 an evaluation $A$ if:
 
 \begin{itemize}
-\item x is not reclaimed, and
-\item x is retired to $dom$ in an evaluation that happens before $A$, and
-\item for all hazard pointers $h$ that belong to $dom$, the end of any protection epoch where $h$ is associated with x happens before $A$.
+\item \tcode{x} is not reclaimed, and
+\item \tcode{x} is retired to $dom$ in an evaluation that happens before $A$, and
+\item for all hazard pointers $h$ that belong to $dom$, the end of any protection epoch where $h$ is associated with \tcode{x} happens before $A$.
 \end{itemize}
 
 \pnum
-A hazard-protectable object x is \defn{possibly reclaimable} in domain $dom$ with respect to an
+A hazard-protectable object \tcode{x} is \defn{possibly reclaimable} in domain $dom$ with respect to an
 evaluation $A$ if:
 \begin{itemize}
-\item x is not reclaimed; and
-\item x is retired to $dom$ in an evaluation $R$ and $A$ does not happen before $R$; and
+\item \tcode{x} is not reclaimed; and
+\item \tcode{x} is retired to $dom$ in an evaluation $R$ and $A$ does not happen before $R$; and
 \item for all hazard pointers $h$ that belong to $dom$, $A$ does not happen before the end of
-any protection epoch where $h$ is associated with x; and
+any protection epoch where $h$ is associated with \tcode{x}; and
 \item for all hazard pointers $h$ belonging to $dom$ and for every protection epoch $E$ of $h$
-during which $h$ is associated with x:
+during which $h$ is associated with \tcode{x}:
 \begin{itemize}
   \item $A$ does not happen before the end of $E$, and
-  \item if the beginning of $E$ happens before x is retired, the end of $E$ strongly
+  \item if the beginning of $E$ happens before \tcode{x} is retired, the end of $E$ strongly
 happens before $A$, and
   \item if $E$ began by an evaluation of \tcode{try_protect} with argument \tcode{src}, label its
-atomic load operation $L$. If there exists an atomic modification $B$ on \tcode{src} such that $L$ observes a modification that is modification-ordered before $B$, and $B$ happens before x is retired, the end of $E$ strongly happens before $A$. \begin{note} In typical use, a store to \tcode{src} sequenced before retiring x will be such an atomic operation $B$. \end{note}
+atomic load operation $L$. If there exists an atomic modification $B$ on \tcode{src} such that $L$ observes a modification that is modification-ordered before $B$, and $B$ happens before \tcode{x} is retired, the end of $E$ strongly happens before $A$. \begin{note} In typical use, a store to \tcode{src} sequenced before retiring \tcode{x} will be such an atomic operation $B$. \end{note}
 \end{itemize}
-\begin{note} The latter two conditions convey the informal notion that a protection epoch that began before retiring x, as implied either by the happens-before relation or the coherence order of some source, delays the reclamation of x. \end{note}
+\begin{note} The latter two conditions convey the informal notion that a protection epoch that began before retiring \tcode{x}, as implied either by the happens-before relation or the coherence order of some source, delays the reclamation of \tcode{x}. \end{note}
 \end{itemize}
 
 \begin{example} The following example shows how hazard pointers allow updates to be carried out in the presence of concurrent readers. The object of type \tcode{hazard_pointer} in \tcode{print_name} protects the object \tcode{*ptr} from being reclaimed by \tcode{ptr->retire} until the end of the protection epoch.
@@ -166,7 +166,8 @@ domain use a copy of \tcode{poly_alloc}.
 \begin{itemdescr}
 
 \pnum
-\defn{Preconditions}: All hazard pointers belonging to \tcode{*this} have been destroyed.
+\expects
+All hazard pointers belonging to \tcode{*this} have been destroyed.
 
 \pnum
 \effects
@@ -183,10 +184,12 @@ hazard_pointer_domain\& hazard_pointer_default_domain() noexcept;
 \begin{itemdescr}
 
 \pnum
-\returns A reference to the default \tcode{hazard_pointer_domain}.
+\returns 
+A reference to the default \tcode{hazard_pointer_domain}.
 
 \pnum
-\remarks The default domain has an unspecified allocator and has static storage
+\remarks 
+The default domain has an unspecified allocator and has static storage
 duration. The initialization of the default domain strongly happens before this function
 returns; the sequencing is otherwise unspecified.
 
@@ -243,7 +246,7 @@ The behavior of a program that adds specializations for \tcode{hazard_pointer_ob
 \tcode{D} shall meet the requirements for Cpp17DefaultConstructible and Cpp17MoveAssignable.
 
 \pnum
-T may be an incomplete type.
+\tcode{T} may be an incomplete type.
 
 \begin{itemdecl}
 void retire(D d = D(), hazard_pointer_domain& domain = hazard_pointer_default_domain()) noexcept;
@@ -252,11 +255,11 @@ void retire(D d = D(), hazard_pointer_domain& domain = hazard_pointer_default_do
 \begin{itemdescr}
 
 \pnum
-\defn{Mandates}: 
-T is a hazard-protectable type.
+\mandates
+\tcode{T} is a hazard-protectable type.
 
 \pnum
-\defn{Preconditions}: 
+\expects
 \tcode{*this} is a base class subobject of an object x of type T. x is not retired.
 Move-assigning \tcode{D} from \tcode{d} does not throw an exception. The expression \tcode{d(addressof(x))} has well-defined behavior and does not throw an exception.
 
@@ -277,7 +280,8 @@ void retire(hazard_pointer_domain& domain) noexcept;
 \begin{itemdescr}
 
 \pnum
-\effects Equivalent to \tcode{retire(D(), domain)}.
+\effects 
+Equivalent to \tcode{retire(D(), domain)}.
 
 \end{itemdescr}
 
@@ -405,11 +409,11 @@ template <typename T> bool try_protect(T*& ptr, const atomic<T*>& src) noexcept;
 \begin{itemdescr}
 
 \pnum
-\defn{Mandates}: 
-T is a hazard-protectable type.
+\mandates
+\tcode{T} is a hazard-protectable type.
 
 \pnum
-\defn{Preconditions}: 
+\expects
 \tcode{*this} is not empty.
 
 \pnum
@@ -438,8 +442,8 @@ template <typename T> void reset_protection(const T* ptr) noexcept;
 \begin{itemdescr}
 
 \pnum
-\defn{Mandates}: 
-T is a hazard-protectable type.
+\mandates
+\tcode{T} is a hazard-protectable type.
 
 \pnum
 \defn{Preconditions}: 
@@ -458,7 +462,8 @@ void reset_protection(nullptr_t = nullptr) noexcept;
 \begin{itemdescr}
 
 \pnum
-\defn{Preconditions}: \tcode{*this} is not empty.
+\expects
+\tcode{*this} is not empty.
 
 \pnum
 \ensures
@@ -500,7 +505,8 @@ Constructs a hazard pointer belonging to \tcode{domain}.
 A \tcode{hazard_pointer} object that owns the newly-constructed hazard pointer.
 
 \pnum
-\throws Any exception thrown by the allocator of \tcode{domain}.
+\throws 
+Any exception thrown by the allocator of \tcode{domain}.
 
 \end{itemdescr}
 

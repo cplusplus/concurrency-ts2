@@ -117,7 +117,7 @@ domain, the number of threads that retire objects to the domain, and the number 
 threads that use hazard pointers belonging to the domain. \end{note}
 
 \pnum
-Concurrent access to a domain does not incur a data race ([intro.races)].
+Concurrent access to a domain does not incur a data race (\tcode{[intro.races]}).
 
 \begin{codeblock}
 class hazard_pointer_domain {
@@ -260,16 +260,16 @@ void retire(D d = D(), hazard_pointer_domain& domain = hazard_pointer_default_do
 
 \pnum
 \expects
-\tcode{*this} is a base class subobject of an object x of type T. x is not retired.
+\tcode{*this} is a base class subobject of an object \tcode{x} of type \tcode{T}. \tcode{x} is not retired.
 Move-assigning \tcode{D} from \tcode{d} does not throw an exception. The expression \tcode{d(addressof(x))} has well-defined behavior and does not throw an exception.
 
 \pnum
 \effects 
-Move-assigns \tcode{d} to \tcode{deleter}, thereby setting it as the deleter of x, then retires x
-to domain.
+Move-assigns \tcode{d} to \tcode{deleter}, thereby setting it as the deleter of \tcode{x}, then retires \tcode{x}
+to \tcode{domain}.
 
 \pnum
-Invoking the retire function may reclaim possibly-reclaimable objects retired to domain.
+Invoking the retire function may reclaim possibly-reclaimable objects retired to \tcode{domain}.
 
 \end{itemdescr}
 

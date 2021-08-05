@@ -1,7 +1,7 @@
+%!TEX root = ts.tex
 
-\rSec0[intro]{General}
+\rSec0[scope]{Scope}
 
-\rSec1[general.scope]{Scope}
 \pnum
 This document describes requirements for implementations of an interface that computer programs written in the C++ programming language may use to invoke algorithms with concurrent execution. The algorithms described by this document are realizable across a broad class of computer architectures.
 
@@ -16,7 +16,7 @@ This document is non-normative. Some of the functionality described by this docu
 \pnum
 The goal of this document is to build widespread existing practice for concurrency in the C++ standard algorithms library. It gives advice on extensions to those vendors who wish to provide them.
 
-\rSec1[general.refs]{Normative References}
+\rSec0[refs]{Normative references}
 
 \pnum
 The following referenced document is indispensable for the application of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.
@@ -32,7 +32,7 @@ ISO/IEC 14882:2020 is herein called the C++ Standard. References to clauses with
 Unless otherwise specified, the whole of the C++ Standard's Library introduction (C++20 §16) is included into this Technical Specification by reference.
 
 
-\rSec1[general.def]{Terms and definitions}
+\rSec0[defs]{Terms and definitions}
 \pnum
 \indextext{definitions|(}%
 No terms and definitions are listed in this document. ISO and IEC maintain
@@ -43,13 +43,14 @@ terminological databases for use in standardization at the following addresses:
     \item ISO Online browsing platform: available at https://www.iso.org/obp
 \end{itemize}
 
+\rSec0[general]{General}
+
 \rSec1[general.compliance]{Implementation compliance}
 \pnum
 Conformance requirements for this document are those defined in {\cppstddocno}, \ref{general.compliance}. Similarly, all references to {\cppstddocno} in the resulting document shall be taken as referring to the resulting document itself.
 \begin{note}
 Conformance is defined in terms of the behavior of programs.
 \end{note}
-
 
 \rSec1[general.namespaces]{Namespaces and headers and modifications to standard classes}
 \pnum

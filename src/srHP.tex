@@ -206,7 +206,7 @@ void hazard_pointer_clean_up(hazard_pointer_domain& domain = hazard_pointer_defa
 May reclaim possibly-reclaimable objects retired to \tcode{domain}.
 
 \pnum
-\postconditions 
+\ensures 
 All definitely-reclaimable objects retired to \tcode{domain} have been reclaimed.
 
 \pnum
@@ -311,7 +311,7 @@ hazard_pointer() noexcept;
 \begin{itemdescr}
 
 \pnum
-\postconditions 
+\ensures 
 \tcode{*this} is empty.
 
 \end{itemdescr}
@@ -323,7 +323,7 @@ hazard_pointer(hazard_pointer&& other) noexcept;
 \begin{itemdescr}
 
 \pnum
-\postconditions 
+\ensures 
 If \tcode{other} is empty, \tcode{*this} is empty. Otherwise, \tcode{*this} owns the hazard pointer originally owned by \tcode{other}; \tcode{other} is empty.
 
 \end{itemdescr}
@@ -356,7 +356,7 @@ If \tcode{this == \&other} is true, no effect. Otherwise, if \tcode{*this} is no
 the hazard pointer owned by \tcode{*this}, thereby ending its current protection epoch.
 
 \pnum
-\postconditions 
+\ensures 
 If \tcode{other} was empty, \tcode{*this} is empty. Otherwise, \tcode{*this} owns the hazard
 pointer originally owned by other. If \tcode{this != \&other} is true, \tcode{other} is empty.
 
@@ -461,7 +461,8 @@ void reset_protection(nullptr_t = nullptr) noexcept;
 \defn{Preconditions}: \tcode{*this} is not empty.
 
 \pnum
-\postconditions The hazard pointer owned by \tcode{*this} is unassociated.
+\ensures
+The hazard pointer owned by \tcode{*this} is unassociated.
 
 \end{itemdescr}
 

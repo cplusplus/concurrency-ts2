@@ -1,13 +1,11 @@
-%!TEX root = ts.tex
+%!TEX root = std.tex
 %% layout.tex -- set overall page appearance
 
 %%--------------------------------------------------
 %%  set page size, type block size, type block position
 
-\setstocksize{11in}{8.5in}
-\settrimmedsize{11in}{8.5in}{*}
-\setlrmarginsandblock{1in}{1in}{*}
-\setulmarginsandblock{1in}{*}{1.618}
+\setlrmarginsandblock{2.245cm}{2.245cm}{*}
+\setulmarginsandblock{2.5cm}{2.5cm}{*}
 
 %%--------------------------------------------------
 %%  set header and footer positions and sizes
@@ -21,16 +19,31 @@
 \checkandfixthelayout
 
 %%--------------------------------------------------
+%% If there is insufficient stretchable vertical space on a page,
+%% TeX will not properly consider penalties for a good page break,
+%% even if \raggedbottom (default) is in effect.
+\addtolength{\topskip}{0pt plus 20pt}
+
+%%--------------------------------------------------
+%% Place footnotes at the bottom of the page, rather
+%% than immediately following the main text.
+\feetatbottom
+
+%%--------------------------------------------------
 %% Paragraph and bullet numbering
 
-\newcounter{Paras}
-\counterwithin{Paras}{chapter}
-\counterwithin{Paras}{section}
-\counterwithin{Paras}{subsection}
-\counterwithin{Paras}{subsubsection}
-\counterwithin{Paras}{paragraph}
-\counterwithin{Paras}{subparagraph}
+% create a new counter that resets for each new subclause
+\newcommand{\newsubclausecounter}[1]{
+\newcounter{#1}
+\counterwithin{#1}{chapter}
+\counterwithin{#1}{section}
+\counterwithin{#1}{subsection}
+\counterwithin{#1}{subsubsection}
+\counterwithin{#1}{paragraph}
+\counterwithin{#1}{subparagraph}
+}
 
+\newsubclausecounter{Paras}
 \newcounter{Bullets1}[Paras]
 \newcounter{Bullets2}[Bullets1]
 \newcounter{Bullets3}[Bullets2]
@@ -56,54 +69,13 @@
 }}}
 \makeatother
 
-\def\pnum{\parabullnum{Paras}{0pt}}
+% Register our intent to number the next paragraph. Don't actually number it
+% yet, because we might have a paragraph break before we see its contents (for
+% example, if the paragraph begins with a note or example).
+\def\pnum{%
+\global\def\maybeaddpnum{\global\def\maybeaddpnum{}\parabullnum{Paras}{0pt}}%
+\everypar=\expandafter{\the\everypar\maybeaddpnum}%
+}
 
 % Leave more room for section numbers in TOC
 \cftsetindents{section}{1.5em}{3.0em}
-
-% For compatibility only.  We no longer need this environment.
-\newenvironment{paras}{}{}
-
-
-%% This is used to number paragraphs in ISO C++ standard text, e.g.
-%%  3 blah blah ...
-%%    blah .... ...
-\newcounter{alinea}[section]
-\renewcommand{\thealinea}{\arabic{alinea}}
-\newcommand{\alinea}{%
-  \ifhmode\par\fi\vskip.5em\noindent
-  \refstepcounter{alinea}%
-  \llap{\thealinea\hspace{2ex}}%
-}
-
-\newcommand{\resetalinea}[1][0]{%
-  \setcounter{alinea}{#1}%
-}
-
-
-\lstnewenvironment{grammar}
-  {\lstset{basicstyle=\rmfamily,columns=fullflexible,escapechar=@}}
-  {}
-
-
-%% This is used to typeset section headings of ISO C++ standard text, e.g.
-%%   x.y.x Foo bar                   [foo.bar]
-\newcounter{myclause}
-\newcounter{mysection}[myclause]
-\newcounter{mysubsection}[mysection]
-\makeatletter
-\renewcommand{\themysection}%
-   {\arabic{myclause}}
-\renewcommand{\themysection}%
-   {\themyclause.\arabic{mysection}}
-\renewcommand{\themysubsection}%
-   {\themyclause.\themysection.\arabic{mysubsection}}
-\newcommand{\mysection}[2]{\@startsection{mysection}{2}{\z@}%
-  {-3.25ex \@plus -1ex \@minus -.2ex}%
-  {1.ex \@plus.2ex}%
-  {\normalfont\bfseries}[#1]{#1 \hfill [#2]}}
-\makeatother
-
-\newenvironment{std.txt}%
-  {\begin{quote}\fontsize{9pt}{10pt}\fontfamily{pbk}\selectfont}%
-  {\end{quote}}

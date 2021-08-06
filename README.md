@@ -7,9 +7,9 @@ sources, or you can use the `latexmk` program e.g. `latexmk -pdf ts`
 will generate a PDF.
 
 Concurrency TS2 Editor's Report, pre-XXX meeting
-Nxxxx is the proposed working draft of COncurrency TS Version 2. It contains changes to the Concurrency  TS as directed by the committee at the XXX meeting, and editorial changes.
+N4895 is the proposed working draft of Concurrency TS Version 2. It contains changes to the Concurrency  TS as directed by the committee at the XXX meeting, and editorial changes.
 
-Nxxxx updates the previous draft, Nyyyy, published in the pre-XXX mailing.
+N4895 contains P1121R3 and P1122R4 from the June 2021 virtual plenary.
 
 Technical Changes
 

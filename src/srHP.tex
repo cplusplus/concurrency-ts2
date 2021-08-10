@@ -8,7 +8,7 @@
 A hazard pointer is a single-writer multi-reader pointer that can be owned by at most one thread at any time. Only the owner of the hazard pointer can set its value, while any number of threads may read its value. The owner thread sets the value of a hazard pointer to point to an object in order to indicate to concurrent threads\textemdash that may delete such an object\textemdash that the object is not yet safe to delete.
 
 \pnum
-A class type \tcode{T} is \defn{hazard-protectable} if it has exactly one public base class of type \linebreak \tcode{hazard_pointer_obj_base<T,D>} for some \tcode{D} and no base classes of type \tcode{hazard_pointer_obj_base<T’,D’>} for any other combination \tcode{T’}, \tcode{D’}. An object is \defn{hazard-protectable} if it is of hazard-protectable type.
+A class type \tcode{T} is \defn{hazard-protectable} if it has exactly one public base class of type \tcode{hazard_pointer_obj_base<T,D>} for some \tcode{D} and no base classes of type \tcode{hazard_pointer_obj_base<T’,D’>} for any other combination \tcode{T’}, \tcode{D’}. An object is \defn{hazard-protectable} if it is of hazard-protectable type.
 
 \pnum
 The span between creation and destruction of a hazard pointer $h$ is partitioned into a series of \defn{protection epochs}; in each protection epoch, $h$ either is \defn{associated with} a hazard-protectable object, or is \defn{unassociated}. Upon creation, a hazard pointer is unassociated. Changing the association (possibly to the same object) initiates a new protection epoch and ends the preceding one.

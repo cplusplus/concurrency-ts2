@@ -231,7 +231,7 @@ public:
 protected:
   hazard_pointer_obj_base() = default;
 private:
-  D deleter; // exposition only
+  D @\exposid{deleter}@; // exposition only
 };
 \end{codeblock}
 
@@ -265,7 +265,7 @@ Move-assigning \tcode{D} from \tcode{d} does not throw an exception. The express
 
 \pnum
 \effects 
-Move-assigns \tcode{d} to \tcode{deleter}, thereby setting it as the deleter of \tcode{x}, then retires \tcode{x}
+Move-assigns \tcode{d} to \exposid{deleter}, thereby setting it as the deleter of \tcode{x}, then retires \tcode{x}
 to \tcode{domain}.
 
 \pnum

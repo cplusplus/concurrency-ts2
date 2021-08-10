@@ -2,11 +2,11 @@
 
 \rSec1[saferecl.rcu]{Read-copy update (RCU)}
 
-\rSec2[saferecl.rcu.general]{RCU general}
+\rSec2[saferecl.rcu.general]{General}
 
 \pnum
 RCU is a synchronization mechanism that can be used for linked data
-structures that are frequently read, but seldom updated.  RCU does
+structures that are frequently read, but seldom updated. RCU does
 not provide mutual exclusion, but instead allows the user to schedule
 specified actions such as deletion at some later time.
 
@@ -18,40 +18,34 @@ combination \tcode{X}, \tcode{Y}. An object is rcu-protectable if it is
 of rcu-protectable type.
 
 \pnum
-An invocation of \tcode{unlock U} on an \tcode{rcu_domain dom} corresponds
-to an invocation of \tcode{lock L} on \tcode{dom} if \tcode{L} is
-sequenced before \tcode{U} and either
+An invocation of \tcode{unlock} $U$ on an \tcode{rcu_domain dom} corresponds
+to an invocation of \tcode{lock} $L$ on \tcode{dom} if $L$ is
+sequenced before $U$ and either
 
 \begin{itemize}
 \item	no other invocation of \tcode{lock} on \tcode{dom} is sequenced
-	after \tcode{L} and before \tcode{U} or
-\item	every invocation of \tcode{unlock U'} on \tcode{dom} such
-	that \tcode{L} is sequenced before \tcode{U'} and \tcode{U'}
-	is sequenced before \tcode{U} corresponds to an invocation of
-	\tcode{lock L'} on \tcode{dom} such that \tcode{L} is sequenced
-	before \tcode{L'} and \tcode{L'} is sequenced before \tcode{U'}.
+	after $L$ and before $U$ or
+\item	every invocation of \tcode{unlock} $U'$ on \tcode{dom} such
+	that $L$ is sequenced before $U'$ and $U'$
+	is sequenced before $U$ corresponds to an invocation of
+	\tcode{lock} $L'$ on \tcode{dom} such that $L$ is sequenced
+	before $L'$ and $L'$ is sequenced before $U'$.
 \end{itemize}
-
-% @@@ In the draft standard, the "note" environment generates the
-% @@@ "[ Note: blahblahblah. --- end note. ]" sequence.  It is a bit
-% @@@ different here.  I am using it anyway.
-
-\pnum
 \begin{note}
 This pairs nested locks and unlocks on a given domain in each thread.
 \end{note}
 
 \pnum
 A \defn{region of RCU protection} on a domain \tcode{dom} starts
-with a \tcode{lock L} on \tcode{dom} and ends with its corresponding
-\tcode{unlock U}.
+with a \tcode{lock} $L$ on \tcode{dom} and ends with its corresponding
+\tcode{unlock} $U$.
 
 \pnum
-Given a region of RCU protection \tcode{R} on a domain \tcode{dom}
-and given an evaluation \tcode{E} that scheduled another evaluation
-\tcode{F} in \tcode{dom}, if \tcode{E} does not strongly happen before
-the start of \tcode{R}, the end of \tcode{R} strongly happens before
-evaluating \tcode{F}.
+Given a region of RCU protection $R$ on a domain \tcode{dom}
+and given an evaluation $E$ that scheduled another evaluation
+$F$ in \tcode{dom}, if $E$ does not strongly happen before
+the start of $R$, the end of $R$ strongly happens before
+evaluating $F$.
 
 \pnum
 The evaluation of a scheduled evaluation is potentially concurrent with
@@ -60,11 +54,7 @@ most once.
 
 \rSec2[saferecl.rcu.syn]{Header \tcode{<rcu>} synopsis}
 
-% @@@ Copy and paste from Google Documents gets space characters and
-% @@@ "<>" characters that LaTeX really hates.  Just replace them.
-
-% \indexheader{rcu}%
-% @@@ Added missing "," after a number of the references in this code block.
+% \indexheader{rcu}
 \begin{codeblock}
 namespace std::experimental::inline concurrency_v2 {
   // \ref{saferecl.rcu.base}, class template \tcode{rcu_obj_base}
@@ -107,7 +97,7 @@ public:
 protected:
   rcu_obj_base() = default;
 private:
-  D deleter;  // exposition only
+  D @\exposid{deleter}@;            // exposition only
 };
 \end{codeblock}
 
@@ -125,7 +115,7 @@ The behavior of a program that adds specializations for
 
 \pnum
 \tcode{D} shall meet the requirements for
-Cpp17DefaultConstructible and Cpp17MoveAssignable.
+\oldconcept{DefaultConstructible} and \oldconcept{MoveAssignable}.
 
 \pnum
 \tcode{T} may be an incomplete type.
@@ -141,20 +131,26 @@ void retire(D d = D(), rcu_domain& dom = rcu_default_domain()) noexcept;
 \begin{itemdescr}
 
 \pnum
-\defn{Mandates}: \tcode{T} is an rcu-protectable type.
+\mandates
+\tcode{T} is an rcu-protectable type.
 
 \pnum
-\defn{Preconditions}: \tcode{*this} is a base class subobject of
+\expects
+\tcode{*this} is a base class subobject of
 an object \tcode{x} of type \tcode{T}. The member function
 \tcode{rcu_obj_base<T,D>::retire} was not invoked on \tcode{x}
-before. The assignment to \tcode{deleter} does not throw an
-exception. The expression \tcode{deleter(addressof(x))} has
+before. The assignment to \exposid{deleter} does not throw an
+exception. The expression \tcode{\exposid{deleter}(addressof(x))} has
 well-defined behavior and does not throw an exception.
 
-\pnum	\defn{Effects}: Evaluates \tcode{deleter = std::move(d)} and schedules
+\pnum
+\effects
+Evaluates \tcode{\exposid{deleter} = std::move(d)} and schedules
 the evaluation of the expression \tcode{de\-let\-er(ad\-dress\-of(x))} in the domain \tcode{dom}.
 
-\pnum	\defn{Remarks}: It is implementation-defined whether or not scheduled
+\pnum
+\remarks
+It is implementation-defined whether or not scheduled
 evaluations in \tcode{dom} can be invoked by the \tcode{retire}
 function.
 \begin{note}
@@ -168,11 +164,13 @@ retire on \tcode{dom}, deadlock can occur.
 
 % @@@ Removed the obsolete reference comments.
 
-This class meets the requirements of Cpp17BasicLockable \tcode{[thread.req.lockable.basic]} and provides regions of RCU protection, for example, as follows:
+This class meets the requirements of \oldconcept{BasicLockable} \tcode{[thread.req.lockable.basic]} and provides regions of RCU protection.
 
+\begin{example}
 \begin{codeblock}
 std::scoped_lock<rcu_domain> rlock(rcu_default_domain());
 \end{codeblock}
+\end{example}
 
 \begin{codeblock}
 class rcu_domain {
@@ -197,10 +195,12 @@ void lock() noexcept;
 \begin{itemdescr}
 
 \pnum
-\defn{Effects}: Opens a region of RCU protection.
+\effects
+Opens a region of RCU protection.
 
 \pnum
-\defn{Remarks}: Calls to the function lock do not introduce a data race
+\remarks
+Calls to the function lock do not introduce a data race
 (\CppXref{16.4.6.10}) involving \tcode{*this}.
 
 \end{itemdescr}
@@ -214,16 +214,19 @@ void unlock() noexcept;
 \begin{itemdescr}
 
 \pnum
-\defn{Preconditions}: A call to the function \tcode{lock} that opened
+\expects
+A call to the function \tcode{lock} that opened
 an unclosed region of RCU protection is sequenced before the
 call to \tcode{unlock}.
 
 \pnum
-\defn{Effects}: Closes the unclosed region of RCU protection that was
+\effects
+Closes the unclosed region of RCU protection that was
 most recently opened.
 
 \pnum
-\defn{Remarks}:   It is implementation-defined whether or not scheduled
+\remarks
+It is implementation-defined whether or not scheduled
 evaluations in \tcode{*this} can be invoked by the \tcode{unlock}
 function.
 \begin{note}
@@ -247,7 +250,8 @@ rcu_domain& rcu_default_domain() noexcept;
 \begin{itemdescr}
 
 \pnum
-\defn{Returns}: A reference to the default object of type \tcode{rcu_domain}.
+\returns
+A reference to the default object of type \tcode{rcu_domain}.
 A reference to the same object is returned every time this
 function is called.
 
@@ -262,13 +266,15 @@ void rcu_synchronize(rcu_domain& dom = rcu_default_domain()) noexcept;
 \begin{itemdescr}
 
 \pnum
-\defn{Effects}: If the call to \tcode{rcu_synchronize} does not strongly
+\effects
+If the call to \tcode{rcu_synchronize} does not strongly
 happen before the lock opening an RCU protection region \tcode{R}
 on \tcode{dom}, blocks until the \tcode{unlock} closing \tcode{R}
 happens.
 
 \pnum
-\defn{Synchronization}: The \tcode{unlock} closing \tcode{R} strongly
+\sync
+The \tcode{unlock} closing \tcode{R} strongly
 happens before the return from \tcode{rcu_synchronize}.
 
 \end{itemdescr}
@@ -282,13 +288,15 @@ void rcu_barrier(rcu_domain& dom = rcu_default_domain()) noexcept;
 \begin{itemdescr}
 
 \pnum
-\defn{Effects}: May evaluate any scheduled evaluations in
-\tcode{dom}.  For any evaluation that happens before the call
-to \tcode{rcu_barrier} and that schedules an evaluation \tcode{E}
-in \tcode{dom}, blocks until \tcode{E} has been evaluated.  
+\effects
+May evaluate any scheduled evaluations in
+\tcode{dom}. For any evaluation that happens before the call
+to \tcode{rcu_barrier} and that schedules an evaluation $E$
+in \tcode{dom}, blocks until $E$ has been evaluated.
 
 \pnum
-\defn{Synchronization}: The evaluation of any such \tcode{E} strongly
+\sync
+The evaluation of any such $E$ strongly
 happens before the return from \tcode{rcu_barrier}.
 
 \end{itemdescr}
@@ -303,16 +311,19 @@ void rcu_retire(T* p, D d = D(), rcu_domain& dom = rcu_default_domain());
 \begin{itemdescr}
 
 \pnum
-\defn{Mandates}: \tcode{is_move_constructible_v<D>} is true.
+\mandates
+\tcode{is_move_constructible_v<D>} is true.
 
 \pnum
-\defn{Preconditions}: \tcode{D} meets the Cpp17MoveConstructible and
-Cpp17Destructible requirements.
+\expects
+\tcode{D} meets the \oldconcept{MoveConstructible} and
+\oldconcept{Destructible} requirements.
 The expression \tcode{d1(p)}, where \tcode{d1} is defined below, is
 well-formed and its evaluation does not exit via an exception.
 
 \pnum
-\defn{Effects}: May allocate memory.
+\effects
+May allocate memory.
 It is unspecified whether the memory allocation is performed by
 invoking \tcode{operator} \tcode{new}.
 Initializes an object \tcode{d1} of type \tcode{D} from
@@ -325,12 +336,14 @@ is scheduled.
 \end{note}
 
 \pnum
-\defn{Throws}: Any exception that would be caught by a handler of type
+\throws
+Any exception that would be caught by a handler of type
 \tcode{bad_alloc}.
 Any exception thrown by the initialization of \tcode{d1}.
 
 \pnum
-\defn{Remarks}: It is implementation-defined whether or not scheduled
+\remarks
+It is implementation-defined whether or not scheduled
 evaluations in dom can be invoked by the \tcode{rcu_retire}
 function.
 \begin{note}

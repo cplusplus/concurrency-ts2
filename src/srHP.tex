@@ -117,7 +117,7 @@ domain, the number of threads that retire objects to the domain, and the number 
 threads that use hazard pointers belonging to the domain. \end{note}
 
 \pnum
-Concurrent access to a domain does not incur a data race (\tcode{[intro.races]}).
+Concurrent access to a domain does not incur a data race (\CppXref{6.9.2.1}).
 
 \begin{codeblock}
 class hazard_pointer_domain {
@@ -236,7 +236,7 @@ private:
 \end{codeblock}
 
 \pnum
-A client-supplied template argument \tcode{D} shall be a function object type (\tcode{[function.object]})
+A client-supplied template argument \tcode{D} shall be a function object type (\CppXref{20.14})
 for which, given a value \tcode{d} of type \tcode{D} and a value \tcode{ptr} of type \tcode{T*}, the expression \tcode{d(ptr)} is valid and has the effect of disposing of the pointer as appropriate for that deleter.
 
 \pnum

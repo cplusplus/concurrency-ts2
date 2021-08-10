@@ -63,9 +63,20 @@ Since the extensions described in this technical specification are experimental 
 \end{itemize}
 
 \pnum
-Whenever a name \tcode{x} declared in a subclause at namespace scope
-is mentioned, the name \tcode{x} is assumed to be fully qualified as
-\tcode{::std::experimental::concurrency::v2::x}, unless otherwise specified.
+Whenever an unqualified name is used
+in the specification of a declaration \tcode{D},
+its meaning is established
+as-if by performing unqualified name lookup
+in the context of \tcode{D}.
+\begin{note}
+Argument-dependent lookup is not performed.
+\end{note}
+Similarly, the meaning of a \grammarterm{qualified-id} is established
+as-if by performing qualified name lookup
+in the context of \tcode{D}.
+\begin{note}
+Operators in expressions are not so constrained.
+\end{note}
 
 %%The header described in this document (see Table~\ref{tab:info.headers})
 %%shall import the contents of \tcode{::std::experimental::concurrency::v2} into

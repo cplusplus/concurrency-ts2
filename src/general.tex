@@ -78,8 +78,9 @@ in the context of \tcode{D}.
 Operators in expressions are not so constrained.
 \end{note}
 
-%%The header described in this document (see Table~\ref{tab:info.headers})
-%%shall import the contents of \tcode{::std::experimental::concurrency::v2} into
+\pnum
+These are the header described in this document (see Table~\ref{tab:info.headers})
+%%shall import the contents of %%\tcode{::std::experimental::concurrency::v2} into
 %%\tcode{::std::experimental::concurrency_v1} as if by:
 
 %%\begin{codeblock}
@@ -89,23 +90,24 @@ Operators in expressions are not so constrained.
 %%\end{codeblock}
 
 
-%%\begin{floattable}{Concurrency\_v2 library headers}{tab:info.headers}
-%%{l}
-%%\topline
-%%\tcode{<experimental/concurrency\_v2>} \\
-%%\end{floattable}
+\begin{floattable}{C++ library headers}{tab:info.headers}
+{ll}
+\topline
+\tcode{<experimental/rcu>} & \tcode{<experimental/hazard_pointer>} \\
+\end{floattable}
 
 \rSec1[general.feature.test]{Feature-testing recommendations (Informative)}
 \pnum
 An implementation that provides support for this document should define each feature test macro defined in \tref{intro.features} if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in the table.
 
 \begin{floattable}{Feature-test macros}{tab:intro.features}
-{lll}
+{lllll}
 \topline
-\lhdr{Macro name} & \chdr{Value} & \rhdr{Header} \\
+\lhdr {Title} & \lhdr {Subclause} & \chdr{Macro name} & \rhdr{Value} & \rhdr{Header} \\
 \capsep
 %%\tcode{__cpp_concurrency\_v2}  & \tcode{\tsver}   &  none \\
-\tcode{__cpp_lib_concurrency\_v2}  & \tcode{\tsver}  & \tcode{<experimental/concurrency\_v2>} \\
+\tcode{Hazard pointers} & \tcode{5.2} & \tcode{__cpp_lib_experimental_hazard_pointer}  & \tcode{\tsver}  & \tcode{<experimental/hazard_pointer>} \\
+\tcode{Read-copy update(RCU)} & \tcode{5.3} & \tcode{__cpp_lib_experimental_rcur}  & \tcode{\tsver}  & \tcode{<experimental/rcu>} \\
 \end{floattable}
 \rSec1[general.plans]{Future plans (Informative)}
 \pnum

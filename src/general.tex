@@ -79,7 +79,7 @@ Operators in expressions are not so constrained.
 \end{note}
 
 \pnum
-These are the header described in this document (see Table~\ref{tab:info.headers})
+These are the headers described in this document (see Table~\ref{tab:info.headers})
 %%shall import the contents of %%\tcode{::std::experimental::concurrency::v2} into
 %%\tcode{::std::experimental::concurrency_v1} as if by:
 
@@ -91,9 +91,10 @@ These are the header described in this document (see Table~\ref{tab:info.headers
 
 
 \begin{floattable}{C++ library headers}{tab:info.headers}
-{ll}
+{lll}
 \topline
-\tcode{<experimental/rcu>} & \tcode{<experimental/hazard_pointer>} \\
+\tcode{<experimental/rcu>} & \tcode{<experimental/hazard_pointer>} & \tcode{<experimental/bytewise_atomic_memcpy>}
+\\
 \end{floattable}
 
 \rSec1[general.feature.test]{Feature-testing recommendations (Informative)}
@@ -107,7 +108,8 @@ An implementation that provides support for this document should define each fea
 \capsep
 %%\tcode{__cpp_concurrency\_v2}  & \tcode{\tsver}   &  none \\
 \tcode{Hazard pointers} & \tcode{5.2} & \tcode{__cpp_lib_experimental_hazard_pointer}  & \tcode{\tsver}  & \tcode{<experimental/hazard_pointer>} \\
-\tcode{Read-copy update(RCU)} & \tcode{5.3} & \tcode{__cpp_lib_experimental_rcur}  & \tcode{\tsver}  & \tcode{<experimental/rcu>} \\
+\tcode{Read-copy update(RCU)} & \tcode{5.3} & \tcode{__cpp_lib_experimental_rcu}  & \tcode{\tsver}  & \tcode{<experimental/rcu>} \\
+\tcode{Read-copy update(bytewiase atomic memcpy)} & \tcode{6} & \tcode{__cpp_lib_experimental_bytewise_atomic_memcpy}  & \tcode{\tsver}  & \tcode{<experimental/bytewise_atomic_memcpy>} \\
 \end{floattable}
 \rSec1[general.plans]{Future plans (Informative)}
 \pnum

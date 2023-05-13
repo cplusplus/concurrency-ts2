@@ -1,0 +1,107 @@
+%!TEX root = ts.tex
+
+\rSec0[bytewiseatomicmemcpy]{Bytewise Atomic Memcpy}
+
+\rSec1[bytewiseatomicmemcpy.general]{General}
+
+This clause describes bytewise atomic memcpy access. 
+
+
+\rSec1[bytewiseatomicmemcpy.syn]{Header <bytewiseatomicmemcpy> synopsis}
+%%\uline{\textbf{Header
+%%\texttt{\textless{}experimental/bytewise\_atomic\_memcpy\textgre%%ater{}}
+%%synopsis}}
+
+\begin{codeblock}
+namespace std::experimental::inline concurrency_v2 {
+
+  void* atomic_load_per_byte_memcpy(void* dest, const void* source, size_t count, memory_order order);
+
+  void* atomic_store_per_byte_memcpy(void* dest, const void* source, size_t count, memory_order order);
+
+ %% #define __cpp_lib_experimental_bytewise_atomic_memcpy 202XYYL
+}
+\end{codeblock}
+
+%%\uline{\texttt{\ namespace\ std::experimental::inline\ %%concurrency\_v2\ \{\ \ ~~void*\ %%atomic\_load\_per\_byte\_memcpy(void*\ dest,\ const\ void*\ %%source,\ size\_t\ count,\ memory\_order\ order);\ \ ~~void*\ %%atomic\_store\_per\_byte\_memcpy(void*\ dest,\ const\ void*\ %%source,\ size\_t\ count,\ memory\_order\ order);\ \ ~~\#define\ %%\_\_cpp\_lib\_experimental\_bytewise\_atomic\_memcpy\ \ %%202XYYL\ \}}}
+\rSec1[bytewiseatomicmemcpy.general]{General}
+\pnum
+
+The \texttt{atomic\_load\_per\_byte\_memcpy()} and
+\texttt{atomic\_store\_per\_byte\_memcpy()} functions support concurrent
+programming idioms in which values may be read while being written, but
+the value is trusted only when it can be determined after the fact that
+a race did not occur. \begin{note} So-called \"seqlocks\" are the canonical
+example of such an idiom. \end{note}
+
+
+\rSec1[bytewiseatomicmemcpy.fn]{Functions}
+\pnum
+The \texttt{atomic\_load\_per\_byte\_memcpy} /
+\texttt{atomic\_store\_per\_byte\_memcpy} functions behave as if the
+\texttt{source} and \texttt{dest} bytes respectively were individual
+atomic objects.
+
+\textbf{\texttt{void*\ atomic\_load\_per\_byte\_memcpy(void*\ dest,\ const\ void*\ source,\ size\_t\ count,\ memory\_order\ order);}}
+
+\begin{itemdescr}
+\pnum
+\expects
+
+\texttt{order} is \texttt{memory\_order::acquire} or
+\texttt{memory\_order::relaxed}. \texttt{(char*)dest\ +\ {[}0,\ count)}
+and \texttt{(const\ char*)source\ +\ {[}0,\ count)} are valid ranges
+that do not overlap.
+
+\pnum
+\effects
+Copies \texttt{count} consecutive bytes pointed to by
+\texttt{source} into consecutive bytes pointed to by \texttt{dest}. Each
+individual load operation from a source byte is atomic with memory order
+\texttt{order}. These individual loads are unsequenced with respect to
+each other. The function implicitly creates objects ({[}intro.object{]})
+in the destination region of storage immediately prior to copying the
+sequence of bytes to the destination. 
+\begin{note} There is no requirement
+that the individual bytes be copied in order, or that the implementation
+must operate on individual bytes. \end{note}
+
+\pnum
+\returns
+\texttt{dest}.
+\end{itemdescr}
+
+\textbf{\texttt{void*\ atomic\_store\_per\_byte\_memcpy(void*\ dest,\ const\ void*\ source,\ size\_t\ count,\ memory\_order\ order);}}
+
+\begin{itemdescr}
+\pnum
+\expects
+\texttt{order} is \texttt{memory\_order::release} or
+\texttt{memory\_order::relaxed}. \texttt{(char*)dest\ +\ {[}0,\ count)}
+and \texttt{(const\ char*)source\ +\ {[}0,\ count)} are valid ranges
+that do not overlap.
+
+\pnum
+\effects
+Copies \texttt{count} consecutive bytes pointed to by
+\texttt{source} into consecutive bytes pointed to by \texttt{dest}. Each
+individual store operation to a destination byte is atomic with memory
+order \texttt{order}. These individual stores are unsequenced with
+respect to each other. The function implicitly creates objects
+({[}intro.object{]}) in the destination region of storage immediately
+prior to copying the sequence of bytes to the destination.
+
+\pnum
+\returns
+
+\texttt{dest}.
+\end{itemdescr}
+
+\begin{note} If any of the atomic byte loads performed by an
+\texttt{atomic\_load\_per\_byte\_memcpy()} call A with
+\texttt{memory\_order::acquire} argument take their value from an atomic
+byte store performed by \texttt{atomic\_store\_per\_byte\_memcpy()} call
+B with \texttt{memory\_order::release} argument, then the start of B
+strongly happens before the completion of A. -\/-end note{]}
+\end{note}  
+%%\end{quote}

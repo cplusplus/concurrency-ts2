@@ -56,11 +56,11 @@ synchronized_value(T)
 
 %%\usepackage{enumitem}
 \pnum   
-An object of type \texttt{synchronized\_value\textless{}T\textgreater{}}
-wraps an object of type \texttt{T}. The wrapped object can be accessed
-by passing a callable object or function to \texttt{apply}. All such
+An object of type \tcode{synchronized_value<T>}
+wraps an object of type \tcode{T}. The wrapped object can be accessed
+by passing a callable object or function to \tcode{apply}. All such
 accesses are done with a lock held to ensure that only one thread may be
-accessing the wrapped object for a given \texttt{synchronized\_value} at
+accessing the wrapped object for a given \tcode{synchronized_value} at
 a time.
 
 \begin{itemdecl}

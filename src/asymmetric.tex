@@ -27,19 +27,19 @@ void asymmetric_thread_fence_light(memory_order order) noexcept;
 %%\rSec1[bytewiseatomicmemcpy.general]{General}
 \pnum
 
-This subclause introduces synchronization primitives called heavyweight-fences and
-lightweight-fences. Like fences, heavyweight-fences and lightweight-fences can have acquire
+This subclause introduces synchronization primitives called \defn{heavyweight-fences} and
+\defn{lightweight-fences}. Like fences, heavyweight-fences and lightweight-fences can have acquire
 semantics, release semantics, or both, and can be sequentially consistent (in which case they
-are included in the total order S on memory\_order::seq\_cst operations). A heavyweight-fence
+are included in the total order \tcode{S} on \tcode{memory_order::seq_cst} operations). A heavyweight-fence
 with acquire semantics is called an acquire heavyweight-fence. A heavyweight-fence has all the
-synchronization effects of a fence (33.5.11 [atomics.fences]). \begin{note}  Heavyweight-fences and
+synchronization effects of a fence (\CppXref{33.5.11} [atomics.fences]). \begin{note}  Heavyweight-fences and
 lightweight-fences are distinct from fences. \end{note}
 
 \pnum
-A heavyweight-fence with acquire semantics is called an acquire heavyweight-fence. A
-heavyweight-fence with release semantics is called a release heavyweight-fence. A
-lightweight-fence with acquire semantics is called an acquire lightweight-fence. A
-lightweight-fence with release semantics is called a release lightweight-fence.
+A heavyweight-fence with acquire semantics is called an \defn{acquire heavyweight-fence}. A
+heavyweight-fence with release semantics is called a \defn{release heavyweight-fence}. A
+lightweight-fence with acquire semantics is called an \defn{acquire lightweight-fence}. A
+lightweight-fence with release semantics is called a \defn{release lightweight-fence}.
 
 \pnum
 If there are evaluations A and B, and atomic operations X and Y, both operating on some atomic
@@ -52,7 +52,7 @@ sequence X would head if it were a release operation, and one of the following h
 \end{itemize}
 
 then any evaluation sequenced before A strongly happens before any evaluation that B is
-sequenced before
+sequenced before.
 
 
 \rSec1[asymmetric.heavy]{asymmetric_thread_fence_heavy}
@@ -65,15 +65,16 @@ void asymmetric_thread_fence_heavy(memory_order order) noexcept;
 
 \pnum
 \effects
+Depending on the value of \tcode{order}, this operation:
 \begin{itemize}
-    \item  has no effects, if order == memory\_order::relaxed;
-\item  is an acquire heavyweight-fence, if order == memory\_order::acquire or order ==
-memory\_order::consume;
-\item is a release heavyweight-fence, if order == memory\_order::release;
-\item is both an acquire heavyweight-fence and a release heavyweight-fence, if order ==
-memory\_order::acq\_rel;
-\item s a sequentially consistent acquire and release heavyweight-fence, if order ==
-memory\_order::seq\_cst.
+    \item  has no effects, if \tcode{order == memory\_order::relaxed};
+\item  is an acquire heavyweight-fence, if \tcode{order == memory\_order::acquire} or \tcode{order ==
+memory\_order::consume};
+\item is a release heavyweight-fence, if \tcode{order == memory\_order::release};
+\item is both an acquire heavyweight-fence and a release heavyweight-fence, if \tcode{order ==
+memory_order::acq_rel};
+\item is a sequentially consistent acquire and release heavyweight-fence, if \tcode{order ==
+memory_order::seq_cst}.
 \end{itemize}
 
 \end{itemdescr}
@@ -88,15 +89,16 @@ void asymmetric_thread_fence_light(memory_order order) noexcept;
 
 \pnum
 \effects
+Depending on the value of \tcode{order}, this operation:
 \begin{itemize}
-    \item  has no effects, if order == memory\_order::relaxed;
-\item  is an acquire lightweight-fence, if order == memory\_order::acquire or order ==
-memory\_order::consume;
-\item is a release lightweight-fence, if order == memory\_order::release;
-\item is both an acquire lightweight-fence and a release lightweight-fence, if order ==
-memory\_order::acq\_rel;
-\item s a sequentially consistent acquire and release lightweight-fence, if order ==
-memory\_order::seq\_cst.
+    \item  has no effects, if \tcode{order == memory\_order::relaxed};
+\item  is an acquire lightweight-fence, if \tcode{order == memory\_order::acquire} or \tcode{order ==
+memory\_order::consume};
+\item is a release lightweight-fence, if \tcode{order == memory\_order::release};
+\item is both an acquire lightweight-fence and a release lightweight-fence, if \tcode{order ==
+memory\_order::acq\_rel};
+\item is a sequentially consistent acquire and release lightweight-fence, if \tcode{order ==
+memory\_order::seq\_cst}.
 \end{itemize}
 
 \end{itemdescr}
@@ -104,11 +106,11 @@ memory\_order::seq\_cst.
 
 
 \begin{note} : Delegating both heavyweight-fence and lightweight-fence functions to an
-atomic_thread_fence(order) call is a valid implementation. Implementations can adopt
-techniques in which calls to asymmetric_thread_fence_light execute more quickly than calls
-to atomic_thread_fence with the same memory_order, at the cost of
-asymmetric_thread_fence_heavy executing more slowly than calls to
-atomic_thread_fence with the same memory_order
+\tcode{atomic_thread_fence(order)} call is a valid implementation. Implementations can adopt
+techniques in which calls to \tcode{asymmetric_thread_fence_light} execute more quickly than calls
+to \tcode{atomic_thread_fence} with the same \tcode{memory_order}, at the cost of
+\tcode{asymmetric_thread_fence_heavy} executing more slowly than calls to
+\tcode{atomic_thread_fence} with the same \tcode{memory_order}
 \end{note}  
 
 

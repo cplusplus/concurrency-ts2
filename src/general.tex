@@ -101,24 +101,59 @@ These are the headers described in this document (see Table~\ref{tab:info.header
 
 \rSec1[general.feature.test]{Feature-testing recommendations (Informative)}
 \pnum
-An implementation that provides support for this document should define each feature test macro defined in \tref{intro.features} if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in the table.
+An implementation that provides support for this document should define each feature test macro defined in \tref{intro.features1} if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in the table.
 
-\begin{floattable}{Feature-test macros}{tab:intro.features}
-{lllll}
+%%\begin{floattable}{Feature-test macros name}{tab:intro.features}
+%%{lllll}
+%%\topline
+%%\lhdr {Title} & \lhdr {Subclause} & \chdr{Macro name} & %%\rhdr{Value} & \rhdr{Header} \\
+%%{ll}
+%%\lhdr {Title} &
+%%\rhdr {Subclause \\ Macro name \\ Value \\ Header} \\
+
+%%\capsep
+%%\tcode{__cpp_concurrency\_v2}  & \tcode{\tsver}   &  none \\
+%%\tcode{Hazard pointers} & \tcode{5.2} & %%\tcode{__cpp_lib_experimental_hazard_pointer}  & \tcode{\tsver}  %%& \tcode{<experimental/hazard_pointer>} \\
+%%\tcode{Read-copy update(RCU)} & \tcode{5.3} & %%\tcode{__cpp_lib_experimental_rcu}  & \tcode{\tsver}  & %%\tcode{<experimental/rcu>} \\
+%%\tcode{bytewise atomic memcpy} & \tcode{6} & %%\tcode{__cpp_lib_experimental_bytewise_atomic_memcpy}  & %%\tcode{\tsver}  & \tcode{<experimental/bytewise_atomic_memcpy>} \\
+%%\tcode{Asymmetric Fence} & \tcode{7} & %%\tcode{__cpp_lib_experimental_asymmetric_fence}  & \tcode{\tsver} %% & \tcode{<experimental/asymmetric_fence>} \\
+%%\tcode{Synchronized Value} & \tcode{8} & %%\tcode{__cpp_lib_experimental_synchronized_value}  & %%\tcode{\tsver}  & \tcode{<experimental/synchronized_value>} \\
+%%\end{floattable}
+
+\begin{floattable}{Feature-test macros name}{tab:intro.features1}
+{lll}
 \topline
-\lhdr {Title} & \lhdr {Subclause} & \chdr{Macro name} & \rhdr{Value} & \rhdr{Header} \\
+\lhdr {Title} & \chdr {Subclause} & \rhdr{Macro name}  \\
 %%{ll}
 %%\lhdr {Title} &
 %%\rhdr {Subclause \\ Macro name \\ Value \\ Header} \\
 
 \capsep
 %%\tcode{__cpp_concurrency\_v2}  & \tcode{\tsver}   &  none \\
-\tcode{Hazard pointers} & \tcode{5.2} & \tcode{__cpp_lib_experimental_hazard_pointer}  & \tcode{\tsver}  & \tcode{<experimental/hazard_pointer>} \\
-\tcode{Read-copy update(RCU)} & \tcode{5.3} & \tcode{__cpp_lib_experimental_rcu}  & \tcode{\tsver}  & \tcode{<experimental/rcu>} \\
-\tcode{bytewise atomic memcpy} & \tcode{6} & \tcode{__cpp_lib_experimental_bytewise_atomic_memcpy}  & \tcode{\tsver}  & \tcode{<experimental/bytewise_atomic_memcpy>} \\
-\tcode{Asymmetric Fence} & \tcode{7} & \tcode{__cpp_lib_experimental_asymmetric_fence}  & \tcode{\tsver}  & \tcode{<experimental/asymmetric_fence>} \\
-\tcode{Synchronized Value} & \tcode{8} & \tcode{__cpp_lib_experimental_synchronized_value}  & \tcode{\tsver}  & \tcode{<experimental/synchronized_value>} \\
+\tcode{Hazard pointers} & \tcode{5.2} & \tcode{__cpp_lib_experimental_hazard_pointer}   \\
+\tcode{Read-copy update(RCU)} & \tcode{5.3} & \tcode{__cpp_lib_experimental_rcu}   \\
+\tcode{bytewise atomic memcpy} & \tcode{6} & \tcode{__cpp_lib_experimental_bytewise_atomic_memcpy}   \\
+\tcode{Asymmetric Fence} & \tcode{7} & \tcode{__cpp_lib_experimental_asymmetric_fence}   \\
+\tcode{Synchronized Value} & \tcode{8} & \tcode{__cpp_lib_experimental_synchronized_value}   \\
 \end{floattable}
+
+\begin{floattable}{Feature-test macros header}{tab:intro.features2}
+{lll}
+\topline
+\lhdr {Title} &  \chdr{Value} & \rhdr{Header} \\
+%%{ll}
+%%\lhdr {Title} &
+%%\rhdr {Subclause \\ Macro name \\ Value \\ Header} \\
+
+\capsep
+%%\tcode{__cpp_concurrency\_v2}  & \tcode{\tsver}   &  none \\
+\tcode{Hazard pointers} &  \tcode{\tsver}  & \tcode{<experimental/hazard_pointer>} \\
+\tcode{Read-copy update(RCU)} & \tcode{\tsver}  & \tcode{<experimental/rcu>} \\
+\tcode{bytewise atomic memcpy} &  \tcode{\tsver}  & \tcode{<experimental/bytewise_atomic_memcpy>} \\
+\tcode{Asymmetric Fence} &  \tcode{\tsver}  & \tcode{<experimental/asymmetric_fence>} \\
+\tcode{Synchronized Value} &  \tcode{\tsver}  & \tcode{<experimental/synchronized_value>} \\
+\end{floattable}
+
 \rSec1[general.plans]{Future plans (Informative)}
 \pnum
 This section describes tentative plans for future versions of this technical specification and plans for moving content into
@@ -138,7 +173,7 @@ namespace and by removing the \tcode{experimental/} prefix from its header's pat
 \rSec1[general.ack]{Acknowledgments}
 
 This work is the result of a collaboration of researchers in industry and academia. We wish to thank the
-original authors of this document, Michael Wong, Paul McKenney, and Maged Michael. We also wish to thank people
+original authors of this document, Michael Wong, Paul McKenney, and Maged Michael, and the editing review team of Jonathan Wakely, Daniel Krügler, and Bryan St. Amour. We also wish to thank people
 who made valuable contributions within and outside these groups, including Jens Maurer, and many others not named
 here who contributed to the discussion.
 

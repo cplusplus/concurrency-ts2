@@ -14,12 +14,8 @@ This clause describes bytewise atomic memcpy access.
 
 \begin{codeblock}
 namespace std::experimental::inline concurrency_v2 {
-
   void* atomic_load_per_byte_memcpy(void* dest, const void* source, size_t count, memory_order order);
-
   void* atomic_store_per_byte_memcpy(void* dest, const void* source, size_t count, memory_order order);
-
-
 }
 \end{codeblock}
 

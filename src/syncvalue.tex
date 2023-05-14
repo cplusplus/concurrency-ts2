@@ -2,22 +2,19 @@
 
 \rSec0[synchronizedvalue]{Synchronized Value}
 
-\rSec1[synchronizedvaluec.general]{General}
-
-This clause describes Synchronized Value access. 
-
-\subsubsection{x Synchronized Values}\label{x-synchronized-values}}
+\rSec1[synchronizedvalue.general]{General}
 
 This section describes a class template to provide locked access to a
 value in order to facilitate the construction of race-free programs.
 
-\mbox{}%
-\hypertarget{header-experimentalsynchronized_value-synopsis}{%
-\paragraph{Header
-\textless experimental/synchronized\_value\textgreater{}
-synopsis}\label{header-experimentalsynchronized_value-synopsis}}
+\rSec1[synchronizedvalue.syn]{Header <experimental/synchronized_value> synopsis}
+%%\mbox{}%
+%%\hypertarget{header-experimentalsynchronized_value-synopsis}{%
+%%\paragraph{Header
+%%\textless experimental/synchronized\_value\textgreater{}
+%%synopsis}\label{header-experimentalsynchronized_value-%%synopsis}}
 
-\begin{verbatim}
+\begin{codeblock}
 namespace std::experimental::inline concurrency_v2 {
     template<class T>
     class synchronized_value;
@@ -26,14 +23,15 @@ namespace std::experimental::inline concurrency_v2 {
     invoke_result_t<F, ValueTypes&...> apply(
         F&& f,synchronized_value<ValueTypes>&... values);
 }
-\end{verbatim}
+\end{codeblock}
 
-\mbox{}%
-\hypertarget{x.1-class-template-synchronized_value}{%
-\paragraph{\texorpdfstring{x.1 Class template
-\texttt{synchronized\_value}}{x.1 Class template synchronized\_value}}\label{x.1-class-template-synchronized_value}}
+\rSec1[synchronizedvalue.class]{Class template \tcode{synchronized_value} }
+%%\mbox{}%
+%%\hypertarget{x.1-class-template-synchronized_value}{%
+%%\paragraph{\texorpdfstring{x.1 Class template
+%%\texttt{synchronized\_value}}{x.1 Class template %%synchronized\_value}}\label{x.1-class-template-%%synchronized_value}}
 
-\begin{verbatim}
+\begin{codeblock}
 namespace std::experimental::inline concurrency_v2 {
   template<class T>
     class synchronized_value
@@ -54,8 +52,10 @@ template<class T>
 synchronized_value(T)
 -> synchronized_value<T>;
 }
-\end{verbatim}
+\end{codeblock}
 
+%%\usepackage{enumitem}
+\pnum   
 An object of type \texttt{synchronized\_value\textless{}T\textgreater{}}
 wraps an object of type \texttt{T}. The wrapped object can be accessed
 by passing a callable object or function to \texttt{apply}. All such
@@ -63,17 +63,23 @@ accesses are done with a lock held to ensure that only one thread may be
 accessing the wrapped object for a given \texttt{synchronized\_value} at
 a time.
 
-\begin{verbatim}
+\begin{itemdecl}
+
 template<class ... Args>
 synchronized_value(Args&& ... args);
-\end{verbatim}
+\end{itemdecl}
 
-\begin{description}
-\item[Constraints:]
+
+
+%%\begin{description}
+%%\item[Constraints:]
+\begin{itemdescr}
+%%\tightlist
+%%\item[]
+\pnum
+\constraints
 \begin{itemize}
-\tightlist
-\item[]
-\item
+\item 
   \texttt{(sizeof...(Args)\ !=\ 1)} is \texttt{true} or
   \texttt{(!same\_as\textless{}synchronized\_value,remove\_cvref\_t\textless{}Args\textgreater{}\textgreater{}\ \&\&...)}
   is \texttt{true}
@@ -81,48 +87,62 @@ synchronized_value(Args&& ... args);
   \texttt{is\_constructible\_v\textless{}T,Args...\textgreater{}} is
   \texttt{true}
 \end{itemize}
-\item[Effects:]
+%%\end{itemdescr}
+\pnum
+\effects
 Direct-non-list-initializes \emph{\texttt{value}} with
 \texttt{std::forward\textless{}Args\textgreater{}(args)...}.
-\item[Throws:]
+
+\pnum
+\throws
 Any exceptions emitted by the initialization of \emph{\texttt{value}}.\\
 \texttt{system\_error} if any necessary resources cannot be acquired.
-\end{description}
+\end{itemdescr}
 
-\mbox{}%
-\hypertarget{x.2-apply-function}{%
-\paragraph{\texorpdfstring{x.2 \texttt{apply}
-function}{x.2 apply function}}\label{x.2-apply-function}}
 
-\begin{verbatim}
+\rSec1[synchronizedvalue.fn]{\tcode{apply} function }
+%%\mbox{}%
+%%\hypertarget{x.2-apply-function}{%
+%%\paragraph{\texorpdfstring{x.2 \texttt{apply}
+%%function}{x.2 apply function}}\label{x.2-apply-function}}
+
+\begin{itemdecl}
     template<class F,class ... ValueTypes>
     invoke_result_t<F, ValueTypes&...> apply(
         F&& f,synchronized_value<ValueTypes>&... values);
-\end{verbatim}
+\end{itemdecl}
 
-\begin{description}
-\item[Constraints:]
+\begin{itemdescr}
+    
+%%\end{itemdescr}
+
+\pnum
+\constraints
 \texttt{sizeof...(values)\ !=\ 0} is \texttt{true}.
-\item[Effects:]
+
+\pnum
+\effects
 Equivalent to:
 
-\begin{verbatim}
+\begin{codeblock}
     scoped_lock lock(values.mut...);
     return invoke(std::forward<F>(f),values.value...);
-\end{verbatim}
+\end{codeblock}
 
-{[}Note: A single instance of \texttt{synchronized\_value} can not be
+\begin{note} A single instance of \texttt{synchronized\_value} can not be
 passed more than once to the same invocation of \texttt{apply}.
-{[}Example:
+\begin{example}
 
-\begin{verbatim}
+\begin{codeblock}
       synchronized_value<int> sv;
       void f(int,int);
       apply(f,sv,sv); // undefined behaviour, sv passed more than once to same call
-\end{verbatim}
+\end{codeblock}
+\end{example}
+ \end{note}
 
----End Example{]} ---End Note{]}\\
-{[}Note: The invocation of \texttt{f} can not call \texttt{apply}
-directly or indirectly passing any of \texttt{values...}. ---End Note{]}
-\end{description}
+\begin{note} The invocation of \texttt{f} can not call \texttt{apply}
+directly or indirectly passing any of \texttt{values...}. 
+\end{note}
+\end{itemdescr}
 

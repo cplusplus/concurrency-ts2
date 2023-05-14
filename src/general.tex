@@ -91,12 +91,12 @@ These are the headers described in this document (see Table~\ref{tab:info.header
 
 
 \begin{floattable}{C++ library headers}{tab:info.headers}
-{lllll}
+{l}
 \topline
-\tcode{<experimental/rcu>} & \tcode{<experimental/hazard_pointer>} & \tcode{<experimental/bytewise_atomic_memcpy>} &
-\tcode{<experimental/asymmetric_fence>} &
-\tcode{<experimental/synchronized_value>}
-\\
+\tcode{<experimental/rcu>} \\
+\tcode{<experimental/hazard_pointer>} \\ \tcode{<experimental/bytewise_atomic_memcpy>} \\
+\tcode{<experimental/asymmetric_fence>} \\
+\tcode{<experimental/synchronized_value>} \\
 \end{floattable}
 
 \rSec1[general.feature.test]{Feature-testing recommendations (Informative)}
@@ -107,6 +107,10 @@ An implementation that provides support for this document should define each fea
 {lllll}
 \topline
 \lhdr {Title} & \lhdr {Subclause} & \chdr{Macro name} & \rhdr{Value} & \rhdr{Header} \\
+%%{ll}
+%%\lhdr {Title} &
+%%\rhdr {Subclause \\ Macro name \\ Value \\ Header} \\
+
 \capsep
 %%\tcode{__cpp_concurrency\_v2}  & \tcode{\tsver}   &  none \\
 \tcode{Hazard pointers} & \tcode{5.2} & \tcode{__cpp_lib_experimental_hazard_pointer}  & \tcode{\tsver}  & \tcode{<experimental/hazard_pointer>} \\

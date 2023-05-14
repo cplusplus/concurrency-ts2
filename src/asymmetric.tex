@@ -14,9 +14,9 @@ This clause describes Asymmetric Fence access.
 namespace std::experimental::inline concurrency_v2 {
 
 
-// ?.2.1 asymmetric_thread_fence_heavy
+// 7.3 asymmetric_thread_fence_heavy
 void asymmetric_thread_fence_heavy(memory_order order) noexcept;
-// ?.2.2 asymmetric_thread_fence_light
+// 7.4 asymmetric_thread_fence_light
 void asymmetric_thread_fence_light(memory_order order) noexcept;
 
 
@@ -110,3 +110,5 @@ to atomic_thread_fence with the same memory_order, at the cost of
 asymmetric_thread_fence_heavy executing more slowly than calls to
 atomic_thread_fence with the same memory_order
 \end{note}  
+
+

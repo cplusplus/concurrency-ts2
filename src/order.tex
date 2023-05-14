@@ -1,0 +1,42 @@
+%!TEX root = ts.tex
+
+
+\setcounter{chapter}{32}
+\rSec0[thread]{Concurrency support library}
+\setcounter{section}{4}
+\rSec1[atomics]{Atomic operations}
+\setcounter{subsection}{3}
+\rSec2[atomics.order]{Order and consistency}
+
+Change in \CppXref{atomics.order} paragraph 4 as indicated:
+\begin{quote}
+\setcounter{Paras}{3}
+\pnum
+There is a single total order $S$
+on all \tcode{memory_order::seq_cst} operations, including fences,
+that satisfies the following constraints.
+First, if $A$ and $B$ are
+\tcode{memory_order::seq_cst} operations and
+$A$ strongly happens before $B$,
+then $A$ precedes $B$ in $S$.
+Second, for every pair of atomic operations $A$ and
+$B$ on an object $M$,
+where $A$ is coherence-ordered before $B$,
+the following \removed{four} conditions are required to be satisfied by $S$:
+
+\end{quote}
+
+Add the following two bullets to the list:
+\begin{quote}
+%%\setcounter{Paras}{3}
+\pnum
+\begin{itemize}
+\item
+  ...
+\item
+if a \tcode{memory_order::seq_cst} lightweight-fence $X$ happens before $A$ and $B$ happens
+before a \tcode{memory_order::seq_cst} heavyweight-fence $Y$, then $X$ precedes $Y$ in $S$; and
+\item  if a \tcode{memory_order::seq_cst} heavyweight-fence $X$ happens before $A$ and $B$ happens
+before a \tcode{memory_order::seq_cst} lightweight-fence $Y$, then $X$ precedes $Y$ in $S$.
+\end{itemize}
+\end{quote}

@@ -80,30 +80,30 @@ synchronized_value(Args&& ... args);
 \constraints
 \begin{itemize}
 \item 
-  \texttt{(sizeof...(Args)\ !=\ 1)} is \texttt{true} or
-  \texttt{(!same\_as\textless{}synchronized\_value,remove\_cvref\_t\textless{}Args\textgreater{}\textgreater{}\ \&\&...)}
-  is \texttt{true}
+  \tcode{(sizeof...(Args) != 1)} is \tcode{true} or
+  \tcode{(!same_as<synchronized_value,remove_cvref_t<Args>>\ \&\&...)}
+  is \tcode{true}
 \item
-  \texttt{is\_constructible\_v\textless{}T,Args...\textgreater{}} is
-  \texttt{true}
+  \tcode{is_constructible_v<T,Args...>} is
+  \tcode{true}
 \end{itemize}
 %%\end{itemdescr}
 \pnum
 \effects
-Direct-non-list-initializes \emph{\texttt{value}} with
-\texttt{std::forward\textless{}Args\textgreater{}(args)...}.
+Direct-non-list-initializes \emph{\tcode{value}} with
+\tcode{std::forward<Args>(args)...}.
 
 \pnum
 \throws
-Any exceptions emitted by the initialization of \emph{\texttt{value}}.\\
-\texttt{system\_error} if any necessary resources cannot be acquired.
+Any exceptions emitted by the initialization of \emph{\tcode{value}}.\\
+\tcode{system_error} if any necessary resources cannot be acquired.
 \end{itemdescr}
 
 
 \rSec1[synchronizedvalue.fn]{\tcode{apply} function }
 %%\mbox{}%
 %%\hypertarget{x.2-apply-function}{%
-%%\paragraph{\texorpdfstring{x.2 \texttt{apply}
+%%\paragraph{\texorpdfstring{x.2 \tcode{apply}
 %%function}{x.2 apply function}}\label{x.2-apply-function}}
 
 \begin{itemdecl}
@@ -118,7 +118,7 @@ Any exceptions emitted by the initialization of \emph{\texttt{value}}.\\
 
 \pnum
 \constraints
-\texttt{sizeof...(values)\ !=\ 0} is \texttt{true}.
+\tcode{sizeof...(values) != 0} is \tcode{true}.
 
 \pnum
 \effects
@@ -129,8 +129,8 @@ Equivalent to:
     return invoke(std::forward<F>(f),values.value...);
 \end{codeblock}
 
-\begin{note} A single instance of \texttt{synchronized\_value} can not be
-passed more than once to the same invocation of \texttt{apply}.
+\begin{note} A single instance of \tcode{synchronized_value} can not be
+passed more than once to the same invocation of \tcode{apply}.
 \begin{example}
 
 \begin{codeblock}
@@ -141,8 +141,8 @@ passed more than once to the same invocation of \texttt{apply}.
 \end{example}
  \end{note}
 
-\begin{note} The invocation of \texttt{f} can not call \texttt{apply}
-directly or indirectly passing any of \texttt{values...}. 
+\begin{note} The invocation of \tcode{f} can not call \tcode{apply}
+directly or indirectly passing any of \tcode{values...}. 
 \end{note}
 \end{itemdescr}
 

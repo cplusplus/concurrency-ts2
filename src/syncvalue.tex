@@ -37,8 +37,8 @@ namespace std::experimental::inline concurrency_v2 {
     class synchronized_value
     {
     public:
-        synchronized_value(synchronized_value const&) = delete;
-        synchronized_value& operator=(synchronized_value const&) = delete;
+        synchronized_value(const synchronized_value&) = delete;
+        synchronized_value& operator=(const synchronized_value&) = delete;
 
         template<class... Args>
         synchronized_value(Args&& ... args);

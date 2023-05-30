@@ -19,7 +19,7 @@ namespace std::experimental::inline concurrency_v2 {
     template<class T>
     class synchronized_value;
 
-    template<class F,class ... ValueTypes>
+    template<class F,class... ValueTypes>
     invoke_result_t<F, ValueTypes&...> apply(
         F&& f,synchronized_value<ValueTypes>&... values);
 }
@@ -40,7 +40,7 @@ namespace std::experimental::inline concurrency_v2 {
         synchronized_value(synchronized_value const&) = delete;
         synchronized_value& operator=(synchronized_value const&) = delete;
 
-        template<class ... Args>
+        template<class... Args>
         synchronized_value(Args&& ... args);
 
     private:
@@ -65,7 +65,7 @@ a time.
 
 \begin{itemdecl}
 
-template<class ... Args>
+template<class... Args>
 synchronized_value(Args&& ... args);
 \end{itemdecl}
 
@@ -107,7 +107,7 @@ Any exceptions emitted by the initialization of \emph{\tcode{value}}.\\
 %%function}{x.2 apply function}}\label{x.2-apply-function}}
 
 \begin{itemdecl}
-    template<class F,class ... ValueTypes>
+    template<class F,class... ValueTypes>
     invoke_result_t<F, ValueTypes&...> apply(
         F&& f,synchronized_value<ValueTypes>&... values);
 \end{itemdecl}

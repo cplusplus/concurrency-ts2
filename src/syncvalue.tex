@@ -44,8 +44,8 @@ namespace std::experimental::inline concurrency_v2 {
         synchronized_value(Args&& ... args);
 
     private:
-        T value; // exposition only
-        mutex mut; // exposition only
+        @\emph{T value;}@   // exposition only
+        @\emph{mutex mut;}@ // exposition only
     };
 
 template<class T>
@@ -125,8 +125,8 @@ Any exceptions emitted by the initialization of \emph{\tcode{value}}.\\
 Equivalent to:
 
 \begin{codeblock}
-    scoped_lock lock(values.mut...);
-    return invoke(std::forward<F>(f),values.value...);
+    scoped_lock lock(values.@\emph{mut}@...);
+    return invoke(std::forward<F>(f),values.@\emph{value}@...);
 \end{codeblock}
 
 \begin{note} A single instance of \tcode{synchronized_value} can not be

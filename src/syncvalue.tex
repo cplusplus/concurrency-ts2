@@ -41,11 +41,11 @@ namespace std::experimental::inline concurrency_v2 {
         synchronized_value& operator=(const synchronized_value&) = delete;
 
         template<class... Args>
-        synchronized_value(Args&& ... args);
+        synchronized_value(Args&&... args);
 
     private:
-        @\emph{T value;}@   // exposition only
-        @\emph{mutex mut;}@ // exposition only
+        T @\emph{value;}@   // exposition only
+        mutex @\emph{mut;}@ // exposition only
     };
 
 template<class T>
@@ -66,7 +66,7 @@ a time.
 \begin{itemdecl}
 
 template<class... Args>
-synchronized_value(Args&& ... args);
+synchronized_value(Args&&... args);
 \end{itemdecl}
 
 

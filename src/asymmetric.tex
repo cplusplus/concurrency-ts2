@@ -65,14 +65,14 @@ void asymmetric_thread_fence_heavy(memory_order order) noexcept;
 \effects
 Depending on the value of \tcode{order}, this operation:
 \begin{itemize}
-    \item  has no effects, if \tcode{order == memory\_order::relaxed};
+    \item  has no effects, if \tcode{order == memory\_order::relaxed} is \tcode{true};
 \item  is an acquire heavyweight-fence, if \tcode{order == memory\_order::acquire} or \tcode{order ==
-memory\_order::consume};
-\item is a release heavyweight-fence, if \tcode{order == memory\_order::release};
+memory\_order::consume} is \tcode{true};
+\item is a release heavyweight-fence, if \tcode{order == memory\_order::release} is \tcode{true};
 \item is both an acquire heavyweight-fence and a release heavyweight-fence, if \tcode{order ==
-memory_order::acq_rel};
+memory_order::acq_rel} is \tcode{true};
 \item is a sequentially consistent acquire and release heavyweight-fence, if \tcode{order ==
-memory_order::seq_cst}.
+memory_order::seq_cst} is \tcode{true}.
 \end{itemize}
 
 \end{itemdescr}
@@ -89,14 +89,14 @@ void asymmetric_thread_fence_light(memory_order order) noexcept;
 \effects
 Depending on the value of \tcode{order}, this operation:
 \begin{itemize}
-    \item  has no effects, if \tcode{order == memory\_order::relaxed};
+    \item  has no effects, if \tcode{order == memory\_order::relaxed} is \tcode{true};
 \item  is an acquire lightweight-fence, if \tcode{order == memory\_order::acquire} or \tcode{order ==
-memory\_order::consume};
-\item is a release lightweight-fence, if \tcode{order == memory\_order::release};
+memory\_order::consume} is \tcode{true};
+\item is a release lightweight-fence, if \tcode{order == memory\_order::release} is \tcode{true};
 \item is both an acquire lightweight-fence and a release lightweight-fence, if \tcode{order ==
-memory\_order::acq\_rel};
+memory\_order::acq\_rel} is \tcode{true};
 \item is a sequentially consistent acquire and release lightweight-fence, if \tcode{order ==
-memory\_order::seq\_cst}.
+memory\_order::seq\_cst} is \tcode{true}.
 \end{itemize}
 
 \end{itemdescr}

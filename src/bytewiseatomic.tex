@@ -55,7 +55,7 @@ Copies \tcode{count} consecutive bytes pointed to by
 \tcode{source} into consecutive bytes pointed to by \tcode{dest}. Each
 individual load operation from a source byte is atomic with memory order
 \tcode{order}. These individual loads are unsequenced with respect to
-each other. The function implicitly creates objects ({[}intro.object{]})
+each other. The function implicitly creates objects (\CppXref{6.7.2})
 in the destination region of storage immediately prior to copying the
 sequence of bytes to the destination. 
 \begin{note} There is no requirement
@@ -85,7 +85,7 @@ Copies \tcode{count} consecutive bytes pointed to by
 individual store operation to a destination byte is atomic with memory
 order \tcode{order}. These individual stores are unsequenced with
 respect to each other. The function implicitly creates objects
-({[}intro.object{]}) in the destination region of storage immediately
+(\CppXref{6.7.2}) in the destination region of storage immediately
 prior to copying the sequence of bytes to the destination.
 
 \pnum

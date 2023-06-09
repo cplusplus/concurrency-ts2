@@ -1,13 +1,13 @@
 %!TEX root = ts.tex
 
-\rSec0[byteatomicmemcpy]{Bytewise Atomic Memcpy}
+\rSec0[atomiccpy]{Bytewise Atomic Memcpy}
 
-\rSec1[byteatomicmemcpy.general]{General}
+\rSec1[atomiccpy.general]{General}
 
 This clause describes bytewise atomic memcpy access. 
 
 
-\rSec1[byteeatomicmemcpy.syn]{Header <experimental/bytewise_atomic_memcpy> synopsis}
+\rSec1[atomiccpy.syn]{Header <experimental/bytewise_atomic_memcpy> synopsis}
 %%\uline{\textbf{Header
 %%\texttt{\textless{}experimental/bytewise\_atomic\_memcpy\textgre%%ater{}}
 %%synopsis}}
@@ -31,7 +31,7 @@ a race did not occur. \begin{note} So-called "seqlocks" are the canonical
 example of such an idiom. \end{note}
 
 
-\rSec1[byteatomicmemcpy.load]{atomic_load_per_byte_memcpy}
+\rSec1[atomiccpy.load]{atomic_load_per_byte_memcpy}
 \pnum
 The \tcode{atomic_load_per_byte_memcpy} /
 \tcode{atomic_store_per_byte_memcpy} functions behave as if the
@@ -67,7 +67,7 @@ must operate on individual bytes. \end{note}
 \tcode{dest}.
 \end{itemdescr}
 
-\rSec1[byteatomicmemcpy.store]{atomic_store_per_byte_memcpy}
+\rSec1[atomiccpy.store]{atomic_store_per_byte_memcpy}
 \textbf{\tcode{void* atomic_store_per_byte_memcpy(void* dest, const void* source, size_t count, memory_order order);}}
 
 \begin{itemdescr}

@@ -31,7 +31,7 @@ a race did not occur. \begin{note} So-called "seqlocks" are the canonical
 example of such an idiom. \end{note}
 
 
-\rSec1[atomiccpy.load]{atomic_load_per_byte_memcpy}
+\rSec1[atomiccpy.load]{\tcode{atomic_load_per_byte_memcpy}}
 \pnum
 The \tcode{atomic_load_per_byte_memcpy} /
 \tcode{atomic_store_per_byte_memcpy} functions behave as if the
@@ -67,7 +67,7 @@ must operate on individual bytes. \end{note}
 \tcode{dest}.
 \end{itemdescr}
 
-\rSec1[atomiccpy.store]{atomic_store_per_byte_memcpy}
+\rSec1[atomiccpy.store]{\tcode{atomic_store_per_byte_memcpy}}
 \textbf{\tcode{void* atomic_store_per_byte_memcpy(void* dest, const void* source, size_t count, memory_order order);}}
 
 \begin{itemdescr}

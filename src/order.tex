@@ -8,23 +8,9 @@
 \setcounter{subsection}{3}
 \rSec2[atomics.order]{Order and consistency}
 
-Change in \CppXref{33.5.4} paragraph 4 as indicated:
-\begin{quote}
-\setcounter{Paras}{3}
-\pnum
-There is a single total order $S$
-on all \tcode{memory_order::seq_cst} operations, including fences,
-that satisfies the following constraints.
-First, if $A$ and $B$ are
-\tcode{memory_order::seq_cst} operations and
-$A$ strongly happens before $B$,
-then $A$ precedes $B$ in $S$.
-Second, for every pair of atomic operations $A$ and
-$B$ on an object $M$,
-where $A$ is coherence-ordered before $B$,
-the following \removed{four} conditions are required to be satisfied by $S$:
-
-\end{quote}
+Change in \CppXref{33.5.4} paragraph 4 to remove the word ``four'' from
+the clause ``the following four conditions are required to be satisfied
+by $S$''.
 
 Add the following two bullets to the list:
 \begin{quote}

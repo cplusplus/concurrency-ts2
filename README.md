@@ -7,8 +7,12 @@ sources, or you can use the `latexmk` program e.g. `latexmk -pdf ts`
 will generate a PDF.
 
 \textbf{Concurrency TS2 Editor's Report}
+\textbf{October 2023 pre-Kona Plenary meeting}
+N4968 is the replaced PDTS of Concurrency TS V2.
+It contains changes directed by ISO to remove colour changes and replace with explicit change annotations. 
+
 \textbf{August 2023 post-Varna Plenary meeting}
-N4956 is the proposed PDTS of COncurrency TS Version 2.
+N4956 is the proposed PDTS of Concurrency TS Version 2.
 It contains changes to the N4953 as directed by the committee review and author review. This version has been sent to Geneva. 
 
 Some of those changes are

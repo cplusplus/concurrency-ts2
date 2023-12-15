@@ -129,8 +129,8 @@ Equivalent to:
     return invoke(std::forward<F>(f),values.@\emph{value}@...);
 \end{codeblock}
 
-\begin{note} A single instance of \tcode{synchronized_value} can not be
-passed more than once to the same invocation of \tcode{apply}.
+\begin{note} It is not possible to pass a single instance of \tcode{synchronized_value}
+more than once to the same invocation of \tcode{apply}.
 \begin{example}
 
 \begin{codeblock}

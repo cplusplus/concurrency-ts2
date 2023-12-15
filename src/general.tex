@@ -3,15 +3,15 @@
 \rSec0[scope]{Scope}
 
 \pnum
-This document describes requirements for implementations of an interface that computer programs written in the C++ programming language may use to invoke algorithms with concurrent execution. The algorithms described by this document are realizable across a broad class of computer architectures.
+This document describes requirements for implementations of an interface that computer programs written in the C++ programming language could use to invoke algorithms with concurrent execution. The algorithms described by this document are realizable across a broad class of computer architectures.
 
 \pnum
-{\cppstddocno} provide important context and specification for
+This document provides important context and specification for
 this document. This document is written as a set of changes against that specification.  Instructions to modify or add paragraphs are written as
 explicit instructions.
 
 \pnum
-This document is non-normative. Some of the functionality described by this document may be considered for standardization in a future version of C++, but it is not currently part of any C++ standard. Some of the functionality in this document may never be standardized, and other functionality may be standardized in a substantially changed form.
+Some of the functionality described by this document might be considered for standardization in a future version of C++, but it is not currently part of any C++ standard. Some of the functionality in this document might never be standardized, and other functionality might be standardized in a substantially changed form.
 
 \pnum
 The goal of this document is to build widespread existing practice for concurrency in the C++ standard algorithms library. It gives advice on extensions to those vendors who wish to provide them.
@@ -22,11 +22,8 @@ The goal of this document is to build widespread existing practice for concurren
 The following referenced document is indispensable for the application of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.
 
 \begin{itemize}
-\item {\cppstddocno}, \doccite{Programming Languages --- C++}
+\item ISO/IEC 14882:2020, \doccite{Programming Languages --- C++}
 \end{itemize}
-
-\pnum
-ISO/IEC 14882:2020 is herein called the C++ Standard. References to clauses within the C++ Standard are written as ``\CppXref{3.2}''. The library described in \CppXref{16-32} is herein called the C++ Standard Library.
 
 \pnum
 Unless otherwise specified, the whole of the C++ Standard's Library introduction (\CppXref{16}) is included into this Technical Specification by reference.
@@ -49,12 +46,12 @@ terminological databases for use in standardization at the following addresses:
 \pnum
 Conformance requirements for this document are those defined in \CppXref{4.1}, as applied to a merged document consisting of C++20 amended by this document.
 \begin{note}
-Conformance is defined in terms of the behavior of programs.
+Conformance is defined in terms of the behaviour of programs.
 \end{note}
 
 \rSec1[general.namespaces]{Namespaces and headers and modifications to standard classes}
 \pnum
-Since the extensions described in this technical specification are experimental and not part of the C++ standard library, they are not declared directly within namespace \tcode{std}. Unless otherwise specified, all components described in this technical specification either:
+Since the extensions described in this document are experimental and not part of the C++ standard library, they are not declared directly within namespace \tcode{std}. Unless otherwise specified, all components described in this document either:
 
 \begin{itemize}
     \item modify an existing interface in the C++ Standard Library in-place,
@@ -79,7 +76,7 @@ Operators in expressions are not so constrained.
 \end{note}
 
 \pnum
-These are the headers described in this document (see Table~\ref{tab:info.headers})
+Table~\ref{tab:info.headers} presents the headers described in this document
 %%shall import the contents of %%\tcode{::std::experimental::concurrency::v2} into
 %%\tcode{::std::experimental::concurrency_v1} as if by:
 
@@ -158,28 +155,28 @@ An implementation that provides support for this document should define each fea
 
 \end{floattable}
 
-\rSec1[general.plans]{Future plans (Informative)}
-\pnum
-This section describes tentative plans for future versions of this technical specification and plans for moving content into
-future versions of the C++ Standard.
+% \rSec1[general.plans]{Future plans (Informative)}
+% \pnum
+% This clause describes tentative plans for future versions of this document and plans for moving content into
+% future versions of the C++ Standard.
 
-\pnum
- The C++ committee intends to release a new version of this technical specification approximately every few years, containing
-the concurrency extensions we hope to add to a near-future version of the C++ Standard. Future versions will define their
-contents in \tcode{std::experimental::concurrency\_v3}, \tcode{std::experimental::concurrency\_v4}, etc., with the most recent
-implemented version inlined into \tcode{std::ex\-perimental}.
+% \pnum
+%  The C++ committee intends to release a new version of this document approximately every few years, containing
+% the concurrency extensions we hope to add to a near-future version of the C++ Standard. Future versions will define their
+% contents in \tcode{std::experimental::concurrency\_v3}, \tcode{std::experimental::concurrency\_v4}, etc., with the most recent
+% implemented version inlined into \tcode{std::ex\-perimental}.
 
-\pnum
-When an extension defined in this or a future version of this technical specification represents enough existing practice, it
-will be moved into the next version of the C++ Standard by removing the \tcode{experimental::con\-currency\_v$N$} segment of its
-namespace and by removing the \tcode{experimental/} prefix from its header's path.
+% \pnum
+% When an extension defined in this or a future version of this document represents enough existing practice, it
+% will be moved into the next version of the C++ Standard by removing the \tcode{experimental::con\-currency\_v$N$} segment of its
+% namespace and by removing the \tcode{experimental/} prefix from its header's path.
 
-\rSec1[general.ack]{Acknowledgments}
+% \rSec1[general.ack]{Acknowledgments}
 
-This work is the result of a collaboration of researchers in industry and academia. We wish to thank the
-original authors of this document, Michael Wong, Paul McKenney, and Maged Michael, and the editing review team of Jonathan Wakely, Daniel Krügler, and Bryan St. Amour. We also wish to thank people
-who made valuable contributions within and outside these groups, including Jens Maurer, and many others not named
-here who contributed to the discussion.
+% This work is the result of a collaboration of researchers in industry and academia. We wish to thank the
+% original authors of this document, Michael Wong, Paul McKenney, and Maged Michael, and the editing review team of Jonathan Wakely, Daniel Krügler, and Bryan St. Amour. We also wish to thank people
+% who made valuable contributions within and outside these groups, including Jens Maurer, and many others not named
+% here who contributed to the discussion.
 
 
 

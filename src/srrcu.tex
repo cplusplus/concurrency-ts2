@@ -110,7 +110,7 @@ has the effect of disposing of the pointer as appropriate for
 that deleter.
 
 \pnum
-The behavior of a program that adds specializations for
+The behaviour of a program that adds specializations for
 \tcode{rcu_obj_base} is undefined.
 
 \pnum
@@ -141,7 +141,7 @@ an object \tcode{x} of type \tcode{T}. The member function
 \tcode{rcu_obj_base<T,D>::retire} was not invoked on \tcode{x}
 before. The assignment to \exposid{deleter} does not throw an
 exception. The expression \tcode{\exposid{deleter}(addressof(x))} has
-well-defined behavior and does not throw an exception.
+well-defined behaviour and does not throw an exception.
 
 \pnum
 \effects

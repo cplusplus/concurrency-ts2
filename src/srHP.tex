@@ -240,7 +240,7 @@ A client-supplied template argument \tcode{D} shall be a function object type (\
 for which, given a value \tcode{d} of type \tcode{D} and a value \tcode{ptr} of type \tcode{T*}, the expression \tcode{d(ptr)} is valid and has the effect of disposing of the pointer as appropriate for that deleter.
 
 \pnum
-The behavior of a program that adds specializations for \tcode{hazard_pointer_obj_base} is undefined.
+The behaviour of a program that adds specializations for \tcode{hazard_pointer_obj_base} is undefined.
 
 \pnum
 \tcode{D} shall meet the requirements for \oldconcept{DefaultConstructible} and \oldconcept{MoveAssignable}.
@@ -261,7 +261,7 @@ void retire(D d = D(), hazard_pointer_domain& domain = hazard_pointer_default_do
 \pnum
 \expects
 \tcode{*this} is a base class subobject of an object \tcode{x} of type \tcode{T}. \tcode{x} is not retired.
-Move-assigning \tcode{D} from \tcode{d} does not throw an exception. The expression \tcode{d(addressof(x))} has well-defined behavior and does not throw an exception.
+Move-assigning \tcode{D} from \tcode{d} does not throw an exception. The expression \tcode{d(addressof(x))} has well-defined behaviour and does not throw an exception.
 
 \pnum
 \effects 

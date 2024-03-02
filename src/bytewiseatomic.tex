@@ -27,8 +27,11 @@ The \tcode{atomic_load_per_byte_memcpy()} and
 \tcode{atomic_store_per_byte_memcpy()} functions support concurrent
 programming idioms in which values may be read while being written, but
 the value is trusted only when it can be determined after the fact that
-a race did not occur. \begin{note} So-called "seqlocks" are the canonical
-example of such an idiom.\end{note}
+a race did not occur.
+
+%\begin{note}
+[NOTE: So-called "seqlocks" are the canonical
+example of such an idiom.]%\end{note}
 
 
 \rSec1[atomiccpy.load]{\tcode{atomic_load_per_byte_memcpy}}
@@ -58,9 +61,11 @@ individual load operation from a source byte is atomic with memory order
 each other. The function implicitly creates objects (\CppXref{6.7.2})
 in the destination region of storage immediately prior to copying the
 sequence of bytes to the destination. 
-\begin{note} There is no requirement
+
+%\begin{note}
+[NOTE: There is no requirement
 that the individual bytes be copied in order, or that the implementation
-must operate on individual bytes.\end{note}
+must operate on individual bytes.]%\end{note}
 
 \pnum
 \returns
@@ -94,10 +99,11 @@ prior to copying the sequence of bytes to the destination.
 \tcode{dest}.
 \end{itemdescr}
 
-\begin{note} If any of the atomic byte loads performed by an
+%\begin{note}
+[NOTE: If any of the atomic byte loads performed by an
 \tcode{atomic_load_per_byte_memcpy()} call A with
 \tcode{memory_order::acquire} argument take their value from an atomic
 byte store performed by \tcode{atomic_store_per_byte_memcpy()} call
 B with \tcode{memory_order::release} argument, then the start of B
-strongly happens before the completion of A.\end{note}  
+strongly happens before the completion of A.]%\end{note}  
 %%\end{quote}

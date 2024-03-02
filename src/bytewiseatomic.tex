@@ -28,7 +28,7 @@ The \tcode{atomic_load_per_byte_memcpy()} and
 programming idioms in which values may be read while being written, but
 the value is trusted only when it can be determined after the fact that
 a race did not occur. \begin{note} So-called "seqlocks" are the canonical
-example of such an idiom. \end{note}
+example of such an idiom.\end{note}
 
 
 \rSec1[atomiccpy.load]{\tcode{atomic_load_per_byte_memcpy}}
@@ -60,7 +60,7 @@ in the destination region of storage immediately prior to copying the
 sequence of bytes to the destination. 
 \begin{note} There is no requirement
 that the individual bytes be copied in order, or that the implementation
-must operate on individual bytes. \end{note}
+must operate on individual bytes.\end{note}
 
 \pnum
 \returns
@@ -99,6 +99,5 @@ prior to copying the sequence of bytes to the destination.
 \tcode{memory_order::acquire} argument take their value from an atomic
 byte store performed by \tcode{atomic_store_per_byte_memcpy()} call
 B with \tcode{memory_order::release} argument, then the start of B
-strongly happens before the completion of A. 
-\end{note}  
+strongly happens before the completion of A.\end{note}  
 %%\end{quote}

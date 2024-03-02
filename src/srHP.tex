@@ -17,7 +17,7 @@ The span between creation and destruction of a hazard pointer $h$ is partitioned
 A hazard pointer \defn{belongs to} exactly one \defn{domain}. 
 
 \pnum
-An object of type \tcode{hazard_pointer} is either empty or \defn{owns} a hazard pointer. Each hazard pointer is owned by exactly one object of type \tcode{hazard_pointer}. \begin{note} An empty \tcode{hazard_pointer} object is different from a \tcode{hazard_pointer} object that owns an unassociated hazard pointer. An empty \tcode{hazard_pointer} object does not own any hazard pointers. \end{note}
+An object of type \tcode{hazard_pointer} is either empty or \defn{owns} a hazard pointer. Each hazard pointer is owned by exactly one object of type \tcode{hazard_pointer}. \begin{note} An empty \tcode{hazard_pointer} object is different from a \tcode{hazard_pointer} object that owns an unassociated hazard pointer. An empty \tcode{hazard_pointer} object does not own any hazard pointers.\end{note}
 
 \pnum
 An object \tcode{x} of hazard-protectable type \tcode{T} is \defn{retired} to a domain with a deleter of type \tcode{D} when the member function \tcode{hazard_pointer_obj_base<T,D>::retire} is invoked on \tcode{x}. Any given object \tcode{x} shall be retired at most once.
@@ -50,9 +50,9 @@ during which $h$ is associated with \tcode{x}:
   \item if the beginning of $E$ happens before \tcode{x} is retired, the end of $E$ strongly
 happens before $A$, and
   \item if $E$ began by an evaluation of \tcode{try_protect} with argument \tcode{src}, label its
-atomic load operation $L$. If there exists an atomic modification $B$ on \tcode{src} such that $L$ observes a modification that is modification-ordered before $B$, and $B$ happens before \tcode{x} is retired, the end of $E$ strongly happens before $A$. \begin{note} In typical use, a store to \tcode{src} sequenced before retiring \tcode{x} will be such an atomic operation $B$. \end{note}
+atomic load operation $L$. If there exists an atomic modification $B$ on \tcode{src} such that $L$ observes a modification that is modification-ordered before $B$, and $B$ happens before \tcode{x} is retired, the end of $E$ strongly happens before $A$. \begin{note} In typical use, a store to \tcode{src} sequenced before retiring \tcode{x} will be such an atomic operation $B$.\end{note}
 \end{itemize}
-\begin{note} The latter two conditions convey the informal notion that a protection epoch that began before retiring \tcode{x}, as implied either by the happens-before relation or the coherence order of some source, delays the reclamation of \tcode{x}. \end{note}
+\begin{note} The latter two conditions convey the informal notion that a protection epoch that began before retiring \tcode{x}, as implied either by the happens-before relation or the coherence order of some source, delays the reclamation of \tcode{x}.\end{note}
 \end{itemize}
 
 \begin{example} The following example shows how hazard pointers allow updates to be carried out in the presence of concurrent readers. The object of type \tcode{hazard_pointer} in \tcode{print_name} protects the object \tcode{*ptr} from being reclaimed by \tcode{ptr->retire} until the end of the protection epoch.
@@ -114,7 +114,7 @@ The number of unreclaimed possibly-reclaimable objects retired to a domain is bo
 The bound is implementation-defined. \begin{note} The bound can be independent of other
 domains and can be a function of the number of hazard pointers belonging to the
 domain, the number of threads that retire objects to the domain, and the number of
-threads that use hazard pointers belonging to the domain. \end{note}
+threads that use hazard pointers belonging to the domain.\end{note}
 
 \pnum
 Concurrent access to a domain does not incur a data race (\CppXref{6.9.2.1}).
@@ -427,7 +427,7 @@ template <typename T> bool try_protect(T*& ptr, const atomic<T*>& src) noexcept;
 
 \pnum
 \returns
-\tcode{old == ptr}. \begin{note} It is possible for \tcode{try_protect} to return \tcode{true} when \tcode{ptr} is a null pointer. \end{note}
+\tcode{old == ptr}. \begin{note} It is possible for \tcode{try_protect} to return \tcode{true} when \tcode{ptr} is a null pointer.\end{note}
 
 \pnum
 \complexity
@@ -479,7 +479,7 @@ void swap(hazard_pointer& other) noexcept;
 
 \pnum
 \effects 
-Swaps the hazard pointer ownership of this object with that of other. \begin{note} The owned hazard pointers, if any, remain unchanged during the swap and continue to be associated with the respective objects that they were protecting before the swap, if any. No protection epochs are ended or initiated. \end{note}
+Swaps the hazard pointer ownership of this object with that of other. \begin{note} The owned hazard pointers, if any, remain unchanged during the swap and continue to be associated with the respective objects that they were protecting before the swap, if any. No protection epochs are ended or initiated.\end{note}
 
 \pnum
 \complexity 

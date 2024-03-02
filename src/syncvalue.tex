@@ -138,11 +138,9 @@ more than once to the same invocation of \tcode{apply}.
       void f(int,int);
       apply(f,sv,sv); // undefined behaviour, sv passed more than once to same call
 \end{codeblock}
-\end{example}
- \end{note}
+\end{example}\end{note}
 
 \begin{note} The invocation of \tcode{f} can not call \tcode{apply}
-directly or indirectly passing any of \tcode{values...}. 
-\end{note}
+directly or indirectly passing any of \tcode{values...}.\end{note}
 \end{itemdescr}
 

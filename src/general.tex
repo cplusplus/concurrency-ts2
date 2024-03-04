@@ -62,18 +62,18 @@ Since the extensions described in this document are experimental and not part of
 Whenever an unqualified name is used
 in the specification of a declaration \tcode{D},
 its meaning is established
-as-if by performing unqualified name lookup
+as-if in accordance with (\CppXref{4.1.2}) by performing unqualified name lookup
 in the context of \tcode{D}.
 \begin{note}
 Argument-dependent lookup is not performed.\end{note}
 Similarly, the meaning of a \grammarterm{qualified-id} is established
-as-if by performing qualified name lookup
+as-if ina accordance with  by performing qualified name lookup
 in the context of \tcode{D}.
 \begin{note}
 Operators in expressions are not so constrained.\end{note}
 
 \pnum
-Table~\ref{tab:info.headers} presents the headers described in this document
+Table~\ref{tab:info.headers} shows the headers described in this document
 %%shall import the contents of %%\tcode{::std::experimental::concurrency::v2} into
 %%\tcode{::std::experimental::concurrency_v1} as if by:
 
@@ -95,9 +95,9 @@ Table~\ref{tab:info.headers} presents the headers described in this document
 
 \end{floattable}
 
-\rSec1[general.feature.test]{Feature-testing recommendations (Informative)}
+\rSec1[general.feature.test]{Feature-testing recommendations }
 \pnum
-An implementation that provides support for this document should define each feature test macro defined in \tref{intro.features1} and \tref{intro.features2} if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in the table.
+An implementation that provides support for this document should define each feature test macro defined in \tref{intro.features1} and \tref{intro.features2} if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in \tref{intro.features1} and \tref{intro.features2}.
 
 %%\begin{floattable}{Feature-test macros name}{tab:intro.features}
 %%{lllll}

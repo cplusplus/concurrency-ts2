@@ -103,7 +103,7 @@ private:
 
 % \pnum
 A client-supplied template argument \tcode{D} shall be a
-function object type \CppXref{20.14} for which,
+function object type \CppXrefInAccord{20.14} for which,
 given a value \tcode{d} of type \tcode{D} and a value \tcode{ptr}
 of type \tcode{T*}, the expression \tcode{d(ptr)} is valid and
 has the effect of disposing of the pointer as appropriate for
@@ -163,7 +163,7 @@ retire on \tcode{dom}, deadlock can occur.\end{note}
 
 % @@@ Removed the obsolete reference comments.
 
-This class meets the requirements of \oldconcept{BasicLockable} \CppXref{32.2.5.2} and provides regions of RCU protection.
+This class meets the requirements of \oldconcept{BasicLockable} \CppXrefInAccord{32.2.5.2} and provides regions of RCU protection.
 
 \begin{example}
 \begin{codeblock}
@@ -200,7 +200,7 @@ Opens a region of RCU protection.
 % \pnum
 \remarks
 Calls to the function lock do not introduce a data race
-(\CppXref{6.9.2.1}) involving \tcode{*this}.
+(\CppXrefInAccord{6.9.2.1}) involving \tcode{*this}.
 
 \end{itemdescr}
 

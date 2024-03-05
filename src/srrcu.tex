@@ -32,7 +32,8 @@ sequenced before $U$ and either
 	before $L'$ and $L'$ is sequenced before $U'$.
 \end{itemize}
 \begin{note}
-This pairs nested locks and unlocks on a given domain in each thread.\end{note}
+This associates corresponding locks and unlocks within a nested set
+on a given domain in each thread.\end{note}
 
 % \pnum
 A \defn{region of RCU protection} on a domain \tcode{dom} starts

@@ -21,7 +21,7 @@ namespace std::experimental::inline concurrency_v2 {
 
 %%\uline{\texttt{\ namespace\ std::experimental::inline\ %%concurrency\_v2\ \{\ \ ~~void*\ %%atomic\_load\_per\_byte\_memcpy(void*\ dest,\ const\ void*\ %%source,\ size\_t\ count,\ memory\_order\ order);\ \ ~~void*\ %%atomic\_store\_per\_byte\_memcpy(void*\ dest,\ const\ void*\ %%source,\ size\_t\ count,\ memory\_order\ order);\ \ ~~\#define\ %%\_\_cpp\_lib\_experimental\_bytewise\_atomic\_memcpy\ \ %%202XYYL\ \}}}
 %%\rSec1[bytewiseatomicmemcpy.general]{General}
-\pnum
+% \pnum
 
 The \tcode{atomic_load_per_byte_memcpy()} and
 \tcode{atomic_store_per_byte_memcpy()} functions support concurrent
@@ -35,7 +35,8 @@ example of such an idiom.]%\end{note}
 
 
 \rSec1[atomiccpy.load]{\tcode{atomic_load_per_byte_memcpy}}
-\pnum
+% \pnum
+
 The \tcode{atomic_load_per_byte_memcpy} /
 \tcode{atomic_store_per_byte_memcpy} functions behave as if the
 \tcode{source} and \tcode{dest} bytes respectively were individual
@@ -44,7 +45,8 @@ atomic objects.
 \textbf{\tcode{void*\ atomic_load_per_byte_memcpy(void* dest, const void* source, size_t count, memory_order order);}}
 
 \begin{itemdescr}
-\pnum
+% \pnum
+
 \expects
 
 \tcode{order} is \tcode{memory_order::acquire} or
@@ -52,13 +54,13 @@ atomic objects.
 and \tcode{(const char*)source + [0, count)} are valid ranges
 that do not overlap.
 
-\pnum
+% \pnum
 \effects
 Copies \tcode{count} consecutive bytes pointed to by
 \tcode{source} into consecutive bytes pointed to by \tcode{dest}. Each
 individual load operation from a source byte is atomic with memory order
 \tcode{order}. These individual loads are unsequenced with respect to
-each other. The function implicitly creates objects (\CppXref{6.7.2})
+each other. The function implicitly creates objects (\CppXrefInAccord{7.2})
 in the destination region of storage immediately prior to copying the
 sequence of bytes to the destination. 
 
@@ -67,7 +69,7 @@ sequence of bytes to the destination.
 that the individual bytes be copied in order, or that the implementation
 must operate on individual bytes.]%\end{note}
 
-\pnum
+% \pnum
 \returns
 \tcode{dest}.
 \end{itemdescr}
@@ -76,24 +78,25 @@ must operate on individual bytes.]%\end{note}
 \textbf{\tcode{void* atomic_store_per_byte_memcpy(void* dest, const void* source, size_t count, memory_order order);}}
 
 \begin{itemdescr}
-\pnum
+% \pnum
+
 \expects
 \tcode{order} is \tcode{memory_order::release} or
 \tcode{memory_order::relaxed}. \tcode{(char*)dest + [0, count)}
 and \tcode{(const char*)source + [0, count)} are valid ranges
 that do not overlap.
 
-\pnum
+% \pnum
 \effects
 Copies \tcode{count} consecutive bytes pointed to by
 \tcode{source} into consecutive bytes pointed to by \tcode{dest}. Each
 individual store operation to a destination byte is atomic with memory
 order \tcode{order}. These individual stores are unsequenced with
 respect to each other. The function implicitly creates objects
-(\CppXref{6.7.2}) in the destination region of storage immediately
+(\CppXrefInAccord{6.7.2}) in the destination region of storage immediately
 prior to copying the sequence of bytes to the destination.
 
-\pnum
+% \pnum
 \returns
 
 \tcode{dest}.

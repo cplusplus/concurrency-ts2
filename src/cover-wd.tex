@@ -4,29 +4,54 @@
 
 
 \thispagestyle{empty}
-\begingroup
-\def\hd{\begin{tabular}{ll}
-          \textbf{Document Number:} & {\larger\docno}             \\
-          \textbf{Date:}            & \reldate                    \\
-          \textbf{Revises:}         & \prevdocno                  \\
-          \textbf{Reply to:}        & Michael Wong                \\
-                                    & Codeplay                    \\
-                                    & fraggamuffin@gmail.com
-          \end{tabular}
-}
-\newlength{\hdwidth}
-\settowidth{\hdwidth}{\hd}
-\hfill\begin{minipage}{\hdwidth}\hd\end{minipage}
-\endgroup
+\begin{tabularx}{6.5in}{p{3.5in}|p{3in}}
+\resizebox{0.75in}{!}{\includegraphics{ISOlogo.png}}
+	& \begin{tabular}[t]{l}
+	  ~ \vspace{-0.7in} ~ \\
+	  \huge \textsf{\textbf{International}} \\
+	  \huge \textsf{\textbf{Standard}} \\
+	  ~ \vspace{2in} ~ \\
+	  \large \textsf{\textbf{\textcolor{red}{ISO SC22 WG21 N4968}}} \\
+	  \\
+	  \end{tabular} \\
+\hline
+\vspace{0.05in} \large \textbf{C++ Extensions for Concurrency}
+	& \vspace{0.05in} \large \textsf{\textbf{Second edition}} \\
+\emph{C++ Extensions pour la concurrence}
+	& \large \textsf{\textbf{2024-03}} \\
+\vspace{5in} (QR Code)
+	& \\
+\vspace{0.2in} & \\
+\scriptsize \textsf{Reference number}
+	& \\
+\scriptsize \textsf{ISO NNNN:YYYY(en)}
+	& \scriptsize \textsf{\textcopyright\ ISO 2024}
+\end{tabularx}
 
-\vspace{2.5cm}
-\begin{center}
-\textbf{\Huge
-Programming Languages — Technical specification for \Cpp extensions for concurrency 2
+
+% \begingroup
+% \def\hd{\begin{tabular}{ll}
+%           \textbf{Document Number:} & {\larger\docno}             \\
+%           \textbf{Date:}            & \reldate                    \\
+%           \textbf{Revises:}         & \prevdocno                  \\
+%           \textbf{Reply to:}        & Michael Wong                \\
+%                                     & Codeplay                    \\
+%                                     & fraggamuffin@gmail.com
+%           \end{tabular}
+% }
+% \newlength{\hdwidth}
+% \settowidth{\hdwidth}{\hd}
+% \hfill\begin{minipage}{\hdwidth}\hd\end{minipage}
+% \endgroup
+
+% \vspace{2.5cm}
+% \begin{center}
+% \textbf{\Huge
+% Programming Languages — Technical specification for \Cpp extensions for concurrency 2
 %%PDTS, Extensions to \Cpp for Concurrency
-}
-\end{center}
-\vfill
+% }
+% \end{center}
+% \vfill
 %%\textbf{Note: this is an early draft. It's known to be incomplet and
 %%  incorrekt, and it has lots of
 %%  b\kern-1.2pta\kern1ptd\hspace{1.5em}for\kern-%%3ptmat\kern0.6ptti\raise0.15ex\hbox{n}g.}

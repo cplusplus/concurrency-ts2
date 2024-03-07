@@ -2,35 +2,35 @@
 
 \rSec0[scope]{Scope}
 
-\pnum
+%\pnum
 This document describes requirements for implementations of an interface that computer programs written in the C++ programming language could use to invoke algorithms with concurrent execution. The algorithms described by this document are realizable across a broad class of computer architectures.
 
-\pnum
+%\pnum
 This document provides important context and specification for
 this document. This document is written as a set of changes against that specification.  Instructions to modify or add paragraphs are written as
 explicit instructions.
 
-\pnum
+%\pnum
 Some of the functionality described by this document might be considered for standardization in a future version of C++, but it is not currently part of any C++ standard. Some of the functionality in this document might never be standardized, and other functionality might be standardized in a substantially changed form.
 
-\pnum
+%\pnum
 The goal of this document is to build widespread existing practice for concurrency in the C++ standard algorithms library. It gives advice on extensions to those vendors who wish to provide them.
 
 \rSec0[refs]{Normative references}
 
-\pnum
-The following referenced document is indispensable for the application of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.
+%\pnum
+The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.
 
 \begin{itemize}
 \item ISO/IEC 14882:2020, \doccite{Programming Languages --- C++}
 \end{itemize}
 
-\pnum
-Unless otherwise specified, the whole of the C++ Standard's Library introduction (\CppXref{16}) is included into this Technical Specification by reference.
+%\pnum
+%Unless otherwise specified, the whole of the C++ Standard's Library introduction (\CppXref{16}) is included into this Technical Specification by reference.
 
 
 \rSec0[defs]{Terms and definitions}
-\pnum
+%\pnum
 \indextext{definitions|(}%
 No terms and definitions are listed in this document. ISO and IEC maintain
 terminological databases for use in standardization at the following addresses:
@@ -43,13 +43,14 @@ terminological databases for use in standardization at the following addresses:
 \rSec0[general]{General}
 
 \rSec1[general.compliance]{Implementation compliance}
-\pnum
+%\pnum
 Conformance requirements for this document are those defined in \CppXref{4.1}, as applied to a merged document consisting of C++20 amended by this document.
-\begin{note}
-Conformance is defined in terms of the behaviour of programs.\end{note}
+%%\begin{note}
+
+[NOTE: Conformance is defined in terms of the behaviour of programs.]%%\end{note}
 
 \rSec1[general.namespaces]{Namespaces and headers and modifications to standard classes}
-\pnum
+%\pnum
 Since the extensions described in this document are experimental and not part of the C++ standard library, they are not declared directly within namespace \tcode{std}. Unless otherwise specified, all components described in this document either:
 
 \begin{itemize}
@@ -58,7 +59,7 @@ Since the extensions described in this document are experimental and not part of
     \item are declared in a subnamespace of a namespace described in the previous bullet, whose name is not the same as an existing subnamespace of namespace \tcode{std}.
 \end{itemize}
 
-\pnum
+%\pnum
 Whenever an unqualified name is used
 in the specification of a declaration \tcode{D},
 its meaning is established
@@ -72,7 +73,7 @@ in the context of \tcode{D}.
 \begin{note}
 Operators in expressions are not so constrained.\end{note}
 
-\pnum
+%\pnum
 Table~\ref{tab:info.headers} shows the headers described in this document
 %%shall import the contents of %%\tcode{::std::experimental::concurrency::v2} into
 %%\tcode{::std::experimental::concurrency_v1} as if by:
@@ -96,7 +97,7 @@ Table~\ref{tab:info.headers} shows the headers described in this document
 \end{floattable}
 
 \rSec1[general.feature.test]{Feature-testing recommendations }
-\pnum
+%\pnum
 An implementation that provides support for this document should define each feature test macro defined in \tref{intro.features1} and \tref{intro.features2} if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in \tref{intro.features1} and \tref{intro.features2}.
 
 %%\begin{floattable}{Feature-test macros name}{tab:intro.features}
@@ -153,7 +154,7 @@ An implementation that provides support for this document should define each fea
 \end{floattable}
 
 % \rSec1[general.plans]{Future plans (Informative)}
-% \pnum
+% %\pnum
 % This clause describes tentative plans for future versions of this document and plans for moving content into
 % future versions of the C++ Standard.
 

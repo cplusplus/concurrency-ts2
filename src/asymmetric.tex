@@ -23,31 +23,33 @@ void asymmetric_thread_fence_light(memory_order order) noexcept;
 
 %%\uline{\texttt{\ namespace\ std::experimental::inline\ %%concurrency\_v2\ \{\ \ ~~void*\ %%atomic\_load\_per\_byte\_memcpy(void*\ dest,\ const\ void*\ %%source,\ size\_t\ count,\ memory\_order\ order);\ \ ~~void*\ %%atomic\_store\_per\_byte\_memcpy(void*\ dest,\ const\ void*\ %%source,\ size\_t\ count,\ memory\_order\ order);\ \ ~~\#define\ %%\_\_cpp\_lib\_experimental\_bytewise\_atomic\_memcpy\ \ %%202XYYL\ \}}}
 %%\rSec1[bytewiseatomicmemcpy.general]{General}
-\pnum
+%\pnum
 
 This subclause introduces synchronization primitives called \defn{heavyweight-fences} and
 \defn{lightweight-fences}. Like fences, heavyweight-fences and lightweight-fences can have acquire
 semantics, release semantics, or both, and can be sequentially consistent (in which case they
 are included in the total order \tcode{S} on \tcode{memory_order::seq_cst} operations).
-A heavyweight-fence has all the
-synchronization effects of a fence (\CppXref{31.11}). \begin{note}  Heavyweight-fences and
+A heavyweight-fence shall have all the
+synchronization effects of a fence. % (\CppXref{31.11}).
+\begin{note}  Heavyweight-fences and
 lightweight-fences are distinct from fences.\end{note}
 
-\pnum
+%\pnum
 A heavyweight-fence with acquire semantics is called an \defn{acquire heavyweight-fence}. A
 heavyweight-fence with release semantics is called a \defn{release heavyweight-fence}. A
 lightweight-fence with acquire semantics is called an \defn{acquire lightweight-fence}. A
 lightweight-fence with release semantics is called a \defn{release lightweight-fence}.
 
-\pnum
+%\pnum
 If there are evaluations A and B, and atomic operations X and Y, both operating on some atomic
 object M, such that A is sequenced before X, X modifies M, Y is sequenced before B, and Y
 reads the value written by X or a value written by any side effect in the hypothetical release
 sequence X would head if it were a release operation, and one of the following hold:
-\begin{itemize}
+\setenumerate[0]{label=(\alph*)}
+\begin{enumerate}
     \item  A is a release lightweight-fence and B is an acquire heavyweight-fence; or
 \item  A is a release heavyweight-fence and B is an acquire lightweight-fence
-\end{itemize}
+\end{enumerate}
 
 then any evaluation sequenced before A strongly happens before any evaluation that B is
 sequenced before.
@@ -61,10 +63,11 @@ void asymmetric_thread_fence_heavy(memory_order order) noexcept;
 \begin{itemdescr}
 
 
-\pnum
+%\pnum
 \effects
 Depending on the value of \tcode{order}, this operation:
-\begin{itemize}
+\setenumerate[0]{label=(\alph*)}
+\begin{enumerate}
     \item  has no effects, if \tcode{order == memory\_order::relaxed} is \tcode{true};
 \item  is an acquire heavyweight-fence, if \tcode{order == memory\_order::acquire} or \tcode{order ==
 memory\_order::consume} is \tcode{true};
@@ -73,7 +76,7 @@ memory\_order::consume} is \tcode{true};
 memory_order::acq_rel} is \tcode{true};
 \item is a sequentially consistent acquire and release heavyweight-fence, if \tcode{order ==
 memory_order::seq_cst} is \tcode{true}.
-\end{itemize}
+\end{enumerate}
 
 \end{itemdescr}
 
@@ -85,10 +88,12 @@ void asymmetric_thread_fence_light(memory_order order) noexcept;
 \begin{itemdescr}
 
 
-\pnum
+%\pnum
 \effects
 Depending on the value of \tcode{order}, this operation:
-\begin{itemize}
+\setenumerate[0]{label=(\alph*)}
+\begin{enumerate}
+
     \item  has no effects, if \tcode{order == memory\_order::relaxed} is \tcode{true};
 \item  is an acquire lightweight-fence, if \tcode{order == memory\_order::acquire} or \tcode{order ==
 memory\_order::consume} is \tcode{true};
@@ -97,7 +102,7 @@ memory\_order::consume} is \tcode{true};
 memory\_order::acq\_rel} is \tcode{true};
 \item is a sequentially consistent acquire and release lightweight-fence, if \tcode{order ==
 memory\_order::seq\_cst} is \tcode{true}.
-\end{itemize}
+\end{enumerate}
 
 \end{itemdescr}
 

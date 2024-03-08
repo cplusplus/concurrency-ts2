@@ -55,7 +55,7 @@ synchronized_value(T)
 \end{codeblock}
 
 %%\usepackage{enumitem}
-\pnum   
+% \pnum   
 An object of type \tcode{synchronized_value<T>}
 wraps an object of type \tcode{T}. The wrapped object can be accessed
 by passing a callable object or function to \tcode{apply}. All such
@@ -76,7 +76,7 @@ synchronized_value(Args&&... args);
 \begin{itemdescr}
 %%\tightlist
 %%\item[]
-\pnum
+% \pnum
 \constraints
 \begin{itemize}
 \item 
@@ -88,12 +88,12 @@ synchronized_value(Args&&... args);
   \tcode{true}
 \end{itemize}
 %%\end{itemdescr}
-\pnum
+% \pnum
 \effects
 Direct-non-list-initializes \emph{\tcode{value}} with
 \tcode{std::forward<Args>(args)...}.
 
-\pnum
+% \pnum
 \throws
 Any exceptions emitted by the initialization of \emph{\tcode{value}}.\\
 \tcode{system_error} if any necessary resources cannot be acquired.
@@ -116,11 +116,11 @@ Any exceptions emitted by the initialization of \emph{\tcode{value}}.\\
     
 %%\end{itemdescr}
 
-\pnum
+% \pnum
 \constraints
 \tcode{sizeof...(values) != 0} is \tcode{true}.
 
-\pnum
+% \pnum
 \effects
 Equivalent to:
 

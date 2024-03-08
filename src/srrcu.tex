@@ -167,12 +167,6 @@ retire on \tcode{dom}, deadlock can occur.
 
 This class meets the requirements of \oldconcept{BasicLockable} \CppXrefInAccord{32.2.5.2} and provides regions of RCU protection.
 
-\begin{example}
-\begin{codeblock}
-std::scoped_lock<rcu_domain> rlock(rcu_default_domain());
-\end{codeblock}
-\end{example}
-
 \begin{codeblock}
 class rcu_domain {
 public:
@@ -186,6 +180,11 @@ public:
 
 The functions \tcode{lock} and \tcode{unlock} establish (possibly nested)
 regions of RCU protection.
+
+EXAMPLE
+\begin{codeblock}
+std::scoped_lock<rcu_domain> rlock(rcu_default_domain());
+\end{codeblock}
 
 \rSec3[saferecl.rcu.domain.lock]{\tcode{rcu_domain::lock}}
 

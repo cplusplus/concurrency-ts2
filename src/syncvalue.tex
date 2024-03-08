@@ -131,14 +131,15 @@ Equivalent to:
 
 \begin{note} It is not possible to pass a single instance of \tcode{synchronized_value}
 more than once to the same invocation of \tcode{apply}.
-\begin{example}
+
+EXAMPLE
 
 \begin{codeblock}
       synchronized_value<int> sv;
       void f(int,int);
       apply(f,sv,sv); // undefined behaviour, sv passed more than once to same call
 \end{codeblock}
-\end{example}\end{note}
+\end{note}
 
 \begin{note} The invocation of \tcode{f} can not call \tcode{apply}
 directly or indirectly passing any of \tcode{values...}.\end{note}

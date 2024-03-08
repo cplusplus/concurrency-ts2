@@ -31,9 +31,10 @@ sequenced before $U$ and either
 	\tcode{lock} $L'$ on \tcode{dom} such that $L$ is sequenced
 	before $L'$ and $L'$ is sequenced before $U'$.
 \end{itemize}
-\begin{note}
+
+NOTE
 This associates corresponding locks and unlocks within a nested set
-on a given domain in each thread.\end{note}
+on a given domain in each thread.
 
 % \pnum
 A \defn{region of RCU protection} on a domain \tcode{dom} starts
@@ -153,9 +154,10 @@ the evaluation of the expression \tcode{de\-let\-er(ad\-dress\-of(x))} in the do
 It is implementation-defined whether or not scheduled
 evaluations in \tcode{dom} can be invoked by the \tcode{retire}
 function.
-\begin{note}
+
+NOTE
 If such evaluations acquire resources held across any invocation of
-retire on \tcode{dom}, deadlock can occur.\end{note}
+retire on \tcode{dom}, deadlock can occur.
 
 \end{itemdescr}
 

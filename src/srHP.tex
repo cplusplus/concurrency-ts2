@@ -113,10 +113,12 @@ namespace std::experimental::inline concurrency_v2 {
 
 %\pnum
 The number of unreclaimed possibly-reclaimable objects retired to a domain is bounded.
-The bound is implementation-defined. \begin{note} The bound can be independent of other
+The bound is implementation-defined.
+
+NOTE The bound can be independent of other
 domains and can be a function of the number of hazard pointers belonging to the
 domain, the number of threads that retire objects to the domain, and the number of
-threads that use hazard pointers belonging to the domain.\end{note}
+threads that use hazard pointers belonging to the domain.
 
 %\pnum
 Concurrent access to a domain does not incur a data race. %(\CppXref{6.9.2.1}).
@@ -429,7 +431,7 @@ template <typename T> bool try_protect(T*& ptr, const atomic<T*>& src) noexcept;
 
 %\pnum
 \returns
-\tcode{old == ptr}. \begin{note} It is possible for \tcode{try_protect} to return \tcode{true} when \tcode{ptr} is a null pointer.\end{note}
+\tcode{old == ptr}. NOTE It is possible for \tcode{try_protect} to return \tcode{true} when \tcode{ptr} is a null pointer.
 
 %\pnum
 \complexity
@@ -481,7 +483,7 @@ void swap(hazard_pointer& other) noexcept;
 
 %\pnum
 \effects 
-Swaps the hazard pointer ownership of this object with that of other. \begin{note} The owned hazard pointers, if any, remain unchanged during the swap and continue to be associated with the respective objects that they were protecting before the swap, if any. No protection epochs are ended or initiated.\end{note}
+Swaps the hazard pointer ownership of this object with that of other. NOTE The owned hazard pointers, if any, remain unchanged during the swap and continue to be associated with the respective objects that they were protecting before the swap, if any. No protection epochs are ended or initiated.
 
 %\pnum
 \complexity 

@@ -31,8 +31,10 @@ semantics, release semantics, or both, and can be sequentially consistent (in wh
 are included in the total order \tcode{S} on \tcode{memory_order::seq_cst} operations).
 A heavyweight-fence shall have all the
 synchronization effects of a fence. % (\CppXref{31.11}).
-\begin{note}  Heavyweight-fences and
-lightweight-fences are distinct from fences.\end{note}
+
+NOTE
+Heavyweight-fences and
+lightweight-fences are distinct from fences.
 
 %\pnum
 A heavyweight-fence with acquire semantics is called an \defn{acquire heavyweight-fence}. A
@@ -108,11 +110,11 @@ memory\_order::seq\_cst} is \tcode{true}.
 
 
 
-\begin{note} Delegating both heavyweight-fence and lightweight-fence functions to an
+NOTE Delegating both heavyweight-fence and lightweight-fence functions to an
 \tcode{atomic_thread_fence(order)} call is a valid implementation. Implementations can adopt
 techniques in which calls to \tcode{asymmetric_thread_fence_light} execute more quickly than calls
 to \tcode{atomic_thread_fence} with the same \tcode{memory_order}, at the cost of
 \tcode{asymmetric_thread_fence_heavy} executing more slowly than calls to
-\tcode{atomic_thread_fence} with the same \tcode{memory_order}\end{note}  
+\tcode{atomic_thread_fence} with the same \tcode{memory_order}.
 
 

@@ -13,7 +13,8 @@
 
 FIGURES = $(patsubst %.dot,%.pdf,$(wildcard *.dot))
 
-TSPDF = pdflatex ts | grep -v "^Overfull"
+TSPDF:
+	TEXINPUTS=./external/listings//: pdflatex ts.tex | grep -v "^Overfull"
 
 default: rebuild
 

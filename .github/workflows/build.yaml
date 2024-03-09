@@ -20,6 +20,16 @@ jobs:
         with:
           submodules: true
 
+      - name: Verify Tag is on Main Branch
+        id: verify_tag
+        run: |
+          TAG_COMMIT=$(git rev-list -n 1 ${GITHUB_REF})
+          if git merge-base --is-ancestor $TAG_COMMIT origin/main; then
+            echo "on_main=true" >>"$GITHUB_OUTPUT"
+          else
+            echo "on_main=false" >>"$GITHUB_OUTPUT"
+          fi
+
       - name: Build
         id: build_step
         run: |
@@ -30,7 +40,9 @@ jobs:
           mv ts.pdf "${TAG_NAME}.pdf"
 
       - name: Release
-        if: github.base_ref == 'main' && steps.build_step.outcome == 'success'
+        if: >
+          steps.verify_tag.outputs.on_main == 'true' &&
+          steps.build_step.outcome == 'success'
         uses: ncipollo/release-action@v1
         with:
           artifacts: '${{ steps.build_step.outputs.pdfFilename }}'

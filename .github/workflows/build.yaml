@@ -13,7 +13,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install --no-install-recommends -y texlive-latex-extra make
+          sudo apt install -y texlive-latex-extra make
 
       - name: Checkout
         uses: actions/checkout@v4

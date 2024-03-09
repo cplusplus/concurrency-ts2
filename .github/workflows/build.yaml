@@ -38,7 +38,7 @@ jobs:
           make
           TAG_NAME=${GITHUB_REF#refs/tags/}
           echo "pdfFilename=$TAG_NAME.pdf" >> "$GITHUB_OUTPUT"
-          mv ts.pdf "${TAG_NAME}.pdf"
+          mv -v ts.pdf "$TAG_NAME.pdf" && stat "$TAG_NAME.pdf" && realpath "$TAG_NAME.pdf"
 
       - name: Release
         if: >

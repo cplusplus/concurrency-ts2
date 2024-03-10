@@ -57,7 +57,8 @@ atomic load operation $L$. If there exists an atomic modification $B$ on \tcode{
 \begin{note} Condition d(2) and d(3) convey the informal notion that a protection epoch that began before retiring \tcode{x}, as implied either by the happens-before relation or the coherence order of some source, delays the reclamation of \tcode{x}.\end{note}
 \end{enumerate}
 
-\begin{example} The following example shows how hazard pointers allow updates to be carried out in the presence of concurrent readers. The object of type \tcode{hazard_pointer} in \tcode{print_name} protects the object \tcode{*ptr} from being reclaimed by \tcode{ptr->retire} until the end of the protection epoch.
+%\begin{example}
+EXAMPLE: The following example shows how hazard pointers allow updates to be carried out in the presence of concurrent readers. The object of type \tcode{hazard_pointer} in \tcode{print_name} protects the object \tcode{*ptr} from being reclaimed by \tcode{ptr->retire} until the end of the protection epoch.
 
 \begin{codeblock}
 struct Name : public hazard_pointer_obj_base<Name> { /* details */ };
@@ -76,7 +77,7 @@ void update_name(Name* new_name) {
   ptr->retire();
 }
 \end{codeblock}
-\end{example}
+%\end{example}
 
 \rSec2[saferecl.hp.syn]{Header \tcode{<experimental/hazard_pointer>} synopsis}
 

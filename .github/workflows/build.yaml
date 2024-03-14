@@ -1,0 +1,51 @@
+---
+name: Build tagged version
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y texlive-latex-extra make
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Verify Tag is on Main Branch
+        id: verify_tag
+        run: |
+          TAG_COMMIT=$(git rev-list -n 1 ${GITHUB_REF})
+          if git merge-base --is-ancestor $TAG_COMMIT origin/main; then
+            echo "on_main=true" >>"$GITHUB_OUTPUT"
+          else
+            echo "on_main=false" >>"$GITHUB_OUTPUT"
+          fi
+
+      - name: Build
+        id: build_step
+        run: |
+          cd src
+          make
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          echo "pdfFilename=$GITHUB_WORKSPACE/src/$TAG_NAME.pdf" >> "$GITHUB_OUTPUT"
+          mv -v ts.pdf "$TAG_NAME.pdf" && stat "$TAG_NAME.pdf" && realpath "$TAG_NAME.pdf"
+
+      - name: Release
+        if: >
+          steps.verify_tag.outputs.on_main == 'true' &&
+          steps.build_step.outcome == 'success'
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: '${{ steps.build_step.outputs.pdfFilename }}'
+          generateReleaseNotes: true
+          artifactContentType: 'application/pdf'

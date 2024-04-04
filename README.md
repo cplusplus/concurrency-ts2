@@ -10,6 +10,7 @@ will generate a PDF.
 \textbf{October 2023 pre-Kona Plenary meeting}
 N4968 is the replaced PDTS of Concurrency TS V2.
 It contains changes directed by ISO to remove colour changes and replace with explicit change annotations. 
+\textbf{Mark 2024 post-Tokyo Plenary meeting} N4968 is the replaced PDTS of Concurrency TS V2. It contains changes directed by ISO. The changes include removing paragraph numbers, including item numbers where appropriate, changing internal reference to item number instead of paragraph numbers, updating the font and numbering for notes and examples, and making references normative.
 
 \textbf{August 2023 post-Varna Plenary meeting}
 N4956 is the proposed PDTS of Concurrency TS Version 2.

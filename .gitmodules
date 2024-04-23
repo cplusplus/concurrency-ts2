@@ -1,0 +1,3 @@
+[submodule "src/external/listings"]
+	path = src/external/listings
+	url = git://git.gnu.org.ua/listings.git

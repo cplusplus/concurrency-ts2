@@ -40,6 +40,7 @@ A hazard-protectable object \tcode{x} is \defn{possibly reclaimable} in domain $
 evaluation $A$ if:
 \setenumerate[0]{label=(\alph*)}
 \begin{enumerate}
+\setcounter{enumi}{3}
 \item \tcode{x} is not reclaimed; and
 \item \tcode{x} is retired to $dom$ in an evaluation $R$ and $A$ does not happen before $R$; and
 \item for all hazard pointers $h$ that belong to $dom$, $A$ does not happen before the end of
@@ -482,7 +483,9 @@ void swap(hazard_pointer& other) noexcept;
 
 %\pnum
 \effects 
-Swaps the hazard pointer ownership of this object with that of other. NOTE The owned hazard pointers, if any, remain unchanged during the swap and continue to be associated with the respective objects that they were protecting before the swap, if any. No protection epochs are ended or initiated.
+Swaps the hazard pointer ownership of this object with that of other.
+
+NOTE The owned hazard pointers, if any, remain unchanged during the swap and continue to be associated with the respective objects that they were protecting before the swap, if any. No protection epochs are ended or initiated.
 
 %\pnum
 \complexity 

@@ -11,10 +11,10 @@ this document. This document is written as a set of changes against that specifi
 explicit instructions.
 
 %\pnum
-Some of the functionality described by this document might be considered for standardization in a future version of C++, but it is not currently part of any C++ standard. Some of the functionality in this document might never be standardized, and other functionality might be standardized in a substantially changed form.
+Some of the functionality described by this document might be considered for standardization in a future version of C++, but it is not currently part of ISO/IEC 14882:2020. Some of the functionality in this document might never be standardized, and other functionality might be standardized in a substantially changed form.
 
 %\pnum
-The goal of this document is to build widespread existing practice for concurrency in the C++ standard algorithms library. It gives advice on extensions to those vendors who wish to provide them.
+The goal of this document is to build widespread existing practice for concurrency in the ISO/IEC 14882:2020 algorithms library. It gives advice on extensions to those vendors who wish to provide them.
 
 \rSec0[refs]{Normative references}
 
@@ -26,7 +26,7 @@ The following documents are referred to in the text in such a way that some or a
 \end{itemize}
 
 %\pnum
-%Unless otherwise specified, the whole of the C++ Standard's Library introduction (\CppXref{16}) is included into this Technical Specification by reference.
+%Unless otherwise specified, the whole of the ISO/IEC 14882:2020 library introduction (\CppXref{16}) is included into this Technical Specification by reference.
 
 
 \rSec0[defs]{Terms and definitions}
@@ -51,11 +51,11 @@ NOTE: Conformance is defined in terms of the behaviour of programs.%%\end{note}
 
 \rSec1[general.namespaces]{Namespaces and headers and modifications to standard classes}
 %\pnum
-Since the extensions described in this document are experimental and not part of the C++ standard library, they are not declared directly within namespace \tcode{std}. Unless otherwise specified, all components described in this document either:
+Since the extensions described in this document are experimental and not part of the ISO/IEC 14882:2020 library, they are not declared directly within namespace \tcode{std}. Unless otherwise specified, all components described in this document either:
 
 \begin{itemize}
-    \item modify an existing interface in the C++ Standard Library in-place,
-    \item are declared in a namespace whose name appends \tcode{::experimental::concurrency\_v2} to a namespace defined in the C++ Standard Library, such as \tcode{std}, or
+    \item modify an existing interface in the ISO/IEC 14882:2020 library in-place,
+    \item are declared in a namespace whose name appends \tcode{::experimental::concurrency\_v2} to a namespace defined in the ISO/IEC 14882:2020 library, such as \tcode{std}, or
     \item are declared in a subnamespace of a namespace described in the previous bullet, whose name is not the same as an existing subnamespace of namespace \tcode{std}.
 \end{itemize}
 
@@ -156,17 +156,17 @@ An implementation that provides support for this document should define each fea
 % \rSec1[general.plans]{Future plans (Informative)}
 % %\pnum
 % This clause describes tentative plans for future versions of this document and plans for moving content into
-% future versions of the C++ Standard.
+% future versions of ISO/IEC 14882:2020.
 
 % \pnum
 %  The C++ committee intends to release a new version of this document approximately every few years, containing
-% the concurrency extensions we hope to add to a near-future version of the C++ Standard. Future versions will define their
+% the concurrency extensions we hope to add to a near-future version of ISO/IEC 14882:2020. Future versions will define their
 % contents in \tcode{std::experimental::concurrency\_v3}, \tcode{std::experimental::concurrency\_v4}, etc., with the most recent
 % implemented version inlined into \tcode{std::ex\-perimental}.
 
 % \pnum
 % When an extension defined in this or a future version of this document represents enough existing practice, it
-% will be moved into the next version of the C++ Standard by removing the \tcode{experimental::con\-currency\_v$N$} segment of its
+% will be moved into the next version of ISO/IEC 14882:2020 by removing the \tcode{experimental::con\-currency\_v$N$} segment of its
 % namespace and by removing the \tcode{experimental/} prefix from its header's path.
 
 % \rSec1[general.ack]{Acknowledgments}

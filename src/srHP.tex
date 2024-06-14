@@ -431,7 +431,9 @@ template <typename T> bool try_protect(T*& ptr, const atomic<T*>& src) noexcept;
 
 %\pnum
 \returns
-\tcode{old == ptr}. NOTE It is possible for \tcode{try_protect} to return \tcode{true} when \tcode{ptr} is a null pointer.
+\tcode{old == ptr}. 
+
+NOTE It is possible for \tcode{try_protect} to return \tcode{true} when \tcode{ptr} is a null pointer.
 
 %\pnum
 \complexity

@@ -18,17 +18,17 @@ combination \tcode{X}, \tcode{Y}. An object is rcu-protectable if it is
 of rcu-protectable type.
 
 % \pnum
-An invocation of \tcode{unlock} $U$ on an \tcode{rcu_domain dom} corresponds
-to an invocation of \tcode{lock} $L$ on \tcode{dom} if $L$ is
-sequenced before $U$ and either
+An invocation of \tcode{unlock} U on an \tcode{rcu_domain dom} corresponds
+to an invocation of \tcode{lock} L on \tcode{dom} if L is
+sequenced before U and either
 
 \begin{itemize}
 \item	no other invocation of \tcode{lock} on \tcode{dom} is sequenced
-	after $L$ and before $U$ or
+	after L and before U or
 \item	every invocation of \tcode{unlock} $U'$ on \tcode{dom} such
-	that $L$ is sequenced before $U'$ and $U'$
-	is sequenced before $U$ corresponds to an invocation of
-	\tcode{lock} $L'$ on \tcode{dom} such that $L$ is sequenced
+	that L is sequenced before $U'$ and $U'$
+	is sequenced before U corresponds to an invocation of
+	\tcode{lock} $L'$ on \tcode{dom} such that L is sequenced
 	before $L'$ and $L'$ is sequenced before $U'$.
 \end{itemize}
 
@@ -38,15 +38,15 @@ on a given domain in each thread.
 
 % \pnum
 A \defn{region of RCU protection} on a domain \tcode{dom} starts
-with a \tcode{lock} $L$ on \tcode{dom} and ends with its corresponding
-\tcode{unlock} $U$.
+with a \tcode{lock} L on \tcode{dom} and ends with its corresponding
+\tcode{unlock} U.
 
 % \pnum
-Given a region of RCU protection $R$ on a domain \tcode{dom}
-and given an evaluation $E$ that scheduled another evaluation
-$F$ in \tcode{dom}, if $E$ does not strongly happen before
-the start of $R$, the end of $R$ strongly happens before
-evaluating $F$.
+Given a region of RCU protection R on a domain \tcode{dom}
+and given an evaluation E that scheduled another evaluation
+F in \tcode{dom}, if E does not strongly happen before
+the start of R, the end of R strongly happens before
+evaluating F.
 
 % \pnum
 The evaluation of a scheduled evaluation is potentially concurrent with
@@ -289,12 +289,12 @@ void rcu_barrier(rcu_domain& dom = rcu_default_domain()) noexcept;
 \effects
 May evaluate any scheduled evaluations in
 \tcode{dom}. For any evaluation that happens before the call
-to \tcode{rcu_barrier} and that schedules an evaluation $E$
-in \tcode{dom}, blocks until $E$ has been evaluated.
+to \tcode{rcu_barrier} and that schedules an evaluation E
+in \tcode{dom}, blocks until E has been evaluated.
 
 % \pnum
 \sync
-The evaluation of any such $E$ strongly
+The evaluation of any such E strongly
 happens before the return from \tcode{rcu_barrier}.
 
 \end{itemdescr}

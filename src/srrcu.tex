@@ -25,11 +25,11 @@ sequenced before U and either
 \begin{itemize}
 \item	no other invocation of \tcode{lock} on \tcode{dom} is sequenced
 	after L and before U or
-\item	every invocation of \tcode{unlock} $U'$ on \tcode{dom} such
-	that L is sequenced before $U'$ and $U'$
+\item	every invocation of \tcode{unlock} U' on \tcode{dom} such
+	that L is sequenced before U' and U'
 	is sequenced before U corresponds to an invocation of
-	\tcode{lock} $L'$ on \tcode{dom} such that L is sequenced
-	before $L'$ and $L'$ is sequenced before $U'$.
+	\tcode{lock} L' on \tcode{dom} such that L is sequenced
+	before L' and L' is sequenced before U'.
 \end{itemize}
 
 NOTE

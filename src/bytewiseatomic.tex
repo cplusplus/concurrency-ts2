@@ -30,8 +30,8 @@ the value is trusted only when it can be determined after the fact that
 a race did not occur.
 
 %\begin{note}
-[NOTE So-called "seqlocks" are the canonical
-example of such an idiom.]%\end{note}
+NOTE So-called "seqlocks" are the canonical
+example of such an idiom.%\end{note}
 
 
 \rSec1[atomiccpy.load]{\tcode{atomic_load_per_byte_memcpy}}
@@ -65,9 +65,9 @@ in the destination region of storage immediately prior to copying the
 sequence of bytes to the destination. 
 
 %\begin{note}
-[NOTE There is no requirement
+NOTE There is no requirement
 that the individual bytes be copied in order, or that the implementation
-operates on individual bytes.]%\end{note}
+operates on individual bytes.%\end{note}
 
 % \pnum
 \returns
@@ -103,10 +103,10 @@ prior to copying the sequence of bytes to the destination.
 \end{itemdescr}
 
 %\begin{note}
-[NOTE If any of the atomic byte loads performed by an
+NOTE If any of the atomic byte loads performed by an
 \tcode{atomic_load_per_byte_memcpy()} call A with
 \tcode{memory_order::acquire} argument take their value from an atomic
 byte store performed by \tcode{atomic_store_per_byte_memcpy()} call
 B with \tcode{memory_order::release} argument, then the start of B
-strongly happens before the completion of A.]%\end{note}  
+strongly happens before the completion of A.%\end{note}  
 %%\end{quote}

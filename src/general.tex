@@ -105,7 +105,7 @@ Table 1 \textemdash\  \textbf{C++ library headers}
 
 \rSec1[general.feature.test]{\textbf{Feature-testing recommendations}}
 %\pnum
-An implementation that provides support for this document should define each feature test macro defined in \tref{intro.features1} and \tref{intro.features2} if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in \tref{intro.features1} and \tref{intro.features2}.
+An implementation that provides support for this document should define each feature test macro defined in Table~2 and \tref{intro.features2} if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in Table~2 and \tref{intro.features2}.
 
 %%\begin{floattable}{\textbf{Feature-test macros name}}{tab:intro.features}
 %%{lllll}
@@ -124,15 +124,24 @@ An implementation that provides support for this document should define each fea
 %%\tcode{Synchronized Value} & \tcode{8} & %%\tcode{__cpp_lib_experimental_synchronized_value}  & %%\tcode{\tsver}  & \tcode{<experimental/synchronized_value>} \\
 %%\end{floattable}
 
-\begin{floattable}{\textbf{Feature-test macros name}}{tab:intro.features1}
-{lll}
-\topline
-\lhdr {Title} & \chdr {Subclause} & \rhdr{Macro name}  \\
+% \begin{floattable}{\textbf{Feature-test macros name}}{tab:intro.features1}
+% {lll}
+% \topline
+\begin{table}[htb]
+\centering
+Table 2 \textemdash\  \textbf{Feature-test macros name}
+
+\vspace{0.1in}
+\begin{tabular}{|lll|}
+\hline
+\textbf{Title} & \textbf{Subclause} & \textbf{Macro name}  \\
+\hline
+\hline
 %%{ll}
 %%\lhdr {Title} &
 %%\rhdr {Subclause \\ Macro name \\ Value \\ Header} \\
 
-\capsep
+% \capsep
 %%\tcode{__cpp_concurrency\_v2}  & \tcode{\tsver}   &  none \\
 \tcode{Synchronized Value} & \tcode{5} & \tcode{__cpp_lib_experimental_synchronized_value}   \\
 \tcode{Hazard pointers} & \tcode{6.2} & \tcode{__cpp_lib_experimental_hazard_pointer}   \\
@@ -140,7 +149,10 @@ An implementation that provides support for this document should define each fea
 \tcode{Bytewise atomic memcpy} & \tcode{7} & \tcode{__cpp_lib_experimental_bytewise_atomic_memcpy}   \\
 \tcode{Asymmetric Fence} & \tcode{8,33} & \tcode{__cpp_lib_experimental_asymmetric_fence}   \\
 
-\end{floattable}
+% \end{floattable}
+\hline
+\end{tabular}
+\end{table}
 
 \begin{floattable}{\textbf{Feature-test macros header}}{tab:intro.features2}
 {lll}
@@ -159,6 +171,14 @@ An implementation that provides support for this document should define each fea
 \tcode{Asymmetric Fence} &  \tcode{\tsver}  & \tcode{<experimental/asymmetric_fence>} \\
 
 \end{floattable}
+
+~
+
+~
+
+~
+
+~
 
 ~
 

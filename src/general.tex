@@ -71,7 +71,7 @@ in the context of \tcode{D}.
 Operators in expressions are not so constrained.\end{note}
 
 %\pnum
-Table~\ref{tab:info.headers} shows the headers described in this document
+Table~1 shows the headers described in this document
 %%shall import the contents of %%\tcode{::std::experimental::concurrency::v2} into
 %%\tcode{::std::experimental::concurrency_v1} as if by:
 
@@ -82,16 +82,26 @@ Table~\ref{tab:info.headers} shows the headers described in this document
 %%\end{codeblock}
 
 
-\begin{floattable}{\textbf{C++ library headers}}{tab:info.headers}
-{l}
-\topline
+% \begin{floattable}{\textbf{C++ library headers}}{tab:info.headers}
+% {l}
+% \topline
+\begin{table}[htb]
+\centering
+Table 1 \textemdash\  \textbf{C++ library headers}
+
+\vspace{0.1in}
+\begin{tabular}{|l|}
+\hline
 \tcode{<experimental/asymmetric_fence>} \\
 \tcode{<experimental/bytewise_atomic_memcpy>} \\
 \tcode{<experimental/hazard_pointer>} \\ 
 \tcode{<experimental/rcu>} \\
 \tcode{<experimental/synchronized_value>} \\
+\hline
+\end{tabular}
+\end{table}
 
-\end{floattable}
+% \end{floattable}
 
 \rSec1[general.feature.test]{\textbf{Feature-testing recommendations}}
 %\pnum

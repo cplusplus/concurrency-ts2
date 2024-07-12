@@ -105,7 +105,7 @@ Table 1 \textemdash\  \textbf{C++ library headers}
 
 \rSec1[general.feature.test]{\textbf{Feature-testing recommendations}}
 %\pnum
-An implementation that provides support for this document should define each feature test macro defined in Table~2 and \tref{intro.features2} if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in Table~2 and \tref{intro.features2}.
+An implementation that provides support for this document should define each feature test macro defined in Table~2 and Table~3 if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in Table~2 and Table~3.
 
 %%\begin{floattable}{\textbf{Feature-test macros name}}{tab:intro.features}
 %%{lllll}
@@ -154,23 +154,35 @@ Table 2 \textemdash\  \textbf{Feature-test macros name}
 \end{tabular}
 \end{table}
 
-\begin{floattable}{\textbf{Feature-test macros header}}{tab:intro.features2}
-{lll}
-\topline
-\lhdr {Title} &  \chdr{Value} & \rhdr{Header} \\
+% \begin{floattable}{\textbf{Feature-test macros header}}{tab:intro.features2}
+% {lll}
+% \topline
+% \lhdr {Title} &  \chdr{Value} & \rhdr{Header} \\
+\begin{table}[htb]
+\centering
+Table 3 \textemdash\  \textbf{Feature-test macros header}
+
+\vspace{0.1in}
+\begin{tabular}{|lll|}
+\hline
+\textbf{Title} &  \textbf{Value} & \textbf{Header} \\
+\hline
 %%{ll}
 %%\lhdr {Title} &
 %%\rhdr {Subclause \\ Macro name \\ Value \\ Header} \\
 
-\capsep
+% \capsep
 %%\tcode{__cpp_concurrency\_v2}  & \tcode{\tsver}   &  none \\
 \tcode{Synchronized Value} &  \tcode{\tsver}  & \tcode{<experimental/synchronized_value>} \\
 \tcode{Hazard pointers} &  \tcode{\tsver}  & \tcode{<experimental/hazard_pointer>} \\
 \tcode{Read-copy update(RCU)} & \tcode{\tsver}  & \tcode{<experimental/rcu>} \\
 \tcode{Bytewise atomic memcpy} &  \tcode{\tsver}  & \tcode{<experimental/bytewise_atomic_memcpy>} \\
 \tcode{Asymmetric Fence} &  \tcode{\tsver}  & \tcode{<experimental/asymmetric_fence>} \\
+\hline
+\end{tabular}
+\end{table}
 
-\end{floattable}
+% \end{floattable}
 
 ~
 

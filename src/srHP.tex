@@ -433,7 +433,7 @@ template <typename T> bool try_protect(T*& ptr, const atomic<T*>& src) noexcept;
 \returns
 \tcode{old == ptr}. 
 
-NOTE It is possible for \tcode{try_protect} to return \tcode{true} when \tcode{ptr} is a null pointer.
+NOTE 1 It is possible for \tcode{try_protect} to return \tcode{true} when \tcode{ptr} is a null pointer.
 
 %\pnum
 \complexity
@@ -487,7 +487,7 @@ void swap(hazard_pointer& other) noexcept;
 \effects 
 Swaps the hazard pointer ownership of this object with that of other.
 
-NOTE The owned hazard pointers, if any, remain unchanged during the swap and continue to be associated with the respective objects that they were protecting before the swap, if any. No protection epochs are ended or initiated.
+NOTE 2 The owned hazard pointers, if any, remain unchanged during the swap and continue to be associated with the respective objects that they were protecting before the swap, if any. No protection epochs are ended or initiated.
 
 %\pnum
 \complexity 

@@ -71,7 +71,7 @@ in the context of \tcode{D}.
 Operators in expressions are not so constrained.\end{note}
 
 %\pnum
-Table~1 shows the headers described in this document
+\hyperref[tab:C++ library headers]{Table~1} shows the headers described in this document
 %%shall import the contents of %%\tcode{::std::experimental::concurrency::v2} into
 %%\tcode{::std::experimental::concurrency_v1} as if by:
 
@@ -104,8 +104,16 @@ Table~1 shows the headers described in this document
 % \end{floattable}
 
 \rSec1[general.feature.test]{\textbf{Feature-testing recommendations}}
+\label{tab:C++ library headers}
 %\pnum
-An implementation that provides support for this document should define each feature test macro defined in Table~2 and Table~3 if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in Table~2 and Table~3.
+An implementation that provides support for this document should define each feature test macro defined in
+\hyperref[Feature-test macros name]{Table~2}
+and
+\hyperref[Feature-test macros header]{Table~3}
+if no associated headers are indicated for that macro, and if associated headers are indicated for a macro, that macro is defined after inclusion of one of the corresponding headers specified in
+\hyperref[Feature-test macros name]{Table~2}
+and
+\hyperref[Feature-test macros header]{Table~3}.
 
 %%\begin{floattable}{\textbf{Feature-test macros name}}{tab:intro.features}
 %%{lllll}
@@ -130,6 +138,7 @@ An implementation that provides support for this document should define each fea
 \begin{table}[htb]
 \centering
 \textbf{Table 2 \textemdash\  Feature-test macros name}
+\label{Feature-test macros name}
 
 \vspace{0.1in}
 \begin{tabular}{|lll|}
@@ -197,6 +206,39 @@ An implementation that provides support for this document should define each fea
 ~
 
 ~
+
+~
+
+~
+
+~
+
+~
+
+~
+
+~
+
+~
+
+~
+
+~
+
+~
+
+~
+
+~
+
+~
+
+~
+
+~
+
+~
+\label{Feature-test macros header}
 
 % \rSec1[general.plans]{Future plans (Informative)}
 % %\pnum
